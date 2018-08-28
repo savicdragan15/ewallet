@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
         /*
          * Application Service Providers...
