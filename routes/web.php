@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
+
+
+
+Route::group(['namespace' => 'Api\V1', 'prefix' => 'api/v1', 'as' => 'api.v1.'], function () {
+
+    Route::resource('profile', 'ProfileController');
+
+});
