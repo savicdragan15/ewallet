@@ -84,6 +84,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="overlay" v-if="loading">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -109,6 +112,7 @@
         },
         data() {
             return {
+                loading: false,
                 new_avatar: null,
                 user : {
                     id: null,
@@ -122,15 +126,16 @@
         },
         methods: {
             update() {
+                this.loading = true;
                 axios.post(this.$root.$data.apiUrl + '/profile/' + this.user.id + '?_method=PATCH', this.user)
                     .then((response) => {
-
+                        this.loading = false;
                         this.errors = [];
                         swal(response.data.message, '', 'success');
 
                     })
                     .catch((error) => {
-
+                        this.loading = false;
                         this.errors = [];
 
                         if (error.response.status === 422) {

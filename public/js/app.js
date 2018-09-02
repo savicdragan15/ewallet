@@ -47447,6 +47447,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -47464,6 +47467,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            loading: false,
             new_avatar: null,
             user: {
                 id: null,
@@ -47480,12 +47484,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         update: function update() {
             var _this2 = this;
 
+            this.loading = true;
             axios.post(this.$root.$data.apiUrl + '/profile/' + this.user.id + '?_method=PATCH', this.user).then(function (response) {
-
+                _this2.loading = false;
                 _this2.errors = [];
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()(response.data.message, '', 'success');
             }).catch(function (error) {
-
+                _this2.loading = false;
                 _this2.errors = [];
 
                 if (error.response.status === 422) {
@@ -47716,7 +47721,13 @@ var render = function() {
               ])
             ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _vm.loading
+          ? _c("div", { staticClass: "overlay" }, [
+              _c("i", { staticClass: "fa fa-refresh fa-spin" })
+            ])
+          : _vm._e()
       ])
     ])
   ])
