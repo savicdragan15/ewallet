@@ -13,16 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-//    return $request->user();
-    return response()->json([
-        'user' => \Auth::user()
-    ]);
-});
-
-
-Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'as' => 'api.v1.'], function () {
-
+Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1', 'middleware' => 'auth'], function () {
+//    Route::resource('wallet', 'WalletController');
 });
 
 

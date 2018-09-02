@@ -4,7 +4,7 @@
             <!-- Profile image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" :src="avatar" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" :src="user.avatar" alt="User profile picture">
 
                     <h3 class="profile-username text-center">{{ user.name }}</h3>
 
@@ -22,114 +22,76 @@
                         </li>
                     </ul>
 
-                    <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                    <!--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
                 </div>
             </div>
             <!-- / Profile image -->
-
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">About Me</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-
-                    <p class="text-muted">
-                        B.S. in Computer Science from the University of Tennessee at Knoxville
-                    </p>
-
-                    <hr>
-
-                    <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-                    <p class="text-muted">Malibu, California</p>
-
-                    <hr>
-
-                    <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
-
-                    <p>
-                        <span class="label label-danger">UI Design</span>
-                        <span class="label label-success">Coding</span>
-                        <span class="label label-info">Javascript</span>
-                        <span class="label label-warning">PHP</span>
-                        <span class="label label-primary">Node.js</span>
-                    </p>
-
-                    <hr>
-
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-                </div>
-                <!-- /.box-body -->
-            </div>
         </div>
 
-        <div class="col-md-9 col-xs-12">
+        <div class="col-md-9">
             <div class="box box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">Responsive Hover Table</h3>
+                <div class="box-header with-border">
+                    <h3 class="box-title">Profile information</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group" v-bind:class="[errors.name ? 'has-error' : '']">
+                            <label for="name" class="col-sm-2 control-label">Name *</label>
 
-                    <div class="box-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="Name" v-model="user.name">
+                                <span class="help-block" v-if="errors.name">{{ errors.name[0]}}</span>
+                            </div>
 
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="form-group" v-bind:class="[errors.email ? 'has-error' : '']">
+                            <label for="email" class="col-sm-2 control-label">Email *</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="email" placeholder="Email" v-model="user.email">
+                                <span class="help-block" v-if="errors.email">{{ errors.email[0]}}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" v-bind:class="[errors.gender ? 'has-error' : '']">
+                            <label for="email" class="col-sm-2 control-label">Gender</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="user.gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                <span class="help-block" v-if="errors.gender">{{ errors.gender[0]}}</span>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="avatar" class="col-sm-2 control-label">Avatar</label>-->
+
+                            <!--<div class="col-sm-10">-->
+                                <!--<input type="file" id="avatar" ref="file" accept="image/*" v-on:change="setAvatar">-->
+                                <!--<p class="help-block">Change avatar</p>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-danger" v-on:click="update">Submit</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
-                        </tr>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-primary">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-danger">Denied</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        </tbody></table>
-                </div>
-                <!-- /.box-body -->
+                </form>
             </div>
-            <!-- /.box -->
         </div>
     </div>
 </template>
 
 <script>
+    import swal from 'sweetalert';
+
     export default {
         mounted() {
             console.log('Component mounted.')
@@ -142,18 +104,47 @@
                 })
                 .catch((error) => {
 
-            })
+            });
 
         },
         data() {
             return {
+                new_avatar: null,
                 user : {
+                    id: null,
+                    avatar: null,
                     name: null,
                     email: null,
+                    gender: null,
                 },
-                avatar: '/images/user.jpg'
+                errors: [],
+            }
+        },
+        methods: {
+            update() {
+                axios.post(this.$root.$data.apiUrl + '/profile/' + this.user.id + '?_method=PATCH', this.user)
+                    .then((response) => {
+
+                        this.errors = [];
+                        swal(response.data.message, '', 'success');
+
+                    })
+                    .catch((error) => {
+
+                        this.errors = [];
+
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+
+                        if (error.response.status === 400) {
+                            swal(response.data.message, '', 'error');
+                        }
+
+                    });
             }
         }
+
     }
 </script>
 

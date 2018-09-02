@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Profile\UpdateProfile;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,28 +26,7 @@ class ProfileController extends Controller
     {
         return response()->json([
             'user' => Auth::guard('web')->user()
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        ], 200);
     }
 
     /**
@@ -57,40 +37,38 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json(['id' => $id], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateProfile $request
+     * @param  int $id
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProfile $request, $id)
     {
-        //
-    }
+        try {
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $user = User::findOrFail($id);
+
+            $user->update($request->all());
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error during User profile save!',
+            ], 400);
+
+        }
+
+        return response()->json([
+           'success' => true,
+           'message' => 'User profile successfully save!'
+        ]);
+
+
     }
 }

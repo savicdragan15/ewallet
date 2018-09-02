@@ -16,12 +16,14 @@ window.Vue = require('vue');
  */
 
 Vue.component('profile-component', require('./components/ProfileComponent.vue'));
+Vue.component('wallet-index-component', require('./components/Wallet/WalletIndexComponent'));
 
 const app = new Vue({
     el: '#app',
     data() {
         return {
-            apiUrl: '/api/v1'
+            apiUrl: '/api/v1',
+            currency: 'RSD'
         }
     }
 });

@@ -12,7 +12,7 @@
     "devDependencies": {
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
+        "browser-sync-webpack-plugin": "2.0.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
@@ -20,6 +20,10 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "browser-sync": "^2.24.7"
+        "browser-sync": "^2.24.7",
+        "laravel-vue-pagination": "^1.2.0",
+        "popper.js": "^1.14.4",
+        "sweetalert": "^2.1.0",
+        "vue-snotify": "^3.2.1"
     }
 }

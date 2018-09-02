@@ -17,7 +17,7 @@ return [
 
     'title_prefix' => '',
 
-    'title_postfix' => '',
+    'title_postfix' => ' | E-wallet',
 
     /*
     |--------------------------------------------------------------------------
@@ -117,8 +117,8 @@ return [
         [
             'text'        => 'Dashboard',
             'url'         => 'home',
-            'icon'        => 'file',
-            'label'       => 4,
+            'icon'        => 'dashboard',
+//            'label'       => 4,
             'label_color' => 'success',
         ],
         'ACCOUNT SETTINGS',
@@ -132,14 +132,14 @@ return [
 //            'url'  => 'admin/settings',
 //            'icon' => 'lock',
 //        ],
-//        [
-//            'text'    => 'Multilevel',
-//            'icon'    => 'share',
-//            'submenu' => [
-//                [
-//                    'text' => 'Level One',
-//                    'url'  => '#',
-//                ],
+        [
+            'text'    => 'Wallets',
+            'icon'    => 'money',
+            'submenu' => [
+                [
+                    'text' => 'All wallets',
+                    'url'  => 'wallet',
+                ],
 //                [
 //                    'text'    => 'Level One',
 //                    'url'     => '#',
@@ -168,8 +168,8 @@ return [
 //                    'text' => 'Level One',
 //                    'url'  => '#',
 //                ],
-//            ],
-//        ],
+            ],
+        ],
 //        'LABELS',
 //        [
 //            'text'       => 'Important',
