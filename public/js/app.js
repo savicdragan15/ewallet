@@ -14399,7 +14399,7 @@ var app = new Vue({
     el: '#app',
     data: function data() {
         return {
-            apiUrl: '/api/v1',
+            apiUrl: 'api/v1',
             currency: 'RSD'
         };
     }
