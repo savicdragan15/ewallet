@@ -1,59 +1,92 @@
 <template>
     <div class="row">
         <div class="col-sm-12">
-
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Bordered Table</h3>
                 </div>
+
+                <div class="box-body">
+                    <button type="button" class="btn btn-primary" v-on:click="addWallet">
+                        Add new wallet
+                    </button>
+                </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
-                    <table class="table table-bordered ">
-                        <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th class="text-center">Type</th>
-                            <th class="text-center">Amount</th>
-                            <th class="text-center">Status</th>
-                            <th>Actions</th>
-                        </tr>
-                        <tr v-for="(wallet, index) in wallets">
-                            <td>{{ wallet.id }}</td>
-                            <td>{{ wallet.name }}</td>
-                            <td class="text-center">{{ wallet.wallet_type.name }}</td>
-                            <td class="text-center">{{ wallet.amount }} {{ currency}}</td>
-                            <td class="text-center" v-html="statuses[wallet.active]"></td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                                    <i class="fa fa-fw fa-pencil-square-o"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-xs" title="Delete" v-on:click="destroy(index)">
-                                    <i class="fa fa-fw fa-trash-o"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <tableComponent :statuses="statuses" :items="wallets" :currency="currency" :fields="fields"></tableComponent>
                 </div>
-                <div class="overlay" v-if="loading">
-                    <i class="fa fa-refresh fa-spin"></i>
-                </div>
+                <loading :loading="loading"></loading>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix text-center">
                     <pagination :data="paginationData" @pagination-change-page="getWallets"></pagination>
                 </div>
             </div>
         </div>
+
+            <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="myOpenFunc">
+
+            <div slot="title">
+                {{ modal.title }}
+            </div>
+
+            <div slot="body">
+                <!--<div class="box box-primary">-->
+                    <!--<div class="box-header with-border">-->
+                        <!--<h3 class="box-title">Quick Example</h3>-->
+                    <!--</div>-->
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                        <div class="box-body">
+                            <div class="form-group" v-bind:class="[errors.name ? 'has-error' : '']">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter name" v-model="wallet.name">
+                                <span class="help-block" v-if="errors.name">{{ errors.name[0]}}</span>
+                            </div>
+
+                            <div class="form-group" v-bind:class="[errors.wallet_type_id ? 'has-error' : '']">
+                                <label>Select</label>
+                                <select class="form-control" v-model="wallet.wallet_type_id">
+                                    <option value="null">Select wallet type</option>
+                                    <option v-for="type in wallet_types" v-bind:value="type.id">{{ type.name }}</option>
+                                </select>
+                                <span class="help-block" v-if="errors.wallet_type_id">{{ errors.wallet_type_id[0]}}</span>
+                            </div>
+
+                            <div class="form-group" v-bind:class="[errors.amount ? 'has-error' : '']">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" id="amount" placeholder="Enter amount" v-model="wallet.amount">
+                                <span class="help-block" v-if="errors.amount">{{ errors.amount[0]}}</span>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button class="btn btn-primary" v-on:click="store">Add</button>
+                        </div>
+                <!--</div>-->
+            </div>
+
+            <div slot="footer">
+                Your footer here
+            </div>
+        </bootstrapModal>
+
+
     </div>
 </template>
 
 <script>
     import pagination from '../Helpers/Pagintaion';
+    import loading from '../Helpers/LoadingComponent';
+    import tableComponent from '../Helpers/TableComponent';
+    import bootstrapModal from 'vue2-bootstrap-modal';
 
     export default {
         components: {
-            'pagination': pagination
+            'pagination': pagination,
+            'loading': loading,
+            'tableComponent': tableComponent,
+             bootstrapModal
         },
         mounted() {
             this.getWallets();
@@ -65,12 +98,48 @@
             return {
                 loading: false,
                 currency: null,
+                wallet: {
+                    id: null,
+                    name: null,
+                    user_id: null,
+                    wallet_type_id: null,
+                    amount: null,
+                    active: 1,
+                },
+                wallet_types: [],
                 wallets: [],
                 statuses: [
                     '<span class="label label-danger">Inactive</span>',
                     '<span class="label label-success">Active</span>'
                 ],
+                modal: {
+                    title: null,
+                },
+                errors: [],
                 paginationData: {},
+                fields: [
+                    {
+                        display_name: 'ID',
+                    },
+                    {
+                        display_name: 'Name',
+                    },
+                    {
+                        display_name: 'Type',
+                        classes: 'text-center',
+                    },
+                    {
+                        display_name: 'Amount',
+                        classes: 'text-center',
+                    },
+                    {
+                        display_name: 'Status',
+                        classes: 'text-center',
+                    },
+                    {
+                        display_name: 'Actions',
+                    },
+                ],
             }
         },
         methods: {
@@ -86,12 +155,13 @@
                     })
                     .catch((error) => {
                         this.loading = false;
+                        swal(error.response.data.message, '', 'error');
                     });
             },
             destroy(index) {
                 swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    text: "Once deleted, you will not be able to recover this wallet!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -104,8 +174,11 @@
                                 .then((response) => {
                                     this.loading = false;
                                     swal(response.data.message, '', 'success');
-                                    this.$delete(this.wallets, index)
+                                    this.$delete(this.wallets, index);
 
+                                    if(this.wallets.length === 0) {
+                                        this.getWallets(this.paginationData.current_page - 1);
+                                    }
                                 })
                                 .catch((error) => {
                                     this.loading = false;
@@ -113,6 +186,44 @@
                                         swal(error.response.data.message, '', 'error');
                                     }
                                 });
+                        }
+                    });
+            },
+            addWallet() {
+                console.log('add wallet');
+                this.modal.title = 'Add new wallet';
+                this.$refs.modal.open();
+
+                axios.get(this.$root.$data.apiUrl + '/walletType')
+                    .then((response) => {
+                        console.log(response.data.wallet_types);
+                        this.wallet_types = response.data.wallet_types;
+                    })
+                    .catch((error) => {
+                        swal(error.response.data.message, '', 'error');
+                    });
+            },
+            myOpenFunc() {
+
+            },
+            store() {
+                console.log('store')
+                axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet)
+                    .then((response) => {
+                        this.errors = [];
+                        this.wallet = {};
+                        this.wallet.wallet_type_id = null;
+                        this.getWallets(this.paginationData.current_page);
+                        swal(response.data.message, '', 'success');
+                    })
+                    .catch((error) => {
+
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+
+                        if (error.response.status === 400) {
+                            swal(error.response.data.message, '', 'error');
                         }
                     });
             }

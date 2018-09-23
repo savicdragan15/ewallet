@@ -32,5 +32,6 @@ Route::group(['prefix' => 'api/v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1', 
 
     Route::resource('profile', 'ProfileController');
     Route::resource('wallet', 'WalletController');
+    Route::resource('walletType', 'WalletTypeController');
 
 });

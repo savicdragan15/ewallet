@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Wallet;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WalletUpdateRequest extends FormRequest
+class StoreWallet extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class WalletUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class WalletUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'            =>    'required',
+            'wallet_type_id'  =>    'required',
+            'amount'          =>    'required',
         ];
     }
 }

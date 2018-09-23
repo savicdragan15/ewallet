@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Wallet\StoreWallet;
 use App\Models\Wallet;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class WalletController extends Controller
@@ -23,54 +26,48 @@ class WalletController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param StoreWallet $request
+     * @return JsonResponse
      */
-    public function create()
+    public function store(StoreWallet $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+
+            $wallet = Wallet::create($data);
+
+        } catch(\Exception $e) {
+           return response()->json([
+               'success' => false,
+               'message' => 'Error during adding new wallet' . $e->getMessage(),
+           ], 400);
+
+        }
+
+        return response()->json([
+            'success' =>  true,
+            'message' => 'Successfully added new wallet',
+            'data'    =>  $wallet
+        ]);
+
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return JsonResponse
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json(Wallet::find($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -81,7 +78,7 @@ class WalletController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {

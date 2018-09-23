@@ -127,19 +127,20 @@ return [
             'url'  => 'profile',
             'icon' => 'user',
         ],
-//        [
-//            'text' => 'Change Password',
-//            'url'  => 'admin/settings',
-//            'icon' => 'lock',
-//        ],
         [
-            'text'    => 'Wallets',
-            'icon'    => 'money',
-            'submenu' => [
-                [
-                    'text' => 'All wallets',
-                    'url'  => 'wallet',
-                ],
+            'text' => 'Wallets',
+            'url'  => 'wallet',
+            'icon' => 'money',
+        ],
+//        [
+//            'text'    => 'Wallets',
+//            'icon'    => 'money',
+//            'url'     => 'wallet',
+//            'submenu' => [
+//                [
+//                    'text' => 'All wallets',
+//                    'url'  => 'wallet',
+//                ],
 //                [
 //                    'text'    => 'Level One',
 //                    'url'     => '#',
@@ -168,8 +169,8 @@ return [
 //                    'text' => 'Level One',
 //                    'url'  => '#',
 //                ],
-            ],
-        ],
+//            ],
+//        ],
 //        'LABELS',
 //        [
 //            'text'       => 'Important',
