@@ -208,14 +208,15 @@
             },
             store() {
                 console.log('store')
-                axios({
-                    method: 'POST',
-                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                    url: this.$root.$data.apiUrl + '/wallet/',
-                    data: this.wallet
-                }).then(function (response) {
-                   console.log(response);
-                }).catch((error) => {
+                axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet)
+                    .then((response) => {
+                        this.errors = [];
+                        this.wallet = {};
+                        this.wallet.wallet_type_id = null;
+                        this.getWallets(this.paginationData.current_page);
+                        swal(response.data.message, '', 'success');
+                    })
+                    .catch((error) => {
 
                         if (error.response.status === 422) {
                             this.errors = error.response.data.errors;
