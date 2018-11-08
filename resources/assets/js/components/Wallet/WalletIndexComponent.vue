@@ -209,28 +209,22 @@
             store() {
                 console.log('store')
                 axios({
-                    method: 'post',
+                    method: 'POST',
+                    headers: { 'content-type': 'application/x-www-form-urlencoded' },
                     url: this.$root.$data.apiUrl + '/wallet/',
                     data: this.wallet
-                })
-                // axios.post(this.$root.$data.apiUrl + '/wallet/' + '?_method=POST', this.wallet)
-                //     .then((response) => {
-                //         this.errors = [];
-                //         this.wallet = {};
-                //         this.wallet.wallet_type_id = null;
-                //         this.getWallets(this.paginationData.current_page);
-                //         swal(response.data.message, '', 'success');
-                //     })
-                //     .catch((error) => {
-                //
-                //         if (error.response.status === 422) {
-                //             this.errors = error.response.data.errors;
-                //         }
-                //
-                //         if (error.response.status === 400) {
-                //             swal(error.response.data.message, '', 'error');
-                //         }
-                //     });
+                }).then(function (response) {
+                   console.log(response);
+                }).catch((error) => {
+
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+
+                        if (error.response.status === 400) {
+                            swal(error.response.data.message, '', 'error');
+                        }
+                    });
             }
         }
 
