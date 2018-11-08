@@ -48348,7 +48348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             console.log('store');
-            axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet).then(function (response) {
+            axios.post(this.$root.$data.apiUrl + '/wallet/', { data: this.wallet }, { headers: { "Access-Control-Allow-Origin": "*" } }).then(function (response) {
                 _this4.errors = [];
                 _this4.wallet = {};
                 _this4.wallet.wallet_type_id = null;

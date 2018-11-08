@@ -208,7 +208,8 @@
             },
             store() {
                 console.log('store')
-                axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet)
+                axios.post(this.$root.$data.apiUrl + '/wallet/', {data: this.wallet}, { headers:
+                        { "Access-Control-Allow-Origin": "*", }})
                     .then((response) => {
                         this.errors = [];
                         this.wallet = {};
