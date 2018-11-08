@@ -31,6 +31,7 @@ class WalletController extends Controller
      */
     public function store(StoreWallet $request)
     {
+        
         try {
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
