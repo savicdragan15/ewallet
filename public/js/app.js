@@ -48356,13 +48356,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 swal(response.data.message, '', 'success');
             }).catch(function (error) {
                 console.log(error);
-                // if (error.response.status === 422) {
-                //     this.errors = error.response.data.errors;
-                // }
-                //
-                // if (error.response.status === 400) {
-                //     swal(error.response.data.message, '', 'error');
-                // }
+                if (error.response.status === 422) {
+                    _this4.errors = error.response.data.errors;
+                }
+
+                if (error.response.status === 400) {
+                    swal(error.response.data.message, '', 'error');
+                }
             });
         }
     }
