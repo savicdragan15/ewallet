@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Auth;
 class WalletController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Wallet[]|\Illuminate\Database\Eloquent\Collection
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         return response()->json([
-            'wallets' => Wallet::where('user_id', Auth::user()->id)->with('wallet_type')->paginate(15),
+            'wallets' => Wallet::where('user_id', $request->header('user'))->with('wallet_type')->paginate(15),
             'currency' => env('CURRENCY')
         ]);
     }
@@ -34,8 +33,6 @@ class WalletController extends Controller
         
         try {
             $data = $request->all();
-            $data['user_id'] = Auth::user()->id;
-
             $wallet = Wallet::create($data);
 
         } catch(\Exception $e) {

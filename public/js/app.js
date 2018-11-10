@@ -47763,12 +47763,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log('Component mounted.');
     },
     created: function created() {
-        var _this = this;
-
-        // call api
-        axios.get(this.$root.$data.apiUrl + '/profile').then(function (response) {
-            _this.user = response.data.user;
-        }).catch(function (error) {});
+        this.user = Laravel.user;
     },
     data: function data() {
         return {
@@ -47787,19 +47782,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         update: function update() {
-            var _this2 = this;
+            var _this = this;
 
             this.loading = true;
             axios.post(this.$root.$data.apiUrl + '/profile/' + this.user.id + '?_method=PATCH', this.user).then(function (response) {
-                _this2.loading = false;
-                _this2.errors = [];
+                _this.loading = false;
+                _this.errors = [];
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()(response.data.message, '', 'success');
             }).catch(function (error) {
-                _this2.loading = false;
-                _this2.errors = [];
+                _this.loading = false;
+                _this.errors = [];
 
                 if (error.response.status === 422) {
-                    _this2.errors = error.response.data.errors;
+                    _this.errors = error.response.data.errors;
                 }
 
                 if (error.response.status === 400) {
@@ -48246,6 +48241,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             loading: false,
             currency: null,
+            user_id: Laravel.user.id,
             wallet: {
                 id: null,
                 name: null,
@@ -48289,7 +48285,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.loading = true;
 
-            axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page).then(function (response) {
+            axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page, {
+                headers: {
+                    'user': this.user_id
+                }
+            }).then(function (response) {
                 _this.loading = false;
                 _this.wallets = response.data.wallets.data;
                 _this.currency = response.data.currency;
@@ -48347,8 +48347,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         store: function store() {
             var _this4 = this;
 
-            console.log('store');
-            axios.post(this.$root.$data.apiUrl + '/wallet/', { data: this.wallet }, { headers: { "Access-Control-Allow-Origin": "*" } }).then(function (response) {
+            this.wallet.user_id = this.user_id;
+            console.log(this.wallet);
+            axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet).then(function (response) {
                 _this4.errors = [];
                 _this4.wallet = {};
                 _this4.wallet.wallet_type_id = null;

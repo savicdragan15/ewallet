@@ -98,6 +98,7 @@
             return {
                 loading: false,
                 currency: null,
+                user_id: Laravel.user.id,
                 wallet: {
                     id: null,
                     name: null,
@@ -146,7 +147,11 @@
             getWallets(page = 1) {
                 this.loading = true;
 
-                axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page)
+                axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page, {
+                        headers : {
+                            'user' : this.user_id
+                        }
+                    })
                     .then((response) => {
                         this.loading = false;
                         this.wallets = response.data.wallets.data;
@@ -207,9 +212,9 @@
 
             },
             store() {
-                console.log('store')
-                axios.post(this.$root.$data.apiUrl + '/wallet/', {data: this.wallet}, { headers:
-                        { "Access-Control-Allow-Origin": "*", }})
+                this.wallet.user_id = this.user_id;
+                console.log(this.wallet);
+                axios.post(this.$root.$data.apiUrl + '/wallet/',  this.wallet)
                     .then((response) => {
                         this.errors = [];
                         this.wallet = {};

@@ -28,10 +28,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-Route::group(['prefix' => 'api/v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1', 'middleware' => 'auth'], function () {
-
-    Route::resource('profile', 'ProfileController');
-    Route::resource('wallet', 'WalletController');
-    Route::resource('walletType', 'WalletTypeController');
-
-});
+//Route::group(['prefix' => 'api/v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], function () {
+//
+//    Route::resource('profile', 'ProfileController');
+//    Route::resource('wallet', 'WalletController');
+//    Route::resource('walletType', 'WalletTypeController');
+//
+//});

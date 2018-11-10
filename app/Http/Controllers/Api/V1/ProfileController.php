@@ -10,23 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     /**
-     * Create a new controller instance.
      *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
     public function index()
     {
-        return response()->json([
-            'user' => Auth::guard('web')->user()
-        ], 200);
+
     }
 
     /**

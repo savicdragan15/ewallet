@@ -24,9 +24,10 @@ class StoreWallet extends FormRequest
     public function rules()
     {
         return [
-            'name'            =>    'required',
-            'wallet_type_id'  =>    'required',
-            'amount'          =>    'required',
+            'name'               =>    'required',
+            'user_id'            =>    'required',
+            'wallet_type_id'     =>    'required',
+            'amount'             =>    'required',
         ];
     }
 }
