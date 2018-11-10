@@ -19,7 +19,7 @@
                                 <th>Order number</th>
                                 <th>Wallet</th>
                                 <th class="text-center">Market</th>
-                                <th class="text-center">Address</th>
+                                <th class="text-center">Flag</th>
                                 <th class="text-center">Amount</th>
                                 <th>Created at</th>
                             </tr>
@@ -28,7 +28,16 @@
                                 <td>{{ order.order_number }}</td>
                                 <td>{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</td>
                                 <td class="text-center">{{ order.market.name }}</td>
-                                <td class="text-center">{{ order.address }}</td>
+                                <!--<td class="text-center"><img v-bind:src="order.flag" v-bind:alt="flag" width="30"></td>-->
+                                <td class="text-center">
+                                    <lightboxComponent
+                                        :thumbnail="order.flag"
+                                        :images="[order.flag]"
+                                    >
+                                        <lightbox-default-loader slot="loader"></lightbox-default-loader> <!-- If you want to use built-in loader -->
+                                        <!-- <div slot="loader"></div> --> <!-- If you want to use your own loader -->
+                                    </lightboxComponent>
+                                </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
                                 <td>{{ order.created_at }}</td>
                             </tr>
@@ -44,7 +53,7 @@
             </div>
         </div>
 
-        <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="onOpenModal">
+        <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="onOpenModal" :closed="onCloseModal">
 
             <div slot="title">
                 {{ modal.title }}
@@ -101,17 +110,20 @@
     import pagination from '../Helpers/Pagintaion';
     import loading from '../Helpers/LoadingComponent';
     import bootstrapModal from 'vue2-bootstrap-modal';
+    import  lightboxComponent from '../Helpers/LightboxComponent'
 
     export default {
         name: "OrderIndexComponent",
         components: {
             pagination,
             loading,
-            bootstrapModal
+            bootstrapModal,
+            lightboxComponent
         },
         mounted() {
             this.getOrders();
             this.order.user_id = this.user_id;
+            this.updateFlag();
         },
         data() {
             return {
@@ -132,19 +144,28 @@
                     user_id : null,
                     address : null,
                     amount : null,
+                    flag : null,
                 },
                 errors: [],
                 paginationData: {},
             }
         },
         methods: {
+            updateFlag: function () {
+                this.flag = 'updated'
+                this.$nextTick(function () {
+                    this.$el.textContent // => 'updated'
+                })
+            },
             store() {
               console.log('store');
+                this.order.user_id = this.user_id;
                 axios.post(this.$root.$data.apiUrl + '/order',  this.order)
                     .then((response) => {
                         this.errors = [];
                         this.order = {};
-                        // this.wallet.wallet_type_id = null;
+                        this.order.wallet_id = null;
+                        this.order.market_id= null;
                         this.getOrders(this.paginationData.current_page);
                         this.$refs.modal.close();
                         swal(response.data.message, '', 'success');
@@ -185,6 +206,9 @@
             onOpenModal() {
                 this.getWallets();
                 this.getMarkets();
+            },
+            onCloseModal() {
+                this.errors = [];
             },
             getWallets() {
                 axios.get(this.$root.$data.apiUrl + '/wallet', {

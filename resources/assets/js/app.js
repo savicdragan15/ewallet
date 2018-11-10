@@ -19,6 +19,10 @@ Vue.component('profile-component', require('./components/ProfileComponent.vue'))
 Vue.component('wallet-index-component', require('./components/Wallet/WalletIndexComponent'));
 Vue.component('order-index-component', require('./components/Order/OrderIndexComponent'));
 
+import Lightbox from 'vue-pure-lightbox'
+
+window.Vue.use(Lightbox);
+
 const app = new Vue({
     el: '#app',
     data() {
