@@ -223,7 +223,9 @@
                         swal(response.data.message, '', 'success');
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // console.log('this', this.errors);
+                        // console.log('error', error.response.status);
+
                         if (error.response.status === 422) {
                             this.errors = error.response.data.errors;
                         }

@@ -48356,7 +48356,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.getWallets(_this4.paginationData.current_page);
                 swal(response.data.message, '', 'success');
             }).catch(function (error) {
-                console.log(error);
+                // console.log('this', this.errors);
+                // console.log('error', error.response.status);
+
                 if (error.response.status === 422) {
                     _this4.errors = error.response.data.errors;
                 }
