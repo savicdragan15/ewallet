@@ -22,7 +22,7 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            apiUrl: '/api/v1',
+            apiUrl: 'api/v1',
             currency: 'RSD'
         }
     }

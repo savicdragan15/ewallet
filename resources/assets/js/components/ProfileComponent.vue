@@ -100,15 +100,7 @@
             console.log('Component mounted.')
         },
         created() {
-            // call api
-            axios.get(this.$root.$data.apiUrl+'/profile')
-                .then((response) => {
-                     this.user = response.data.user;
-                })
-                .catch((error) => {
-
-            });
-
+            this.user = Laravel.user;
         },
         data() {
             return {

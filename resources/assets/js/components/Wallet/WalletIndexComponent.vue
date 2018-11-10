@@ -98,6 +98,7 @@
             return {
                 loading: false,
                 currency: null,
+                user_id: Laravel.user.id,
                 wallet: {
                     id: null,
                     name: null,
@@ -146,7 +147,11 @@
             getWallets(page = 1) {
                 this.loading = true;
 
-                axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page)
+                axios.get(this.$root.$data.apiUrl + '/wallet?page=' + page, {
+                        headers : {
+                            'user' : this.user_id
+                        }
+                    })
                     .then((response) => {
                         this.loading = false;
                         this.wallets = response.data.wallets.data;
@@ -193,7 +198,8 @@
                 console.log('add wallet');
                 this.modal.title = 'Add new wallet';
                 this.$refs.modal.open();
-
+            },
+            myOpenFunc() {
                 axios.get(this.$root.$data.apiUrl + '/walletType')
                     .then((response) => {
                         console.log(response.data.wallet_types);
@@ -203,12 +209,9 @@
                         swal(error.response.data.message, '', 'error');
                     });
             },
-            myOpenFunc() {
-
-            },
             store() {
-                console.log('store')
-                axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet)
+                this.wallet.user_id = this.user_id;
+                axios.post(this.$root.$data.apiUrl + '/wallet',  this.wallet)
                     .then((response) => {
                         this.errors = [];
                         this.wallet = {};
@@ -217,7 +220,6 @@
                         swal(response.data.message, '', 'success');
                     })
                     .catch((error) => {
-
                         if (error.response.status === 422) {
                             this.errors = error.response.data.errors;
                         }
