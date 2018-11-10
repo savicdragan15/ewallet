@@ -48345,35 +48345,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         store: function store() {
+            var _this4 = this;
+
             this.wallet.user_id = this.user_id;
-            console.log(this.wallet);
-
             axios.post(this.$root.$data.apiUrl + '/wallet', this.wallet).then(function (response) {
-                console.log(response);
+                _this4.errors = [];
+                _this4.wallet = {};
+                _this4.wallet.wallet_type_id = null;
+                _this4.getWallets(_this4.paginationData.current_page);
+                swal(response.data.message, '', 'success');
             }).catch(function (error) {
-                console.log('error', error.response);
-            });
+                if (error.response.status === 422) {
+                    _this4.errors = error.response.data.errors;
+                }
 
-            // axios.post(this.$root.$data.apiUrl + '/wallet/',  this.wallet)
-            //     .then((response) => {
-            //         this.errors = [];
-            //         this.wallet = {};
-            //         this.wallet.wallet_type_id = null;
-            //         // this.getWallets(this.paginationData.current_page);
-            //         swal(response.data.message, '', 'success');
-            //     })
-            //     .catch((error) => {
-            //         console.log('this', this);
-            //         console.log('error', error);
-            //
-            //         if (error.response.status === 422) {
-            //             this.errors = error.response.data.errors;
-            //         }
-            //
-            //         if (error.response.status === 400) {
-            //             swal(error.response.data.message, '', 'error');
-            //         }
-            //     });
+                if (error.response.status === 400) {
+                    swal(error.response.data.message, '', 'error');
+                }
+            });
         }
     }
 
