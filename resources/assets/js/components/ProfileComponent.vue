@@ -21,7 +21,9 @@
                             <b>Friends</b> <a class="pull-right">13,287</a>
                         </li>
                     </ul>
-
+                    <div class="overlay" v-if="loading">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
                     <!--<a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
                 </div>
             </div>

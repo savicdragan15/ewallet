@@ -47756,6 +47756,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -47839,7 +47841,13 @@ var render = function() {
             _vm._v(_vm._s(_vm.user.email))
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.loading
+            ? _c("div", { staticClass: "overlay" }, [
+                _c("i", { staticClass: "fa fa-refresh fa-spin" })
+              ])
+            : _vm._e()
         ])
       ])
     ]),
@@ -48279,6 +48287,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        onCloseModal: function onCloseModal() {
+            this.errors = [];
+        },
         getWallets: function getWallets() {
             var _this = this;
 
@@ -49700,7 +49711,8 @@ var render = function() {
             "need-header": true,
             "need-footer": false,
             size: "large",
-            opened: _vm.myOpenFunc
+            opened: _vm.myOpenFunc,
+            closed: _vm.onCloseModal
           }
         },
         [
@@ -50015,6 +50027,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50024,27 +50087,62 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: "OrderIndexComponent",
     components: {
         pagination: __WEBPACK_IMPORTED_MODULE_0__Helpers_Pagintaion___default.a,
-        loading: __WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent___default.a
+        loading: __WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent___default.a,
+        bootstrapModal: __WEBPACK_IMPORTED_MODULE_2_vue2_bootstrap_modal___default.a
     },
     mounted: function mounted() {
         this.getOrders();
+        this.order.user_id = this.user_id;
     },
     data: function data() {
         return {
             loading: false,
             user_id: Laravel.user.id,
+            modal: {
+                title: null
+            },
             currency: null,
+            wallets: [],
+            markets: [],
             orders: [],
-            order: {},
+            order: {
+                id: null,
+                order_number: null,
+                wallet_id: null,
+                market_id: null,
+                user_id: null,
+                address: null,
+                amount: null
+            },
+            errors: [],
             paginationData: {}
         };
     },
 
     methods: {
-        index: function index() {},
-        store: function store() {},
-        getOrders: function getOrders() {
+        store: function store() {
             var _this = this;
+
+            console.log('store');
+            axios.post(this.$root.$data.apiUrl + '/order', this.order).then(function (response) {
+                _this.errors = [];
+                _this.order = {};
+                // this.wallet.wallet_type_id = null;
+                _this.getOrders(_this.paginationData.current_page);
+                _this.$refs.modal.close();
+                swal(response.data.message, '', 'success');
+            }).catch(function (error) {
+                if (error.response.status === 422) {
+                    _this.errors = error.response.data.errors;
+                }
+
+                if (error.response.status === 400) {
+                    swal(error.response.data.message, '', 'error');
+                }
+            });
+        },
+        getOrders: function getOrders() {
+            var _this2 = this;
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -50055,12 +50153,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'user': this.user_id
                 }
             }).then(function (response) {
-                _this.loading = false;
-                _this.orders = response.data.orders.data;
-                _this.currency = response.data.currency;
-                _this.paginationData = response.data.orders;
+                _this2.loading = false;
+                _this2.orders = response.data.orders.data;
+                _this2.currency = response.data.currency;
+                _this2.paginationData = response.data.orders;
             }).catch(function (error) {
-                _this.loading = false;
+                _this2.loading = false;
+                swal(error.response.data.message, '', 'error');
+            });
+        },
+        openModal: function openModal() {
+            this.modal.title = 'Add new order';
+            this.$refs.modal.open();
+        },
+        onOpenModal: function onOpenModal() {
+            this.getWallets();
+            this.getMarkets();
+        },
+        getWallets: function getWallets() {
+            var _this3 = this;
+
+            axios.get(this.$root.$data.apiUrl + '/wallet', {
+                headers: {
+                    'user': this.user_id
+                }
+            }).then(function (response) {
+                _this3.wallets = response.data.wallets.data;
+            }).catch(function (error) {
+                swal(error.response.data.message, '', 'error');
+            });
+        },
+        getMarkets: function getMarkets() {
+            var _this4 = this;
+
+            axios.get(this.$root.$data.apiUrl + '/markets', {
+                headers: {
+                    'user': this.user_id
+                }
+            }).then(function (response) {
+                _this4.markets = response.data.markets.data;
+            }).catch(function (error) {
                 swal(error.response.data.message, '', 'error');
             });
         }
@@ -50076,84 +50208,321 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-sm-12" }, [
-      _c(
-        "div",
-        { staticClass: "box box-primary" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "box-body table-responsive" }, [
-            _c("table", { staticClass: "table table-bordered" }, [
+  return _c(
+    "div",
+    { staticClass: "row" },
+    [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c(
+          "div",
+          { staticClass: "box box-primary" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-body" }, [
               _c(
-                "tbody",
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: { click: _vm.openModal }
+                },
                 [
-                  _vm._m(2),
+                  _vm._v(
+                    "\n                    Add new order\n                "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-body table-responsive" }, [
+              _c("table", { staticClass: "table table-bordered" }, [
+                _c(
+                  "tbody",
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._l(_vm.orders, function(order) {
+                      return _c("tr", [
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(order.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(order.order_number))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(order.wallet.name) +
+                              " (" +
+                              _vm._s(order.wallet.wallet_type.name) +
+                              ")"
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(order.market.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(_vm._s(order.address))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _vm._v(
+                            _vm._s(order.amount) +
+                              " " +
+                              _vm._s(_vm.currency) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(order.created_at))])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("loading", { attrs: { loading: _vm.loading } }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "box-footer clearfix text-center" },
+              [
+                _c("pagination", {
+                  attrs: { data: _vm.paginationData },
+                  on: { "pagination-change-page": _vm.getOrders }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "bootstrapModal",
+        {
+          ref: "modal",
+          attrs: {
+            "need-header": true,
+            "need-footer": false,
+            size: "large",
+            opened: _vm.onOpenModal
+          }
+        },
+        [
+          _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+            _vm._v("\n            " + _vm._s(_vm.modal.title) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+            _c("div", { staticClass: "box-body" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group",
+                  class: [_vm.errors.amount ? "has-error" : ""]
+                },
+                [
+                  _c("label", { attrs: { for: "name" } }, [_vm._v("Amount *")]),
                   _vm._v(" "),
-                  _vm._l(_vm.orders, function(order) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(order.id))
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.order.amount,
+                        expression: "order.amount"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "name",
+                      placeholder: "Enter amount"
+                    },
+                    domProps: { value: _vm.order.amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.order, "amount", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.amount
+                    ? _c("span", { staticClass: "help-block" }, [
+                        _vm._v(_vm._s(_vm.errors.amount[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-body" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group",
+                  class: [_vm.errors.wallet_id ? "has-error" : ""]
+                },
+                [
+                  _c("label", [_vm._v("Select wallet *")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.order.wallet_id,
+                          expression: "order.wallet_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.order,
+                            "wallet_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "null" } }, [
+                        _vm._v("Select wallet")
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.order_number))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(order.wallet.name) +
-                            " (" +
-                            _vm._s(order.wallet.wallet_type.name) +
-                            ")"
+                      _vm._l(_vm.wallets, function(wallet) {
+                        return _c(
+                          "option",
+                          { domProps: { value: wallet.id } },
+                          [
+                            _vm._v(
+                              _vm._s(wallet.name) +
+                                " (" +
+                                _vm._s(wallet.wallet_type.name) +
+                                ")"
+                            )
+                          ]
                         )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.wallet_id
+                    ? _c("span", { staticClass: "help-block" }, [
+                        _vm._v(_vm._s(_vm.errors.wallet_id[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-body" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group",
+                  class: [_vm.errors.market_id ? "has-error" : ""]
+                },
+                [
+                  _c("label", [_vm._v("Select market *")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.order.market_id,
+                          expression: "order.market_id"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.order,
+                            "market_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "null" } }, [
+                        _vm._v("Select market")
                       ]),
                       _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(order.market.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(_vm._s(order.address))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "text-center" }, [
-                        _vm._v(
-                          _vm._s(order.amount) +
-                            " " +
-                            _vm._s(_vm.currency) +
-                            " "
+                      _vm._l(_vm.markets, function(market) {
+                        return _c(
+                          "option",
+                          { domProps: { value: market.id } },
+                          [_vm._v(_vm._s(market.name))]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.created_at))])
-                    ])
-                  })
-                ],
-                2
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.market_id
+                    ? _c("span", { staticClass: "help-block" }, [
+                        _vm._v(_vm._s(_vm.errors.market_id[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-footer" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.store } },
+                [_vm._v("Add")]
               )
             ])
           ]),
           _vm._v(" "),
-          _c("loading", { attrs: { loading: _vm.loading } }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-footer clearfix text-center" },
-            [
-              _c("pagination", {
-                attrs: { data: _vm.paginationData },
-                on: { "pagination-change-page": _vm.getOrders }
-              })
-            ],
-            1
-          )
-        ],
-        1
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _vm._v("\n            Your footer here\n        ")
+          ])
+        ]
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -50162,18 +50531,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
       _c("h3", { staticClass: "box-title" }, [_vm._v("Bordered Table")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-body" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("\n                    Add new order\n                ")]
-      )
     ])
   },
   function() {

@@ -6,7 +6,7 @@
                     <h3 class="box-title">Bordered Table</h3>
                 </div>
                 <div class="box-body">
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" v-on:click="openModal">
                         Add new order
                     </button>
                 </div>
@@ -43,6 +43,57 @@
                 </div>
             </div>
         </div>
+
+        <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="onOpenModal">
+
+            <div slot="title">
+                {{ modal.title }}
+            </div>
+
+            <div slot="body">
+                <div class="box-body">
+                    <div class="form-group" v-bind:class="[errors.amount ? 'has-error' : '']">
+                        <label for="name">Amount *</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter amount" v-model="order.amount">
+                        <span class="help-block" v-if="errors.amount">{{ errors.amount[0]}}</span>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="form-group" v-bind:class="[errors.wallet_id ? 'has-error' : '']">
+                        <label>Select wallet *</label>
+                        <select class="form-control" v-model="order.wallet_id">
+                            <option value="null">Select wallet</option>
+                            <option v-for="wallet in wallets" v-bind:value="wallet.id">{{ wallet.name }} ({{ wallet.wallet_type.name }})</option>
+                        </select>
+                        <span class="help-block" v-if="errors.wallet_id">{{ errors.wallet_id[0]}}</span>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="form-group" v-bind:class="[errors.market_id ? 'has-error' : '']">
+                        <label>Select market *</label>
+                        <select class="form-control" v-model="order.market_id">
+                            <option value="null">Select market</option>
+                            <option v-for="market in markets" v-bind:value="market.id">{{ market.name }}</option>
+                        </select>
+                        <span class="help-block" v-if="errors.market_id">{{ errors.market_id[0]}}</span>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <button class="btn btn-primary" v-on:click="store">Add</button>
+                </div>
+
+            </div>
+
+            <div slot="footer">
+                Your footer here
+            </div>
+
+
+
+        </bootstrapModal>
     </div>
 </template>
 
@@ -55,27 +106,58 @@
         name: "OrderIndexComponent",
         components: {
             pagination,
-            loading
+            loading,
+            bootstrapModal
         },
         mounted() {
             this.getOrders();
+            this.order.user_id = this.user_id;
         },
         data() {
             return {
                 loading : false,
                 user_id : Laravel.user.id,
+                modal: {
+                    title: null,
+                },
                 currency : null,
+                wallets : [],
+                markets : [],
                 orders : [],
-                order : {},
+                order : {
+                    id : null,
+                    order_number : null,
+                    wallet_id : null,
+                    market_id : null,
+                    user_id : null,
+                    address : null,
+                    amount : null,
+                },
+                errors: [],
                 paginationData: {},
             }
         },
         methods: {
-            index() {
-
-            },
             store() {
+              console.log('store');
+                axios.post(this.$root.$data.apiUrl + '/order',  this.order)
+                    .then((response) => {
+                        this.errors = [];
+                        this.order = {};
+                        // this.wallet.wallet_type_id = null;
+                        this.getOrders(this.paginationData.current_page);
+                        this.$refs.modal.close();
+                        swal(response.data.message, '', 'success');
+                    })
+                    .catch((error) => {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
 
+                        if (error.response.status === 400) {
+                            swal(error.response.data.message, '', 'error');
+                        }
+                    });
             },
             getOrders(page = 1) {
                 this.loading = true;
@@ -93,6 +175,40 @@
                 })
                 .catch((error) => {
                     this.loading = false;
+                    swal(error.response.data.message, '', 'error');
+                });
+            },
+            openModal() {
+                this.modal.title = 'Add new order';
+                this.$refs.modal.open();
+            },
+            onOpenModal() {
+                this.getWallets();
+                this.getMarkets();
+            },
+            getWallets() {
+                axios.get(this.$root.$data.apiUrl + '/wallet', {
+                    headers : {
+                        'user' : this.user_id
+                    }
+                })
+                .then((response) => {
+                    this.wallets = response.data.wallets.data;
+                })
+                .catch((error) => {
+                    swal(error.response.data.message, '', 'error');
+                });
+            },
+            getMarkets() {
+                axios.get(this.$root.$data.apiUrl + '/markets', {
+                    headers : {
+                        'user' : this.user_id
+                    }
+                })
+                .then((response) => {
+                    this.markets = response.data.markets.data;
+                })
+                .catch((error) => {
                     swal(error.response.data.message, '', 'error');
                 });
             }

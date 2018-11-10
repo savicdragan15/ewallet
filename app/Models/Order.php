@@ -38,7 +38,14 @@ class Order extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'order_number',
+        'wallet_id',
+        'user_id',
+        'market_id',
+        'amount',
+        'address',
+    ];
 
     /**
      * Get wallet for order
@@ -47,7 +54,7 @@ class Order extends Model
      */
     public function wallet()
     {
-        return $this->hasOne('App\Models\Wallet', 'id');
+        return $this->hasOne('App\Models\Wallet', 'id', 'wallet_id');
     }
 
     /**
@@ -57,7 +64,7 @@ class Order extends Model
      */
     public function market()
     {
-        return $this->hasOne('App\Models\Market', 'id');
+        return $this->hasOne('App\Models\Market', 'id', 'market_id');
     }
 
 

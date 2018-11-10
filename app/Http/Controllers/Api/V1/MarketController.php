@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Order\StoreOrder;
 use App\Http\Requests\Wallet\StoreWallet;
-use App\Models\Order;
+use App\Models\Market;
 use App\Models\Wallet;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OrderController extends Controller
+class MarketController extends Controller
 {
     /**
      * @param Request $request
@@ -20,45 +18,34 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-            'orders' => Order::where('user_id', $request->header('user'))
-                        ->with('wallet', 'market')
-                        ->orderBy('created_at', 'DESC')
-                        ->paginate(15),
+            'markets' => Market::where('user_id', $request->header('user'))->orderBy('name')->paginate(15),
             'currency' => env('CURRENCY')
         ]);
     }
 
     /**
-     * @param StoreOrder $request
+     * @param StoreWallet $request
      * @return JsonResponse
      */
-    public function store(StoreOrder $request)
+    public function store(StoreWallet $request)
     {
-
+        
         try {
-            $order = Order::create([
-               'order_number' => 'rand',
-               'wallet_id' => $request->input('wallet_id'),
-               'user_id' => $request->input('user_id'),
-               'market_id' => $request->input('market_id'),
-               'amount' => $request->input('amount'),
-            ]);
-
-            $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');
-            $order->save();
+            $data = $request->all();
+            $wallet = Wallet::create($data);
 
         } catch(\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error during adding new order' . $e->getMessage(),
-            ], 400);
+           return response()->json([
+               'success' => false,
+               'message' => 'Error during adding new wallet' . $e->getMessage(),
+           ], 400);
 
         }
 
         return response()->json([
             'success' =>  true,
-            'message' => 'Successfully added new order',
-            'data'    =>  $order
+            'message' => 'Successfully added new wallet',
+            'data'    =>  $wallet
         ]);
 
     }

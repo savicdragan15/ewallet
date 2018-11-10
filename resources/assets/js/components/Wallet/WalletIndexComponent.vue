@@ -23,7 +23,7 @@
             </div>
         </div>
 
-            <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="myOpenFunc">
+            <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="myOpenFunc" :closed="onCloseModal">
 
             <div slot="title">
                 {{ modal.title }}
@@ -144,6 +144,9 @@
             }
         },
         methods: {
+            onCloseModal() {
+              this.errors = [];
+            },
             getWallets(page = 1) {
                 this.loading = true;
 
