@@ -39,7 +39,7 @@
                                     </lightboxComponent>
                                 </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
-                                <td>{{ order.created_at }}</td>
+                                <td>{{ order.created_at | moment("D.M.YYYY. H:m") }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,9 +107,9 @@
 </template>
 
 <script>
-    import pagination from '../Helpers/Pagintaion';
-    import loading from '../Helpers/LoadingComponent';
-    import bootstrapModal from 'vue2-bootstrap-modal';
+    import  pagination from '../Helpers/Pagintaion';
+    import  loading from '../Helpers/LoadingComponent';
+    import  bootstrapModal from 'vue2-bootstrap-modal';
     import  lightboxComponent from '../Helpers/LightboxComponent'
 
     export default {

@@ -22,6 +22,7 @@ Vue.component('order-index-component', require('./components/Order/OrderIndexCom
 import Lightbox from 'vue-pure-lightbox'
 
 window.Vue.use(Lightbox);
+window.Vue.use(require('vue-moment'));
 
 const app = new Vue({
     el: '#app',
