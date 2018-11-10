@@ -50086,7 +50086,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "box-body" }, [
+          _c("div", { staticClass: "box-body table-responsive" }, [
             _c("table", { staticClass: "table table-bordered" }, [
               _c(
                 "tbody",
