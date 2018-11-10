@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Market whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Market whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Market whereUserId($value)
  */
 class Market extends Model
 {

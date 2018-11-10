@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Order\StoreOrder;
 use App\Http\Requests\Wallet\StoreWallet;
+use App\Http\Services\IpStack;
 use App\Models\Order;
 use App\Models\Wallet;
 use Carbon\Carbon;
@@ -36,12 +37,19 @@ class OrderController extends Controller
     {
 
         try {
+            $ipStack = new IpStack();
+            $location = $ipStack->callApi();
+
             $order = Order::create([
                'order_number' => 'rand',
                'wallet_id' => $request->input('wallet_id'),
                'user_id' => $request->input('user_id'),
                'market_id' => $request->input('market_id'),
                'amount' => $request->input('amount'),
+               'latitude' => $location->latitude,
+               'longitude' => $location->longitude,
+               'flag' => $location->location->country_flag,
+               'location' => json_encode($location),
             ]);
 
             $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');

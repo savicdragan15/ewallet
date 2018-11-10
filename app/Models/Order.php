@@ -30,6 +30,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $wallet_id
  * @property-read \App\Models\Wallet $wallet
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereWalletId($value)
+ * @property string|null $latitude
+ * @property string|null $longitude
+ * @property string|null $flag
+ * @property string|null $location
+ * @property-read \App\Models\Market $market
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFlag($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLatitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLongitude($value)
  */
 class Order extends Model
 {
@@ -44,7 +53,10 @@ class Order extends Model
         'user_id',
         'market_id',
         'amount',
-        'address',
+        'latitude',
+        'longitude',
+        'flag',
+        'location',
     ];
 
     /**

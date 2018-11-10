@@ -24,7 +24,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('market_id')->references('id')->on('markets')->onDelete('set null');
 
             $table->double('amount');
-            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
