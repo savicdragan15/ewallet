@@ -219,20 +219,20 @@
                         this.errors = [];
                         this.wallet = {};
                         this.wallet.wallet_type_id = null;
-                        this.getWallets(this.paginationData.current_page);
+                        // this.getWallets(this.paginationData.current_page);
                         swal(response.data.message, '', 'success');
                     })
                     .catch((error) => {
                         console.log('this', this);
                         console.log('error', error);
 
-                        // if (error.response.status === 422) {
-                        //     this.errors = error.response.data.errors;
-                        // }
-                        //
-                        // if (error.response.status === 400) {
-                        //     swal(error.response.data.message, '', 'error');
-                        // }
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+
+                        if (error.response.status === 400) {
+                            swal(error.response.data.message, '', 'error');
+                        }
                     });
             }
         }

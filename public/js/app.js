@@ -48353,11 +48353,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.errors = [];
                 _this4.wallet = {};
                 _this4.wallet.wallet_type_id = null;
-                _this4.getWallets(_this4.paginationData.current_page);
+                // this.getWallets(this.paginationData.current_page);
                 swal(response.data.message, '', 'success');
             }).catch(function (error) {
-                // console.log('this', this.errors);
-                // console.log('error', error.response.status);
+                console.log('this', _this4);
+                console.log('error', error);
 
                 if (error.response.status === 422) {
                     _this4.errors = error.response.data.errors;
