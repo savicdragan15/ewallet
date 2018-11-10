@@ -213,7 +213,7 @@
                 this.wallet.user_id = this.user_id;
                 console.log(this.wallet);
 
-                axios.post(this.$root.$data.apiUrl + '/wallet/',  this.wallet)
+                axios.post(this.$root.$data.apiUrl + '/wallet',  this.wallet)
                 .then(function (response) {
                     console.log(response);
                 }).catch(function (error) {

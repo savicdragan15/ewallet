@@ -48348,7 +48348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.wallet.user_id = this.user_id;
             console.log(this.wallet);
 
-            axios.post(this.$root.$data.apiUrl + '/wallet/', this.wallet).then(function (response) {
+            axios.post(this.$root.$data.apiUrl + '/wallet', this.wallet).then(function (response) {
                 console.log(response);
             }).catch(function (error) {
                 console.log('error', error.response);
