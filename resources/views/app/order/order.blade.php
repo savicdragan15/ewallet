@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'All Wallets')
+@section('title', 'All orders')
 
 @section('content_header')
     <h1>All orders</h1>
