@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Wallet\StoreWallet;
+use App\Models\Order;
 use App\Models\Wallet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class WalletController extends Controller
+class OrderController extends Controller
 {
     /**
      * @param Request $request
@@ -17,7 +18,10 @@ class WalletController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-            'wallets' => Wallet::where('user_id', $request->header('user'))->with('wallet_type')->orderBy('name')->paginate(15),
+            'orders' => Order::where('user_id', $request->header('user'))
+                        ->with('wallet', 'market')
+                        ->orderBy('created_at', 'DESC')
+                        ->paginate(15),
             'currency' => env('CURRENCY')
         ]);
     }
@@ -28,16 +32,16 @@ class WalletController extends Controller
      */
     public function store(StoreWallet $request)
     {
-        
+
         try {
             $data = $request->all();
             $wallet = Wallet::create($data);
 
         } catch(\Exception $e) {
-           return response()->json([
-               'success' => false,
-               'message' => 'Error during adding new wallet' . $e->getMessage(),
-           ], 400);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error during adding new wallet' . $e->getMessage(),
+            ], 400);
 
         }
 

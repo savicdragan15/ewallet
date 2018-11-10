@@ -132,6 +132,11 @@ return [
             'url'  => 'wallet',
             'icon' => 'money',
         ],
+        [
+            'text' => 'Orders',
+            'url'  => 'order',
+            'icon' => 'barcode',
+        ],
 //        [
 //            'text'    => 'Wallets',
 //            'icon'    => 'money',

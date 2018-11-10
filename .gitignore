@@ -14,3 +14,5 @@ yarn-error.log
 .phpunit.result.cache
 /package-lock.json
 /composer.lock
+_ide_helper.php
+.phpstorm.meta.php

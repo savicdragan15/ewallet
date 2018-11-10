@@ -17,6 +17,7 @@ window.Vue = require('vue');
 
 Vue.component('profile-component', require('./components/ProfileComponent.vue'));
 Vue.component('wallet-index-component', require('./components/Wallet/WalletIndexComponent'));
+Vue.component('order-index-component', require('./components/Order/OrderIndexComponent'));
 
 const app = new Vue({
     el: '#app',

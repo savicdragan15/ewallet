@@ -14394,6 +14394,7 @@ window.Vue = __webpack_require__(40);
 
 Vue.component('profile-component', __webpack_require__(42));
 Vue.component('wallet-index-component', __webpack_require__(46));
+Vue.component('order-index-component', __webpack_require__(69));
 
 var app = new Vue({
     el: '#app',
@@ -49901,6 +49902,309 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(72)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Order/OrderIndexComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d9ad869e", Component.options)
+  } else {
+    hotAPI.reload("data-v-d9ad869e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */,
+/* 71 */,
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Helpers_Pagintaion__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Helpers_Pagintaion___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Helpers_Pagintaion__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue2_bootstrap_modal__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue2_bootstrap_modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue2_bootstrap_modal__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "OrderIndexComponent",
+    components: {
+        pagination: __WEBPACK_IMPORTED_MODULE_0__Helpers_Pagintaion___default.a,
+        loading: __WEBPACK_IMPORTED_MODULE_1__Helpers_LoadingComponent___default.a
+    },
+    mounted: function mounted() {
+        this.getOrders();
+    },
+    data: function data() {
+        return {
+            loading: false,
+            user_id: Laravel.user.id,
+            currency: null,
+            orders: [],
+            order: {},
+            paginationData: {}
+        };
+    },
+
+    methods: {
+        index: function index() {},
+        store: function store() {},
+        getOrders: function getOrders() {
+            var _this = this;
+
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            this.loading = true;
+
+            axios.get(this.$root.$data.apiUrl + '/order?page=' + page, {
+                headers: {
+                    'user': this.user_id
+                }
+            }).then(function (response) {
+                _this.loading = false;
+                _this.orders = response.data.orders.data;
+                _this.currency = response.data.currency;
+                _this.paginationData = response.data.orders;
+            }).catch(function (error) {
+                _this.loading = false;
+                swal(error.response.data.message, '', 'error');
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 73 */,
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-sm-12" }, [
+      _c(
+        "div",
+        { staticClass: "box box-primary" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-body" }, [
+            _c("table", { staticClass: "table table-bordered" }, [
+              _c(
+                "tbody",
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._l(_vm.orders, function(order) {
+                    return _c("tr", [
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(order.id))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.order_number))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(order.wallet.name) +
+                            " (" +
+                            _vm._s(order.wallet.wallet_type.name) +
+                            ")"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(order.market.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(_vm._s(order.address))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-center" }, [
+                        _vm._v(
+                          _vm._s(order.amount) +
+                            " " +
+                            _vm._s(_vm.currency) +
+                            " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.created_at))])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("loading", { attrs: { loading: _vm.loading } }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-footer clearfix text-center" },
+            [
+              _c("pagination", {
+                attrs: { data: _vm.paginationData },
+                on: { "pagination-change-page": _vm.getOrders }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Bordered Table")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-body" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("\n                    Add new order\n                ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Order number")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Wallet")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center" }, [_vm._v("Market")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "text-center" }, [_vm._v("Amount")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Created at")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-d9ad869e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
