@@ -19,7 +19,7 @@ class WalletController extends Controller
     public function index(Request $request)
     {
         return response()->json([
-            'wallets' => Wallet::where('user_id', $request->header('user'))->with('wallet_type')->paginate(15),
+            'wallets' => Wallet::where('user_id', $request->header('user'))->with('wallet_type')->orderBy('name')->paginate(15),
             'currency' => env('CURRENCY')
         ]);
     }
