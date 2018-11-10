@@ -48353,6 +48353,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.wallet = {};
                 _this4.wallet.wallet_type_id = null;
                 _this4.getWallets(_this4.paginationData.current_page);
+                _this4.$refs.modal.close();
                 swal(response.data.message, '', 'success');
             }).catch(function (error) {
                 if (error.response.status === 422) {

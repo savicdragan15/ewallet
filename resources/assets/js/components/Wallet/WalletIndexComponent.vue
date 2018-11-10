@@ -217,6 +217,7 @@
                         this.wallet = {};
                         this.wallet.wallet_type_id = null;
                         this.getWallets(this.paginationData.current_page);
+                        this.$refs.modal.close();
                         swal(response.data.message, '', 'success');
                     })
                     .catch((error) => {
