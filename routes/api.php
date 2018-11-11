@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
     Route::resource('walletType', 'WalletTypeController');
     Route::resource('order', 'OrderController');
     Route::resource('markets', 'MarketController');
+    Route::resource('location', 'LocationController');
 });
 
 

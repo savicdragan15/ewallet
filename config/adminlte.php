@@ -133,6 +133,11 @@ return [
             'icon' => 'money',
         ],
         [
+            'text' => 'Locations',
+            'url'  => 'location',
+            'icon' => 'map',
+        ],
+        [
             'text' => 'Orders',
             'url'  => 'order',
             'icon' => 'barcode',

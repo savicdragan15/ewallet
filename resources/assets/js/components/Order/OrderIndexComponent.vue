@@ -18,7 +18,7 @@
                                 <th class="text-center">#</th>
                                 <th>Order number</th>
                                 <th>Wallet</th>
-                                <th class="text-center">Market</th>
+                                <th class="text-center">Location</th>
                                 <th class="text-center">Flag</th>
                                 <th class="text-center">Amount</th>
                                 <th>Created at</th>
@@ -26,16 +26,15 @@
                             <tr v-for="order in orders">
                                 <td class="text-center">{{ order.id }}</td>
                                 <td>{{ order.order_number }}</td>
-                                <td>{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</td>
-                                <td class="text-center">{{ order.market.name }}</td>
-                                <!--<td class="text-center"><img v-bind:src="order.flag" v-bind:alt="flag" width="30"></td>-->
+                                <td>
+                                    <span v-if="order.wallet">{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</span>
+                                </td>
+                                <td class="text-center" >
+                                    <span v-if="order.location">{{ order.location.name }}</span>
+                                </td>
                                 <td class="text-center">
-                                    <lightboxComponent
-                                        :thumbnail="order.flag"
-                                        :images="[order.flag]"
-                                    >
-                                        <lightbox-default-loader slot="loader"></lightbox-default-loader> <!-- If you want to use built-in loader -->
-                                        <!-- <div slot="loader"></div> --> <!-- If you want to use your own loader -->
+                                    <lightboxComponent :thumbnail="order.flag" :images="[order.flag]">
+                                        <lightbox-default-loader slot="loader"></lightbox-default-loader>
                                     </lightboxComponent>
                                 </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
@@ -80,13 +79,13 @@
                 </div>
 
                 <div class="box-body">
-                    <div class="form-group" v-bind:class="[errors.market_id ? 'has-error' : '']">
-                        <label>Select market *</label>
-                        <select class="form-control" v-model="order.market_id">
-                            <option value="null">Select market</option>
-                            <option v-for="market in markets" v-bind:value="market.id">{{ market.name }}</option>
+                    <div class="form-group" v-bind:class="[errors.location_id ? 'has-error' : '']">
+                        <label>Select location *</label>
+                        <select class="form-control" v-model="order.location_id">
+                            <option value="null">Select location</option>
+                            <option v-for="location in locations" v-bind:value="location.id">{{ location.name }}</option>
                         </select>
-                        <span class="help-block" v-if="errors.market_id">{{ errors.market_id[0]}}</span>
+                        <span class="help-block" v-if="errors.location_id">{{ errors.location_id[0]}}</span>
                     </div>
                 </div>
 
@@ -135,6 +134,7 @@
                 currency : null,
                 wallets : [],
                 markets : [],
+                locations : [],
                 orders : [],
                 order : {
                     id : null,
@@ -142,6 +142,7 @@
                     wallet_id : null,
                     market_id : null,
                     user_id : null,
+                    location_id : null,
                     address : null,
                     amount : null,
                     flag : null,
@@ -206,6 +207,7 @@
             onOpenModal() {
                 this.getWallets();
                 this.getMarkets();
+                this.getLocations();
             },
             onCloseModal() {
                 this.errors = [];
@@ -231,6 +233,19 @@
                 })
                 .then((response) => {
                     this.markets = response.data.markets.data;
+                })
+                .catch((error) => {
+                    swal(error.response.data.message, '', 'error');
+                });
+            },
+            getLocations() {
+                axios.get(this.$root.$data.apiUrl + '/location', {
+                    headers : {
+                        'user' : this.user_id
+                    }
+                })
+                .then((response) => {
+                    this.locations = response.data.locations.data;
                 })
                 .catch((error) => {
                     swal(error.response.data.message, '', 'error');

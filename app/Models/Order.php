@@ -52,6 +52,7 @@ class Order extends Model
         'wallet_id',
         'user_id',
         'market_id',
+        'location_id',
         'amount',
         'latitude',
         'longitude',
@@ -77,6 +78,11 @@ class Order extends Model
     public function market()
     {
         return $this->hasOne('App\Models\Market', 'id', 'market_id');
+    }
+
+    public function location()
+    {
+        return $this->hasOne('App\Models\Location', 'id', 'location_id');
     }
 
 

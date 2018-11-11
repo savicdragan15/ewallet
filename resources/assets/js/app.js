@@ -18,6 +18,7 @@ window.Vue = require('vue');
 Vue.component('profile-component', require('./components/ProfileComponent.vue'));
 Vue.component('wallet-index-component', require('./components/Wallet/WalletIndexComponent'));
 Vue.component('order-index-component', require('./components/Order/OrderIndexComponent'));
+Vue.component('location-index-component', require('./components/Location/LocationIndexComponent'));
 
 import Lightbox from 'vue-pure-lightbox'
 

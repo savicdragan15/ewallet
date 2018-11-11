@@ -22,7 +22,7 @@ class OrderController extends Controller
     {
         return response()->json([
             'orders' => Order::where('user_id', $request->header('user'))
-                        ->with('wallet', 'market')
+                        ->with('wallet', 'market', 'location')
                         ->orderBy('created_at', 'DESC')
                         ->paginate(15),
             'currency' => env('CURRENCY')
@@ -44,7 +44,8 @@ class OrderController extends Controller
                'order_number' => 'rand',
                'wallet_id' => $request->input('wallet_id'),
                'user_id' => $request->input('user_id'),
-               'market_id' => $request->input('market_id'),
+//               'market_id' => $request->input('market_id'),
+               'location_id' => $request->input('location_id'),
                'amount' => $request->input('amount'),
                'latitude' => $location->latitude,
                'longitude' => $location->longitude,

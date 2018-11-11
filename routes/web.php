@@ -23,5 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'App\Profile\ProfileController@index')->name('profile');
     Route::get('/wallet', 'App\Wallet\WalletController@index')->name('wallet');
-    Route::get('/order', 'App\Order\OrderController@index')->name('wallet');
+    Route::get('/order', 'App\Order\OrderController@index')->name('order');
+    Route::get('/location', 'App\Location\LocationController@index')->name('location');
 });

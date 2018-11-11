@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('order_number');
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->string('latitude');
+            $table->string('longitude');
 
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-//            $table->integer('market_id')->unsigned()->nullable();
-//            $table->foreign('market_id')->references('id')->on('markets')->onDelete('set null');
-
-            $table->double('amount');
+            $table->tinyInteger('active')->default(1)->comment = '1 - active, 0 - inactive';
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -35,6 +36,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('locations');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrder extends FormRequest
+class StoreLocation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class StoreOrder extends FormRequest
     public function rules()
     {
         return [
-            'wallet_id' => 'required',
+            'name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
             'user_id' => 'required',
-            'location_id' => 'required',
-            'amount' => 'required',
         ];
     }
 }
