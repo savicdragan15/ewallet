@@ -19,8 +19,8 @@
                                 <th>Order number</th>
                                 <th>Wallet</th>
                                 <th class="text-center">Location</th>
-                                <th class="text-center">Flag</th>
                                 <th class="text-center">Amount</th>
+                                <th class="text-center">Flag</th>
                                 <th>Created at</th>
                             </tr>
                             <tr v-for="order in orders">
@@ -32,13 +32,13 @@
                                 <td class="text-center" >
                                     <span v-if="order.location">{{ order.location.name }}</span>
                                 </td>
+                                <td class="text-center">{{ order.amount }} {{ currency }} </td>
                                 <td class="text-center">
                                     <lightboxComponent :thumbnail="order.flag" :images="[order.flag]">
                                         <lightbox-default-loader slot="loader"></lightbox-default-loader>
                                     </lightboxComponent>
                                 </td>
-                                <td class="text-center">{{ order.amount }} {{ currency }} </td>
-                                <td>{{ order.created_at | moment("D.M.YYYY. H:m") }}</td>
+                                <td>{{ order.created_at | moment("D.M.YYYY. HH:mm") }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,6 +167,7 @@
                         this.order = {};
                         this.order.wallet_id = null;
                         this.order.market_id= null;
+                        this.order.location_id= null;
                         this.getOrders(this.paginationData.current_page);
                         this.$refs.modal.close();
                         swal(response.data.message, '', 'success');
