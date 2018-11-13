@@ -17,28 +17,28 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Order number</th>
-                                <th>Wallet</th>
-                                <th class="text-center">Location</th>
+                                <th>Location</th>
                                 <th class="text-center">Amount</th>
-                                <th class="text-center">Flag</th>
                                 <th>Created at</th>
+                                <th>Wallet</th>
+                                <!--<th class="text-center">Flag</th>-->
                             </tr>
                             <tr v-for="order in orders">
                                 <td class="text-center">{{ order.id }}</td>
                                 <td>{{ order.order_number }}</td>
                                 <td>
-                                    <span v-if="order.wallet">{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</span>
-                                </td>
-                                <td class="text-center" >
                                     <span v-if="order.location">{{ order.location.name }}</span>
                                 </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
-                                <td class="text-center">
-                                    <lightboxComponent :thumbnail="order.flag" :images="[order.flag]">
-                                        <lightbox-default-loader slot="loader"></lightbox-default-loader>
-                                    </lightboxComponent>
-                                </td>
                                 <td>{{ order.created_at | moment("D.M.YYYY. HH:mm") }}</td>
+                                <td>
+                                     <span v-if="order.wallet">{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</span>
+                                </td>
+                                <!--<td class="text-center">-->
+                                    <!--<lightboxComponent :thumbnail="order.flag" :images="[order.flag]">-->
+                                        <!--<lightbox-default-loader slot="loader"></lightbox-default-loader>-->
+                                    <!--</lightboxComponent>-->
+                                <!--</td>-->
                             </tr>
                         </tbody>
                     </table>

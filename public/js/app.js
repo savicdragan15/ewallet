@@ -50658,19 +50658,6 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(order.order_number))]),
                         _vm._v(" "),
                         _c("td", [
-                          order.wallet
-                            ? _c("span", [
-                                _vm._v(
-                                  _vm._s(order.wallet.name) +
-                                    " (" +
-                                    _vm._s(order.wallet.wallet_type.name) +
-                                    ")"
-                                )
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
                           order.location
                             ? _c("span", [_vm._v(_vm._s(order.location.name))])
                             : _vm._e()
@@ -50685,30 +50672,6 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "text-center" },
-                          [
-                            _c(
-                              "lightboxComponent",
-                              {
-                                attrs: {
-                                  thumbnail: order.flag,
-                                  images: [order.flag]
-                                }
-                              },
-                              [
-                                _c("lightbox-default-loader", {
-                                  attrs: { slot: "loader" },
-                                  slot: "loader"
-                                })
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
                         _c("td", [
                           _vm._v(
                             _vm._s(
@@ -50718,6 +50681,19 @@ var render = function() {
                               )
                             )
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          order.wallet
+                            ? _c("span", [
+                                _vm._v(
+                                  _vm._s(order.wallet.name) +
+                                    " (" +
+                                    _vm._s(order.wallet.wallet_type.name) +
+                                    ")"
+                                )
+                              ])
+                            : _vm._e()
                         ])
                       ])
                     })
@@ -50985,15 +50961,13 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Order number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Wallet")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "text-center" }, [_vm._v("Location")]),
+      _c("th", [_vm._v("Location")]),
       _vm._v(" "),
       _c("th", { staticClass: "text-center" }, [_vm._v("Amount")]),
       _vm._v(" "),
-      _c("th", { staticClass: "text-center" }, [_vm._v("Flag")]),
+      _c("th", [_vm._v("Created at")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Created at")])
+      _c("th", [_vm._v("Wallet")])
     ])
   }
 ]
