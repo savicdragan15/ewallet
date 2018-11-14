@@ -50229,10 +50229,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get(this.$root.$data.apiUrl + '/location', {
                 headers: {
-                    'user': this.user_id
+                    'user': this.user_id,
+                    'all': true
                 }
             }).then(function (response) {
-                _this5.locations = response.data.locations.data;
+                console.log(response.data.locations);
+                _this5.locations = response.data.locations;
             }).catch(function (error) {
                 swal(error.response.data.message, '', 'error');
             });

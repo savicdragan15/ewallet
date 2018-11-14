@@ -242,11 +242,13 @@
             getLocations() {
                 axios.get(this.$root.$data.apiUrl + '/location', {
                     headers : {
-                        'user' : this.user_id
+                        'user': this.user_id,
+                        'all': true
                     }
                 })
                 .then((response) => {
-                    this.locations = response.data.locations.data;
+                    console.log(response.data.locations);
+                    this.locations = response.data.locations;
                 })
                 .catch((error) => {
                     swal(error.response.data.message, '', 'error');

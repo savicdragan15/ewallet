@@ -15,6 +15,10 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->hasHeader('all') && $request->header('all')) {
+            return response()->json(['locations' => Location::where('user_id', $request->header('user'))->orderBy('name')->get()]);
+        }
+
         return response()->json(['locations' => Location::where('user_id', $request->header('user'))->orderBy('name')->paginate(15)]);
     }
 
