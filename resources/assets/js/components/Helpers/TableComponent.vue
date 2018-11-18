@@ -5,7 +5,7 @@
             <th v-for="field in fields" v-bind:class="[field.classes ? field.classes : '']">{{ field.display_name }}</th>
         </tr>
         <tr v-for="(item, index) in items">
-            <td>{{ item.id }}</td>
+            <!--<td>{{ item.id }}</td>-->
             <td>{{ item.name }}</td>
             <td class="text-center">{{ item.wallet_type.name }}</td>
             <td class="text-center">{{ item.amount }} {{ currency }}</td>

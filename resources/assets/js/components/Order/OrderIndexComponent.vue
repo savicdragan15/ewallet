@@ -15,7 +15,7 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <th class="text-center">#</th>
+                                <!--<th class="text-center">#</th>-->
                                 <th>Order number</th>
                                 <th>Location</th>
                                 <th class="text-center">Amount</th>
@@ -24,7 +24,7 @@
                                 <!--<th class="text-center">Flag</th>-->
                             </tr>
                             <tr v-for="order in orders">
-                                <td class="text-center">{{ order.id }}</td>
+                                <!--<td class="text-center">{{ order.id }}</td>-->
                                 <td>{{ order.order_number }}</td>
                                 <td>
                                     <span v-if="order.location">{{ order.location.name }}</span>

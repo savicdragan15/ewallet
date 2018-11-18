@@ -48942,9 +48942,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             errors: [],
             paginationData: {},
-            fields: [{
-                display_name: 'ID'
-            }, {
+            fields: [
+            // {
+            //     display_name: 'ID',
+            // },
+            {
                 display_name: 'Name'
             }, {
                 display_name: 'Type',
@@ -49581,8 +49583,6 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.items, function(item, index) {
           return _c("tr", [
-            _c("td", [_vm._v(_vm._s(item.id))]),
-            _vm._v(" "),
             _c("td", [_vm._v(_vm._s(item.name))]),
             _vm._v(" "),
             _c("td", { staticClass: "text-center" }, [
@@ -50643,10 +50643,6 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.orders, function(order) {
                       return _c("tr", [
-                        _c("td", { staticClass: "text-center" }, [
-                          _vm._v(_vm._s(order.id))
-                        ]),
-                        _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(order.order_number))]),
                         _vm._v(" "),
                         _c("td", [
@@ -50941,8 +50937,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Order number")]),
       _vm._v(" "),
       _c("th", [_vm._v("Location")]),
@@ -51276,10 +51270,6 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.locations, function(location) {
                       return _c("tr", [
-                        _c("td", { staticClass: "text-center" }, [
-                          _vm._v(_vm._s(location.id))
-                        ]),
-                        _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(location.name))]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-center" }, [
@@ -51496,8 +51486,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
-      _vm._v(" "),
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
       _c("th", { staticClass: "text-center" }, [_vm._v("Lat")]),

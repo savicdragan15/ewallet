@@ -17,14 +17,14 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <th class="text-center">#</th>
+                            <!--<th class="text-center">#</th>-->
                             <th>Name</th>
                             <th class="text-center">Lat</th>
                             <th class="text-center">Lon</th>
                             <th class="text-center">Status</th>
                         </tr>
                         <tr v-for="location in locations">
-                            <td class="text-center">{{ location.id }}</td>
+                            <!--<td class="text-center">{{ location.id }}</td>-->
                             <td>{{ location.name }}</td>
                             <td class="text-center">{{ location.latitude }}</td>
                             <td class="text-center">{{ location.longitude }}</td>

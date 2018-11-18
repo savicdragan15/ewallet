@@ -120,9 +120,9 @@
                 errors: [],
                 paginationData: {},
                 fields: [
-                    {
-                        display_name: 'ID',
-                    },
+                    // {
+                    //     display_name: 'ID',
+                    // },
                     {
                         display_name: 'Name',
                     },
