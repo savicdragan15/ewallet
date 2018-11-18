@@ -5,6 +5,10 @@ namespace App\Http\Controllers\App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class OrderController
+ * @package App\Http\Controllers\App\Order
+ */
 class OrderController extends Controller
 {
     /**
@@ -14,5 +18,4 @@ class OrderController extends Controller
     {
         return view('app.order.order');
     }
-
 }

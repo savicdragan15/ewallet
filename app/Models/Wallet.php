@@ -49,12 +49,12 @@ class Wallet extends Model
      *
      * @var array
      */
-    protected $with = ['wallet_type'];
+    protected $with = ['walletType'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function wallet_type()
+    public function walletType()
     {
         return $this->hasOne('App\Models\WalletType', 'id', 'wallet_type_id');
     }

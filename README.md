@@ -3,3 +3,6 @@
 ### Installation
 * Composer install
 * @ToDo Write details
+
+### Code standard - PHP
+* PSR2

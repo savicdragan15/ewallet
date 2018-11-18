@@ -11,25 +11,31 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class OrderController
+ * @package App\Http\Controllers\Api\V1
+ */
 class OrderController extends Controller
 {
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        return response()->json([
+        return response()->json(
+            [
             'orders' => Order::where('user_id', $request->header('user'))
                         ->with('wallet', 'market', 'location')
                         ->orderBy('created_at', 'DESC')
                         ->paginate(15),
             'currency' => env('CURRENCY')
-        ]);
+            ]
+        );
     }
 
     /**
-     * @param StoreOrder $request
+     * @param  StoreOrder $request
      * @return JsonResponse
      */
     public function store(StoreOrder $request)
@@ -39,40 +45,44 @@ class OrderController extends Controller
             $ipStack = new IpStack();
             $location = $ipStack->callApi();
 
-            $order = Order::create([
-               'order_number' => 'rand',
-               'wallet_id' => $request->input('wallet_id'),
-               'user_id' => $request->input('user_id'),
-//               'market_id' => $request->input('market_id'),
-               'location_id' => $request->input('location_id'),
-               'amount' => $request->input('amount'),
-               'latitude' => $location->latitude,
-               'longitude' => $location->longitude,
-               'flag' => $location->location->country_flag,
-               'location' => json_encode($location),
-            ]);
+            $order = Order::create(
+                [
+                'order_number' => 'rand',
+                'wallet_id' => $request->input('wallet_id'),
+                'user_id' => $request->input('user_id'),
+                //               'market_id' => $request->input('market_id'),
+                'location_id' => $request->input('location_id'),
+                'amount' => $request->input('amount'),
+                'latitude' => $location->latitude,
+                'longitude' => $location->longitude,
+                'flag' => $location->location->country_flag,
+                'location' => json_encode($location),
+                ]
+            );
 
             $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');
             $order->save();
-
-        } catch(\Exception $e) {
-            return response()->json([
+        } catch (\Exception $e) {
+            return response()->json(
+                [
                 'success' => false,
                 'message' => 'Error during adding new order' . $e->getMessage(),
-            ], 400);
-
+                ],
+                400
+            );
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'success' =>  true,
             'message' => 'Successfully added new order',
             'data'    =>  $order
-        ]);
-
+            ]
+        );
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function show($id)
@@ -84,7 +94,7 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return void
      */
     public function update(Request $request, $id)
@@ -95,28 +105,29 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param  $id
      * @return JsonResponse
      */
     public function destroy($id)
     {
         try {
-
             $wallet = Wallet::findOrFail($id);
             $wallet->delete();
-
         } catch (\Exception $e) {
-
-            return response()->json([
+            return response()->json(
+                [
                 'success' => false,
                 'message' => 'Error during wallet delete!',
-            ], 400);
-
+                ],
+                400
+            );
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'success' => true,
             'message' => 'Successfully delete!',
-        ]);
+            ]
+        );
     }
 }

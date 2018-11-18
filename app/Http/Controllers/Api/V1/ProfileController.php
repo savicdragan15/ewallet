@@ -6,6 +6,10 @@ use App\User;
 use App\Http\Requests\Profile\UpdateProfile;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class ProfileController
+ * @package App\Http\Controllers\Api\V1
+ */
 class ProfileController extends Controller
 {
     /**
@@ -13,13 +17,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -30,32 +33,31 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProfile $request
-     * @param  int $id
+     * @param  UpdateProfile $request
+     * @param  int           $id
      * @return array
      */
     public function update(UpdateProfile $request, $id)
     {
         try {
-
             $user = User::findOrFail($id);
 
             $user->update($request->all());
-
         } catch (\Exception $e) {
-
-            return response()->json([
+            return response()->json(
+                [
                 'success' => false,
                 'message' => 'Error during User profile save!',
-            ], 400);
-
+                ],
+                400
+            );
         }
 
-        return response()->json([
-           'success' => true,
-           'message' => 'User profile successfully save!'
-        ]);
-
-
+        return response()->json(
+            [
+            'success' => true,
+            'message' => 'User profile successfully save!'
+            ]
+        );
     }
 }

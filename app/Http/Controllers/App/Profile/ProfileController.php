@@ -4,6 +4,10 @@ namespace App\Http\Controllers\App\Profile;
 
 use App\Http\Controllers\Controller;
 
+/**
+ * Class ProfileController
+ * @package App\Http\Controllers\App\Profile
+ */
 class ProfileController extends Controller
 {
     /**

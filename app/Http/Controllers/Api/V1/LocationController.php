@@ -1,5 +1,7 @@
 <?php
-
+/**
+ *
+ */
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Location\StoreLocation;
@@ -7,23 +9,34 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class LocationController
+ *
+ * @package App\Http\Controllers\Api\V1
+ */
 class LocationController extends Controller
 {
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
         if ($request->hasHeader('all') && $request->header('all')) {
-            return response()->json(['locations' => Location::where('user_id', $request->header('user'))->orderBy('name')->get()]);
+            return response()->json(
+                ['locations' => Location::where('user_id', $request->header('user'))
+                ->orderBy('name')->get()]
+            );
         }
 
-        return response()->json(['locations' => Location::where('user_id', $request->header('user'))->orderBy('name')->paginate(15)]);
+        return response()->json(
+            ['locations' => Location::where('user_id', $request->header('user'))->orderBy('name')
+            ->paginate(15)]
+        );
     }
 
     /**
-     * @param StoreLocation $request
+     * @param  StoreLocation $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreLocation $request)
@@ -31,20 +44,23 @@ class LocationController extends Controller
         try {
             $data = $request->all();
             $location = Location::create($data);
-
-        } catch(\Exception $e) {
-            return response()->json([
+        } catch (\Exception $e) {
+            return response()->json(
+                [
                 'success' => false,
                 'message' => 'Error during adding new location' . $e->getMessage(),
-            ], 400);
-
+                ],
+                400
+            );
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'success' =>  true,
             'message' => 'Successfully added new location',
             'data'    =>  $location
-        ]);
+            ]
+        );
     }
 
     /**
@@ -60,7 +76,7 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +87,7 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +98,8 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +110,7 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

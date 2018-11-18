@@ -80,6 +80,11 @@ class Order extends Model
         return $this->hasOne('App\Models\Market', 'id', 'market_id');
     }
 
+    /**
+     * Get location for order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function location()
     {
         return $this->hasOne('App\Models\Location', 'id', 'location_id');

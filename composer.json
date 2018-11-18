@@ -11,7 +11,8 @@
         "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "tcdent/php-restclient": "^0.1.7"
+        "tcdent/php-restclient": "^0.1.7",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.5",
@@ -19,7 +20,9 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^7.0",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "classmap": [

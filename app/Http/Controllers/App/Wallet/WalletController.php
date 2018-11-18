@@ -4,6 +4,10 @@ namespace App\Http\Controllers\App\Wallet;
 
 use App\Http\Controllers\Controller;
 
+/**
+ * Class WalletController
+ * @package App\Http\Controllers\App\Wallet
+ */
 class WalletController extends Controller
 {
     /**

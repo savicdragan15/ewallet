@@ -33,7 +33,8 @@ class IpStack
      */
     public function __construct()
     {
-        $this->ipAddress = !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+        $notEmpty = !empty($_SERVER['HTTP_X_FORWARDED_FOR']);
+        $this->ipAddress =  $notEmpty ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
     }
 
     /**
@@ -52,16 +53,14 @@ class IpStack
 
             $result = $api->get($this->ipAddress, ['access_key' => $this->apiAccessKey]);
 
-            if($result->info->http_code == 200) {
+            if ($result->info->http_code == 200) {
                 return $result->decode_response();
             } else {
                 throw new \Exception('Error call to Api Stack', $result->info->http_code);
             }
-
         } catch (\Exception $e) {
             Log::error($e);
         }
-
     }
 
     /**
