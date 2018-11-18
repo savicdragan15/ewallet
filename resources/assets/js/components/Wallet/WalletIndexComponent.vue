@@ -30,12 +30,6 @@
             </div>
 
             <div slot="body">
-                <!--<div class="box box-primary">-->
-                    <!--<div class="box-header with-border">-->
-                        <!--<h3 class="box-title">Quick Example</h3>-->
-                    <!--</div>-->
-                    <!-- /.box-header -->
-                    <!-- form start -->
                         <div class="box-body">
                             <div class="form-group" v-bind:class="[errors.name ? 'has-error' : '']">
                                 <label for="name">Name</label>
@@ -58,12 +52,9 @@
                                 <span class="help-block" v-if="errors.amount">{{ errors.amount[0]}}</span>
                             </div>
                         </div>
-                        <!-- /.box-body -->
-
                         <div class="box-footer">
                             <button class="btn btn-primary" v-on:click="store">Add</button>
                         </div>
-                <!--</div>-->
             </div>
 
             <div slot="footer">
