@@ -8,7 +8,6 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\StoreWallet;
 
-
 class WalletController extends Controller
 {
     /**
