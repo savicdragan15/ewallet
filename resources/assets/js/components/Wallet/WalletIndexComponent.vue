@@ -90,6 +90,7 @@
         },
         mounted() {
             this.getWallets();
+            this.currency = this.$root.$data.currency;
         },
         created() {
 
@@ -158,7 +159,7 @@
                     .then((response) => {
                         this.loading = false;
                         this.wallets = response.data.wallets.data;
-                        this.currency = response.data.currency;
+                        // this.currency = response.data.currency;
                         this.paginationData = response.data.wallets;
                     })
                     .catch((error) => {

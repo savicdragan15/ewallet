@@ -48917,6 +48917,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.getWallets();
+        this.currency = this.$root.$data.currency;
     },
     created: function created() {},
     data: function data() {
@@ -48977,7 +48978,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this.loading = false;
                 _this.wallets = response.data.wallets.data;
-                _this.currency = response.data.currency;
+                // this.currency = response.data.currency;
                 _this.paginationData = response.data.wallets;
             }).catch(function (error) {
                 _this.loading = false;
@@ -50091,8 +50092,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         lightboxComponent: __WEBPACK_IMPORTED_MODULE_3__Helpers_LightboxComponent___default.a
     },
     mounted: function mounted() {
-        this.getOrders();
+        this.currency = this.$root.$data.currency;
         this.order.user_id = this.user_id;
+        this.getOrders();
         this.updateFlag();
     },
     data: function data() {
@@ -50168,7 +50170,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this2.loading = false;
                 _this2.orders = response.data.orders.data;
-                _this2.currency = response.data.currency;
+                // this.currency = response.data.currency;
                 _this2.paginationData = response.data.orders;
             }).catch(function (error) {
                 _this2.loading = false;

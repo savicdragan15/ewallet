@@ -120,8 +120,9 @@
             lightboxComponent
         },
         mounted() {
-            this.getOrders();
+            this.currency = this.$root.$data.currency;
             this.order.user_id = this.user_id;
+            this.getOrders();
             this.updateFlag();
         },
         data() {
@@ -193,7 +194,7 @@
                 .then((response) => {
                     this.loading = false;
                     this.orders = response.data.orders.data;
-                    this.currency = response.data.currency;
+                    // this.currency = response.data.currency;
                     this.paginationData = response.data.orders;
                 })
                 .catch((error) => {
