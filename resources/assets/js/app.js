@@ -20,6 +20,7 @@ Vue.component('profile-component', require('./components/ProfileComponent.vue'))
 Vue.component('wallet-index-component', require('./components/Wallet/WalletIndexComponent'));
 Vue.component('order-index-component', require('./components/Order/OrderIndexComponent'));
 Vue.component('location-index-component', require('./components/Location/LocationIndexComponent'));
+Vue.component('dashboard-component', require('./components/Dashboard/DashboardComponent'));
 
 import Lightbox from 'vue-pure-lightbox'
 
