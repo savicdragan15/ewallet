@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
  *
  * @package App\Http\Controllers\Api\V1
  */
+
 class LocationController extends Controller
 {
     /**
