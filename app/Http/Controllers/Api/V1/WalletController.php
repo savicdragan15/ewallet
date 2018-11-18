@@ -8,10 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Wallet\StoreWallet;
 
-/**
- * Class WalletController
- * @package App\Http\Controllers\Api\V1
- */
+
 class WalletController extends Controller
 {
     /**
@@ -22,7 +19,7 @@ class WalletController extends Controller
     {
         return response()->json(
             [
-            'wallets' => Wallet::where('user_id', $request->header('user'))->with('wallet_type')
+            'wallets' => Wallet::where('user_id', $request->header('user'))->with('walletType')
                                 ->orderBy('name')->paginate(15),
             'currency' => env('CURRENCY')
             ]
