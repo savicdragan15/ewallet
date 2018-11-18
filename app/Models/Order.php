@@ -89,6 +89,4 @@ class Order extends Model
     {
         return $this->hasOne('App\Models\Location', 'id', 'location_id');
     }
-
-
 }

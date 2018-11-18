@@ -79,5 +79,4 @@ class IpStack
     {
         return $this->ipAddress;
     }
-
 }
