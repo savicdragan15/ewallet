@@ -49661,8 +49661,6 @@ var render = function() {
           "div",
           { staticClass: "box box-primary" },
           [
-            _vm._m(0),
-            _vm._v(" "),
             _c("div", { staticClass: "box-body" }, [
               _c(
                 "button",
@@ -49900,16 +49898,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Bordered Table")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -50626,8 +50615,6 @@ var render = function() {
           "div",
           { staticClass: "box box-primary" },
           [
-            _vm._m(0),
-            _vm._v(" "),
             _c("div", { staticClass: "box-body" }, [
               _c(
                 "button",
@@ -50649,7 +50636,7 @@ var render = function() {
                 _c(
                   "tbody",
                   [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _vm._l(_vm.orders, function(order) {
                       return _c("tr", [
@@ -50946,14 +50933,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Bordered Table")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -51267,8 +51246,6 @@ var render = function() {
           "div",
           { staticClass: "box box-primary" },
           [
-            _vm._m(0),
-            _vm._v(" "),
             _c("div", { staticClass: "box-body" }, [
               _c(
                 "button",
@@ -51290,7 +51267,7 @@ var render = function() {
                 _c(
                   "tbody",
                   [
-                    _vm._m(1),
+                    _vm._m(0),
                     _vm._v(" "),
                     _vm._l(_vm.locations, function(location) {
                       return _c("tr", [
@@ -51509,14 +51486,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Bordered Table")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
