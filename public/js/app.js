@@ -51225,7 +51225,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.modal.open();
         },
         onOpenModal: function onOpenModal() {},
-        onCloseModal: function onCloseModal() {}
+        onCloseModal: function onCloseModal() {
+            this.errors = [];
+        }
     }
 });
 

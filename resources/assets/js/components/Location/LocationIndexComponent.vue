@@ -159,7 +159,7 @@
 
             },
             onCloseModal() {
-
+                this.errors = [];
             }
         }
     }
