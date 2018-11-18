@@ -7,6 +7,7 @@ use App\Http\Services\IpStack;
 use App\Models\Order;
 use App\Models\Wallet;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -62,7 +63,7 @@ class OrderController extends Controller
 
             $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');
             $order->save();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                 'success' => false,
@@ -90,17 +91,17 @@ class OrderController extends Controller
         return response()->json(Wallet::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request $request
+//     * @param  int                      $id
+//     * @return void
+//     */
+//    public function update(Request $request, $id)
+//    {
+//        //
+//    }
 
     /**
      * Remove the specified resource from storage.
@@ -113,7 +114,7 @@ class OrderController extends Controller
         try {
             $wallet = Wallet::findOrFail($id);
             $wallet->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                 'success' => false,

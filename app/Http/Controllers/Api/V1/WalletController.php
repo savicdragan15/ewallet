@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Wallet;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,7 @@ class WalletController extends Controller
         try {
             $data = $request->all();
             $wallet = Wallet::create($data);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                 'success' => false,
@@ -67,17 +68,17 @@ class WalletController extends Controller
         return response()->json(Wallet::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request $request
+//     * @param  int                      $id
+//     * @return void
+//     */
+//    public function update(Request $request, $id)
+//    {
+//        //
+//    }
 
     /**
      * Remove the specified resource from storage.
@@ -90,7 +91,7 @@ class WalletController extends Controller
         try {
             $wallet = Wallet::findOrFail($id);
             $wallet->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(
                 [
                 'success' => false,

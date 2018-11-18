@@ -68,17 +68,17 @@ class MarketController extends Controller
         return response()->json(Wallet::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param  \Illuminate\Http\Request $request
+//     * @param  int                      $id
+//     * @return void
+//     */
+//    public function update(Request $request, $id)
+//    {
+//        //
+//    }
 
     /**
      * Remove the specified resource from storage.
