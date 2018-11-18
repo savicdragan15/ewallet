@@ -24,11 +24,9 @@
         </div>
 
             <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="myOpenFunc" :closed="onCloseModal">
-
             <div slot="title">
                 {{ modal.title }}
             </div>
-
             <div slot="body">
                         <div class="box-body">
                             <div class="form-group" v-bind:class="[errors.name ? 'has-error' : '']">
