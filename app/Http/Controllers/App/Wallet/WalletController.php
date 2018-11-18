@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\App\Wallet;
 
 use App\Http\Controllers\Controller;
-use App\Models\WalletType;
 
 class WalletController extends Controller
 {

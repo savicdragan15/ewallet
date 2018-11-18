@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Profile\UpdateProfile;
 use App\User;
+use App\Http\Requests\Profile\UpdateProfile;
 use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller

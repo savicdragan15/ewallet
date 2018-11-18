@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Order\StoreOrder;
-use App\Http\Requests\Wallet\StoreWallet;
 use App\Http\Services\IpStack;
 use App\Models\Order;
 use App\Models\Wallet;
