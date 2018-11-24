@@ -39,6 +39,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLatitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLongitude($value)
+ * @property int|null $location_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order user($userId)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocationId($value)
  */
 class Order extends Model
 {

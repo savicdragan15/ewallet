@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletType whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WalletType whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Wallet $walletType
  */
 class WalletType extends Model
 {

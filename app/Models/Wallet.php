@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet whereWalletTypeId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\WalletType $walletType
  */
 class Wallet extends Model
 {
