@@ -119,6 +119,12 @@ class Order extends Model
     |--------------------------------------------------------------------------
     */
 
+    /**
+     * Get nubmer of order by user id
+     *
+     * @param $userId
+     * @return mixed
+     */
     public function getNumberOfOrders($userId)
     {
         return $this->user($userId)->count();
