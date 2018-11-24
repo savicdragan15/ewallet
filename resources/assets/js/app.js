@@ -32,7 +32,8 @@ const app = new Vue({
     data() {
         return {
             apiUrl: 'api/v1',
-            currency: 'RSD'
+            currency: 'RSD',
+            userId: Laravel.user.id
         }
     }
 });

@@ -60,6 +60,12 @@ class Order extends Model
         'location',
     ];
 
+    /*
+   |--------------------------------------------------------------------------
+   | RELATIONS
+   |--------------------------------------------------------------------------
+   */
+
     /**
      * Get wallet for order
      *
@@ -89,4 +95,34 @@ class Order extends Model
     {
         return $this->hasOne('App\Models\Location', 'id', 'location_id');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Scope by user_id
+     *
+     * @param $query
+     * @param $userId
+     * @return mixed
+     */
+    public function scopeUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | METHODS
+    |--------------------------------------------------------------------------
+    */
+
+    public function getNumberOfOrders($userId)
+    {
+        return $this->user($userId)->count();
+    }
+
+
 }

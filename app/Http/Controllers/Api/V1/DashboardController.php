@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use Illuminate\Http\Request;
 
 /**
  * Class DashboardController
@@ -12,76 +13,32 @@ use App\Http\Controllers\Controller;
 class DashboardController extends Controller
 {
     /**
-     *
+     * @var Order
      */
-    public function index()
+    private $order;
+
+    /**
+     * DashboardController constructor.
+     * @param Order $order
+     */
+    public function __construct(Order $order)
     {
-        //
+        $this->order = $order;
     }
 
-//    /**
-//     * Show the form for creating a new resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function create()
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(Request $request)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param  int $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function show($id)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  int $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit($id)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request $request
-//     * @param  int                      $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function update(Request $request, $id)
-//    {
-//        //
-//    }
-//
-//    /**
-//     * Remove the specified resource from storage.
-//     *
-//     * @param  int $id
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function destroy($id)
-//    {
-//        //
-//    }
+    /**
+     * Get number of orders by user id
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getNumberOfOrders(Request $request)
+    {
+        return response()->json(
+            [
+            'numberOfOrders' => $this->order->getNumberOfOrders($request->header('user')),
+            'allOrdersUrl' => route('order')
+            ]
+        );
+    }
 }

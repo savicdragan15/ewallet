@@ -20,7 +20,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
     Route::resource('order', 'OrderController');
     Route::resource('markets', 'MarketController');
     Route::resource('location', 'LocationController');
+
+    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('getNumberOfOrders', 'DashboardController@getNumberOfOrders')->name('all_orders');
+    });
 });
-
-
-
