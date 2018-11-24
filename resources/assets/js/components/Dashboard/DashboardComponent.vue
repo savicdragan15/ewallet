@@ -1,4 +1,12 @@
 <template>
+
+<div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12 add-order-button">
+            <a href="/order" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-barcode "></i> Add new Order</a>
+        </div>
+    </div>
+
     <div class="row">
         <AllOrders></AllOrders>
         <!-- ./col -->
@@ -48,6 +56,7 @@
         </div>
         <!-- ./col -->
     </div>
+</div>
 </template>
 
 <script>
@@ -62,5 +71,7 @@
 </script>
 
 <style scoped>
-
+    .add-order-button {
+        margin-bottom: 15px;
+    }
 </style>
