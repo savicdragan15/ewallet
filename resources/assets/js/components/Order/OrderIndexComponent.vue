@@ -120,6 +120,17 @@
             lightboxComponent
         },
         mounted() {
+            var url_string = window.location.href; //window.location.href
+            var url = new URL(url_string);
+            var openModal = url.searchParams.get("openModal");
+            console.log(openModal)
+
+            if (openModal) {
+                this.modal.title = 'Add new order';
+                this.$refs.modal.$data.isOpen = true;
+                this.$refs.modal.$data.isShow = true;
+            }
+
             this.currency = this.$root.$data.currency;
             this.order.user_id = this.user_id;
             this.getOrders();

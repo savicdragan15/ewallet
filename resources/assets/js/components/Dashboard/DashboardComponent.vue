@@ -3,7 +3,7 @@
 <div>
     <div class="row">
         <div class="col-lg-3 col-xs-12 add-order-button">
-            <a href="/order" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-barcode "></i> Add new Order</a>
+            <a href="/order?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-barcode "></i> Add new Order</a>
         </div>
     </div>
 
