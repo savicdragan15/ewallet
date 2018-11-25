@@ -141,7 +141,7 @@ class Order extends Model
      */
     public function getSpentMoney($userId)
     {
-        return number_format($this->user($userId)->sum('amount'));
+        return number_format($this->user($userId)->sum('amount'), 0, ',', '.');
     }
 
 
