@@ -56771,7 +56771,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'user': this.$root.$data.userId
                 }
             }).then(function (response) {
-                _this.spentMoney = response.data + ' ' + _this.$root.$data.currency;
+                _this.spentMoney = response.data;
             }).catch(function (error) {
                 swal(error.response.data.message, '', 'error');
             });
@@ -56792,7 +56792,7 @@ var render = function() {
       _c("div", { staticClass: "inner" }, [
         _c("h3", { domProps: { innerHTML: _vm._s(_vm.spentMoney) } }),
         _vm._v(" "),
-        _c("p", [_vm._v("Spent money")])
+        _c("p", [_vm._v("Spent money in " + _vm._s(this.$root.$data.currency))])
       ]),
       _vm._v(" "),
       _vm._m(0),

@@ -5,7 +5,7 @@
             <div class="inner">
                 <h3 v-html="spentMoney"></h3>
 
-                <p>Spent money</p>
+                <p>Spent money in {{ this.$root.$data.currency}}</p>
             </div>
             <div class="icon">
                 <!--<i class="ion ion-stats-bars"></i>-->
@@ -35,7 +35,7 @@
                     }
                 })
                 .then((response) => {
-                    this.spentMoney = response.data + ' ' + this.$root.$data.currency;
+                    this.spentMoney = response.data;
                 })
                 .catch((error) => {
                     swal(error.response.data.message, '', 'error');
