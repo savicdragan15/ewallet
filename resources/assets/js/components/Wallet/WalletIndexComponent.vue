@@ -193,6 +193,9 @@
                 this.$refs.modal.open();
             },
             myOpenFunc() {
+                if (this.wallet_types.length) {
+                    return false;
+                }
                 axios.get(this.$root.$data.apiUrl + '/walletType')
                     .then((response) => {
                         console.log(response.data.wallet_types);

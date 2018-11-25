@@ -35,6 +35,13 @@ const app = new Vue({
             currency: 'RSD',
             userId: Laravel.user.id
         }
+    },
+    methods: {
+        getUrlParam(key) {
+            console.log(key);
+            let url = new URL(window.location.href);
+            return url.searchParams.get(key);
+        }
     }
 });
 

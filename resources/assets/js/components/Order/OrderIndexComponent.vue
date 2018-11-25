@@ -120,15 +120,8 @@
             lightboxComponent
         },
         mounted() {
-            var url_string = window.location.href; //window.location.href
-            var url = new URL(url_string);
-            var openModal = url.searchParams.get("openModal");
-            console.log(openModal)
-
-            if (openModal) {
-                this.modal.title = 'Add new order';
-                this.$refs.modal.$data.isOpen = true;
-                this.$refs.modal.$data.isShow = true;
+            if (this.$root.getUrlParam('openModal')) {
+                this.openModal();
             }
 
             this.currency = this.$root.$data.currency;
@@ -171,7 +164,6 @@
                 })
             },
             store() {
-              console.log('store');
                 this.order.user_id = this.user_id;
                 axios.post(this.$root.$data.apiUrl + '/order',  this.order)
                     .then((response) => {
@@ -205,7 +197,6 @@
                 .then((response) => {
                     this.loading = false;
                     this.orders = response.data.orders.data;
-                    // this.currency = response.data.currency;
                     this.paginationData = response.data.orders;
                 })
                 .catch((error) => {
@@ -219,13 +210,15 @@
             },
             onOpenModal() {
                 this.getWallets();
-                this.getMarkets();
                 this.getLocations();
             },
             onCloseModal() {
                 this.errors = [];
             },
             getWallets() {
+                if (this.wallets.length) {
+                    return false;
+                }
                 axios.get(this.$root.$data.apiUrl + '/wallet', {
                     headers : {
                         'user' : this.user_id
@@ -238,20 +231,10 @@
                     swal(error.response.data.message, '', 'error');
                 });
             },
-            getMarkets() {
-                axios.get(this.$root.$data.apiUrl + '/markets', {
-                    headers : {
-                        'user' : this.user_id
-                    }
-                })
-                .then((response) => {
-                    this.markets = response.data.markets.data;
-                })
-                .catch((error) => {
-                    swal(error.response.data.message, '', 'error');
-                });
-            },
             getLocations() {
+                if (this.locations.length) {
+                    return false;
+                }
                 axios.get(this.$root.$data.apiUrl + '/location', {
                     headers : {
                         'user': this.user_id,
@@ -259,7 +242,6 @@
                     }
                 })
                 .then((response) => {
-                    console.log(response.data.locations);
                     this.locations = response.data.locations;
                 })
                 .catch((error) => {

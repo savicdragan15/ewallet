@@ -15078,6 +15078,14 @@ var app = new Vue({
             currency: 'RSD',
             userId: Laravel.user.id
         };
+    },
+
+    methods: {
+        getUrlParam: function getUrlParam(key) {
+            console.log(key);
+            var url = new URL(window.location.href);
+            return url.searchParams.get(key);
+        }
     }
 });
 
@@ -49016,6 +49024,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         myOpenFunc: function myOpenFunc() {
             var _this3 = this;
 
+            if (this.wallet_types.length) {
+                return false;
+            }
             axios.get(this.$root.$data.apiUrl + '/walletType').then(function (response) {
                 console.log(response.data.wallet_types);
                 _this3.wallet_types = response.data.wallet_types;
@@ -50083,15 +50094,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         lightboxComponent: __WEBPACK_IMPORTED_MODULE_3__Helpers_LightboxComponent___default.a
     },
     mounted: function mounted() {
-        var url_string = window.location.href; //window.location.href
-        var url = new URL(url_string);
-        var openModal = url.searchParams.get("openModal");
-        console.log(openModal);
-
-        if (openModal) {
-            this.modal.title = 'Add new order';
-            this.$refs.modal.$data.isOpen = true;
-            this.$refs.modal.$data.isShow = true;
+        if (this.$root.getUrlParam('openModal')) {
+            this.openModal();
         }
 
         this.currency = this.$root.$data.currency;
@@ -50137,7 +50141,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         store: function store() {
             var _this = this;
 
-            console.log('store');
             this.order.user_id = this.user_id;
             axios.post(this.$root.$data.apiUrl + '/order', this.order).then(function (response) {
                 _this.errors = [];
@@ -50172,7 +50175,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 _this2.loading = false;
                 _this2.orders = response.data.orders.data;
-                // this.currency = response.data.currency;
                 _this2.paginationData = response.data.orders;
             }).catch(function (error) {
                 _this2.loading = false;
@@ -50185,7 +50187,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         onOpenModal: function onOpenModal() {
             this.getWallets();
-            this.getMarkets();
             this.getLocations();
         },
         onCloseModal: function onCloseModal() {
@@ -50194,6 +50195,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getWallets: function getWallets() {
             var _this3 = this;
 
+            if (this.wallets.length) {
+                return false;
+            }
             axios.get(this.$root.$data.apiUrl + '/wallet', {
                 headers: {
                     'user': this.user_id
@@ -50204,30 +50208,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 swal(error.response.data.message, '', 'error');
             });
         },
-        getMarkets: function getMarkets() {
+        getLocations: function getLocations() {
             var _this4 = this;
 
-            axios.get(this.$root.$data.apiUrl + '/markets', {
-                headers: {
-                    'user': this.user_id
-                }
-            }).then(function (response) {
-                _this4.markets = response.data.markets.data;
-            }).catch(function (error) {
-                swal(error.response.data.message, '', 'error');
-            });
-        },
-        getLocations: function getLocations() {
-            var _this5 = this;
-
+            if (this.locations.length) {
+                return false;
+            }
             axios.get(this.$root.$data.apiUrl + '/location', {
                 headers: {
                     'user': this.user_id,
                     'all': true
                 }
             }).then(function (response) {
-                console.log(response.data.locations);
-                _this5.locations = response.data.locations;
+                _this4.locations = response.data.locations;
             }).catch(function (error) {
                 swal(error.response.data.message, '', 'error');
             });
