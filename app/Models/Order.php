@@ -123,7 +123,7 @@ class Order extends Model
     */
 
     /**
-     * Get nubmer of order by user id
+     * Get number of order for user
      *
      * @param $userId
      * @return mixed
@@ -131,6 +131,17 @@ class Order extends Model
     public function getNumberOfOrders($userId)
     {
         return $this->user($userId)->count();
+    }
+
+    /**
+     * Get spent money for user
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getSpentMoney($userId)
+    {
+        return number_format($this->user($userId)->sum('amount'));
     }
 
 

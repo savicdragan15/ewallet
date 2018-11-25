@@ -27,7 +27,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Get number of orders by user id
+     * Get number of orders for user
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -40,5 +40,16 @@ class DashboardController extends Controller
             'allOrdersUrl' => route('order')
             ]
         );
+    }
+
+    /**
+     * Get spent money for user
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSpentMoney(Request $request)
+    {
+        return response()->json($this->order->getSpentMoney($request->header('user')));
     }
 }

@@ -35,7 +35,6 @@
                     }
                 })
                 .then((response) => {
-                    console.log(response);
                     this.numberOfOrders = response.data.numberOfOrders;
                     this.allOrdersUrl = response.data.allOrdersUrl;
                 })
