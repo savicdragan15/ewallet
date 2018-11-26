@@ -17,32 +17,7 @@
 
     export default {
         name: "AllOrdersComponent",
-        data() {
-            return {
-                loading: true,
-                numberOfOrders: '<i class="fa fa-refresh fa-spin"></i>',
-                allOrdersUrl: null
-            }
-        },
-        mounted() {
-          this.getNumberOfOrders();
-        },
-        methods: {
-            getNumberOfOrders() {
-                axios.get(this.$root.$data.apiUrl + '/dashboard/getNumberOfOrders', {
-                    headers : {
-                        'user' : this.$root.$data.userId
-                    }
-                })
-                .then((response) => {
-                    this.numberOfOrders = response.data.numberOfOrders;
-                    this.allOrdersUrl = response.data.allOrdersUrl;
-                })
-                .catch((error) => {
-                    swal(error.response.data.message, '', 'error');
-                });
-            }
-        }
+        props: ['numberOfOrders', 'allOrdersUrl']
     }
 </script>
 

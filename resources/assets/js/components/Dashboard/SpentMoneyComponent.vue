@@ -5,7 +5,7 @@
             <div class="inner">
                 <h3 v-html="spentMoney"></h3>
 
-                <p>Spent money in {{ this.$root.$data.currency}}</p>
+                <p>Spent money in {{ currency }}</p>
             </div>
             <div class="icon">
                 <!--<i class="ion ion-stats-bars"></i>-->
@@ -19,29 +19,7 @@
 <script>
     export default {
         name: "SpentMoneyComponent",
-        data() {
-            return {
-                spentMoney: '<i class="fa fa-refresh fa-spin"></i>',
-            }
-        },
-        mounted() {
-            this.getSpentMoney();
-        },
-        methods: {
-            getSpentMoney() {
-                axios.get(this.$root.$data.apiUrl + '/dashboard/getSpentMoney', {
-                    headers : {
-                        'user' : this.$root.$data.userId
-                    }
-                })
-                .then((response) => {
-                    this.spentMoney = response.data;
-                })
-                .catch((error) => {
-                    swal(error.response.data.message, '', 'error');
-                });
-            }
-        }
+        props: ['spentMoney', 'currency']
     }
 </script>
 

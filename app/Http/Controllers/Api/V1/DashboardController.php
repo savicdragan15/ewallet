@@ -4,26 +4,26 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\User;
 use Illuminate\Http\Request;
 
 /**
  * Class DashboardController
+ * @property User user
+ * @property Order order
  * @package App\Http\Controllers\Api\V1
  */
 class DashboardController extends Controller
 {
-    /**
-     * @var Order
-     */
-    private $order;
 
     /**
      * DashboardController constructor.
      * @param Order $order
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order, User $user)
     {
         $this->order = $order;
+        $this->user = $user;
     }
 
     /**
@@ -34,9 +34,11 @@ class DashboardController extends Controller
      */
     public function getNumberOfOrders(Request $request)
     {
+        $user = $this->user->findOrFail($request->header('user'));
+
         return response()->json(
             [
-            'numberOfOrders' => $this->order->getNumberOfOrders($request->header('user')),
+            'numberOfOrders' => $this->order->getNumberOfOrders($user),
             'allOrdersUrl' => route('order')
             ]
         );
@@ -50,6 +52,8 @@ class DashboardController extends Controller
      */
     public function getSpentMoney(Request $request)
     {
-        return response()->json($this->order->getSpentMoney($request->header('user')));
+        $user = $this->user->findOrFail($request->header('user'));
+
+        return response()->json($this->order->getSpentMoney($user));
     }
 }

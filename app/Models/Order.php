@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -123,25 +124,25 @@ class Order extends Model
     */
 
     /**
-     * Get number of order for user
+     * Get number order for user
      *
-     * @param $userId
-     * @return mixed
+     * @param User $user
+     * @return int
      */
-    public function getNumberOfOrders($userId)
+    public function getNumberOfOrders(User $user)
     {
-        return $this->user($userId)->count();
+        return $this->user($user->id)->count();
     }
 
     /**
      * Get spent money for user
      *
-     * @param $userId
-     * @return mixed
+     * @param User $user
+     * @return string
      */
-    public function getSpentMoney($userId)
+    public function getSpentMoney(User $user)
     {
-        return number_format($this->user($userId)->sum('amount'), 0, ',', '.');
+        return number_format($this->user($user->id)->sum('amount'), 0, ',', '.');
     }
 
 

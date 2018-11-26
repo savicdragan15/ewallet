@@ -8,40 +8,8 @@
     </div>
 
     <div class="row">
-        <AllOrders></AllOrders>
-
-        <SpentMoney></SpentMoney>
-        <!--&lt;!&ndash; ./col &ndash;&gt;-->
-        <!--<div class="col-lg-3 col-xs-6">-->
-            <!--&lt;!&ndash; small box &ndash;&gt;-->
-            <!--<div class="small-box bg-yellow">-->
-                <!--<div class="inner">-->
-                    <!--<h3>44</h3>-->
-
-                    <!--<p>User Registrations</p>-->
-                <!--</div>-->
-                <!--<div class="icon">-->
-                    <!--<i class="ion ion-person-add"></i>-->
-                <!--</div>-->
-                <!--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; ./col &ndash;&gt;-->
-        <!--<div class="col-lg-3 col-xs-6">-->
-            <!--&lt;!&ndash; small box &ndash;&gt;-->
-            <!--<div class="small-box bg-red">-->
-                <!--<div class="inner">-->
-                    <!--<h3>65</h3>-->
-
-                    <!--<p>Unique Visitors</p>-->
-                <!--</div>-->
-                <!--<div class="icon">-->
-                    <!--<i class="ion ion-pie-graph"></i>-->
-                <!--</div>-->
-                <!--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; ./col &ndash;&gt;-->
+        <AllOrders :numberOfOrders="allOrders.numberOfOrders" :all-orders-url="allOrders.allOrdersUrl"></AllOrders>
+        <SpentMoney :spent-money="spentMoney.spentMoney" :currency="spentMoney.currency"></SpentMoney>
     </div>
 </div>
 </template>
@@ -55,6 +23,51 @@
         components: {
             AllOrders,
             SpentMoney
+        },
+        data() {
+            return {
+                allOrders: {
+                    numberOfOrders: '<i class="fa fa-refresh fa-spin"></i>',
+                    allOrdersUrl: null
+                },
+                spentMoney: {
+                    spentMoney: '<i class="fa fa-refresh fa-spin"></i>',
+                    currency:  this.$root.$data.currency
+                }
+            }
+        },
+        mounted() {
+            this.getNumberOfOrders();
+            this.getSpentMoney();
+        },
+        methods: {
+            getNumberOfOrders() {
+                axios.get(this.$root.$data.apiUrl + '/dashboard/getNumberOfOrders', {
+                    headers : {
+                        'user' : this.$root.$data.userId
+                    }
+                })
+                .then((response) => {
+                    this.allOrders.numberOfOrders = response.data.numberOfOrders;
+                    this.allOrders.allOrdersUrl = response.data.allOrdersUrl;
+                })
+                .catch((error) => {
+                    swal(error.response.data.message, '', 'error');
+                });
+            },
+            getSpentMoney() {
+                axios.get(this.$root.$data.apiUrl + '/dashboard/getSpentMoney', {
+                    headers : {
+                        'user' : this.$root.$data.userId
+                    }
+                })
+                .then((response) => {
+                    this.spentMoney.spentMoney = response.data;
+                })
+                .catch((error) => {
+                    swal(error.response.data.message, '', 'error');
+                });
+            }
         }
     }
 </script>
