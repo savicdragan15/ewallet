@@ -144,6 +144,4 @@ class Order extends Model
     {
         return number_format($this->user($user->id)->sum('amount'), 0, ',', '.');
     }
-
-
 }
