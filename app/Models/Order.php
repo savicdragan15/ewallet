@@ -117,11 +117,36 @@ class Order extends Model
         return $query->where('user_id', $userId);
     }
 
+    /**
+     * Scope current month
+     *
+     * @param $query
+     * @param $column
+     * @return mixed
+     */
+    public function scopeCurrentMonth($query, $column)
+    {
+        return $query->whereRaw('MONTH('.$column.') = ?', [date('m')]);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | METHODS
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * Get number of orders for current month
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function getNumberOfOrdersCurrentMonth(User $user)
+    {
+        return $this->user($user->id)
+            ->currentMonth('created_at')
+            ->count();
+    }
 
     /**
      * Get number order for user
@@ -143,7 +168,7 @@ class Order extends Model
     public function getSpentMoneyCurrentMonth(User $user)
     {
         return number_format($this->user($user->id)
-            ->whereRaw('MONTH(created_at) = ?', [date('m')])
+            ->currentMonth('created_at')
             ->sum('amount'), 0, ',', '.');
     }
 

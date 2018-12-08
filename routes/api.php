@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
     Route::resource('location', 'LocationController');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
+        Route::get('getNumberOfOrdersCurrentMonth', 'DashboardController@getNumberOfOrdersCurrentMonth')
+            ->name('all_orders_current_month');
         Route::get('getNumberOfOrders', 'DashboardController@getNumberOfOrders')->name('all_orders');
         Route::get('getSpentMoneyCurrentMonth', 'DashboardController@getSpentMoneyCurrentMonth')
             ->name('get_spent_money_current_month');

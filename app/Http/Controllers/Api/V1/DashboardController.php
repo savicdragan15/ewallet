@@ -35,6 +35,16 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function getNumberOfOrdersCurrentMonth()
+    {
+        return response()->json($this->order->getNumberOfOrdersCurrentMonth($this->user));
+    }
+
+    /**
+     * Return number of orders for user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getNumberOfOrders()
     {
         return response()->json(

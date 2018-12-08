@@ -12,8 +12,9 @@
 
     <div class="row">
         <AllOrders :numberOfOrders="allOrders.numberOfOrders" :all-orders-url="allOrders.allOrdersUrl"></AllOrders>
-        <SpentMoneyCurrentMonth :spent-money="spentMoneyCurrentMonth.spentMoney" :currency="spentMoneyCurrentMonth.currency"></SpentMoneyCurrentMonth>
+        <OrdersCurrentMonth :numberOfOrders="ordersCurrentMonth.numberOfOrders"></OrdersCurrentMonth>
         <SpentMoney :spent-money="spentMoney.spentMoney" :currency="spentMoney.currency"></SpentMoney>
+        <SpentMoneyCurrentMonth :spent-money="spentMoneyCurrentMonth.spentMoney" :currency="spentMoneyCurrentMonth.currency"></SpentMoneyCurrentMonth>
     </div>
     <div class="row">
         <LatestOrders :orders="latestOrders.data" :currency="latestOrders.currency" :loading="latestOrders.loading"></LatestOrders>
@@ -23,6 +24,7 @@
 
 <script>
 import AllOrders from "./AllOrdersComponent";
+import OrdersCurrentMonth from "./OrdersCurrentMonthComponent";
 import SpentMoney from "./SpentMoneyComponent";
 import LatestOrders from "./LatestOrdersComponent";
 import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
@@ -31,6 +33,7 @@ export default {
     name: "DashboardComponent",
     components: {
         AllOrders,
+        OrdersCurrentMonth,
         SpentMoney,
         LatestOrders,
         SpentMoneyCurrentMonth
@@ -40,6 +43,9 @@ export default {
             allOrders: {
                 numberOfOrders: '<i class="fa fa-refresh fa-spin"></i>',
                 allOrdersUrl: null
+            },
+            ordersCurrentMonth: {
+                numberOfOrders: '<i class="fa fa-refresh fa-spin"></i>',
             },
             spentMoneyCurrentMonth: {
                 spentMoney: '<i class="fa fa-refresh fa-spin"></i>',
@@ -57,12 +63,28 @@ export default {
         };
     },
     mounted() {
+        this.getNumberOfOrdersCurrentMonth();
         this.getNumberOfOrders();
         this.getSpentMoneyCurrentMonth();
         this.getSpentMoney();
         this.getLatestOrders();
     },
     methods: {
+        getNumberOfOrdersCurrentMonth() {
+            axios
+                .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrdersCurrentMonth", {
+                    headers: {
+                        user: this.$root.$data.userId
+                    }
+                })
+                .then(response => {
+                    this.ordersCurrentMonth.numberOfOrders =
+                        response.data;
+                })
+                .catch(error => {
+                    swal(error.response.data.message, "", "error");
+                });
+        },
         getNumberOfOrders() {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrders", {
