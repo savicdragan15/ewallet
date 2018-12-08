@@ -144,4 +144,16 @@ class Order extends Model
     {
         return number_format($this->user($user->id)->sum('amount'), 0, ',', '.');
     }
+
+    /**
+     * Get latest orders for user
+     *
+     * @param User $user
+     * @param int $limit
+     * @return Order[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getLatestOrders(User $user, $limit = 10)
+    {
+        return $this->user($user->id)->with('location')->orderByDesc('created_at')->limit($limit)->get();
+    }
 }

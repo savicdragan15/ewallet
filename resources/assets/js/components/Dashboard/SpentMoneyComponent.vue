@@ -17,12 +17,11 @@
 </template>
 
 <script>
-    export default {
-        name: "SpentMoneyComponent",
-        props: ['spentMoney', 'currency']
-    }
+export default {
+    name: "SpentMoneyComponent",
+    props: ["spentMoney", "currency"]
+};
 </script>
 
 <style scoped>
-
 </style>

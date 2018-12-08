@@ -23,11 +23,10 @@
 </template>
 
 <script>
-    import pagination from 'laravel-vue-pagination';
+import pagination from "laravel-vue-pagination";
 
-    export default {
-        name: "Pagintaion",
-        extends: pagination,
-    }
+export default {
+    name: "Pagintaion",
+    extends: pagination
+};
 </script>
-

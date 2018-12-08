@@ -14,13 +14,11 @@
 </template>
 
 <script>
-
-    export default {
-        name: "AllOrdersComponent",
-        props: ['numberOfOrders', 'allOrdersUrl']
-    }
+export default {
+    name: "AllOrdersComponent",
+    props: ["numberOfOrders", "allOrdersUrl"]
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -95,55 +95,58 @@
 </template>
 
 <script>
-    import swal from 'sweetalert';
+import swal from "sweetalert";
 
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
-        created() {
-            this.user = Laravel.user;
-        },
-        data() {
-            return {
-                loading: false,
-                new_avatar: null,
-                user : {
-                    id: null,
-                    avatar: null,
-                    name: null,
-                    email: null,
-                    gender: null,
-                },
-                errors: [],
-            }
-        },
-        methods: {
-            update() {
-                this.loading = true;
-                axios.post(this.$root.$data.apiUrl + '/profile/' + this.user.id + '?_method=PATCH', this.user)
-                    .then((response) => {
-                        this.loading = false;
-                        this.errors = [];
-                        swal(response.data.message, '', 'success');
+export default {
+    mounted() {
+        console.log("Component mounted.");
+    },
+    created() {
+        this.user = Laravel.user;
+    },
+    data() {
+        return {
+            loading: false,
+            new_avatar: null,
+            user: {
+                id: null,
+                avatar: null,
+                name: null,
+                email: null,
+                gender: null
+            },
+            errors: []
+        };
+    },
+    methods: {
+        update() {
+            this.loading = true;
+            axios
+                .post(
+                    this.$root.$data.apiUrl +
+                        "/profile/" +
+                        this.user.id +
+                        "?_method=PATCH",
+                    this.user
+                )
+                .then(response => {
+                    this.loading = false;
+                    this.errors = [];
+                    swal(response.data.message, "", "success");
+                })
+                .catch(error => {
+                    this.loading = false;
+                    this.errors = [];
 
-                    })
-                    .catch((error) => {
-                        this.loading = false;
-                        this.errors = [];
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
 
-                        if (error.response.status === 422) {
-                            this.errors = error.response.data.errors;
-                        }
-
-                        if (error.response.status === 400) {
-                            swal(response.data.message, '', 'error');
-                        }
-
-                    });
-            }
+                    if (error.response.status === 400) {
+                        swal(response.data.message, "", "error");
+                    }
+                });
         }
-
     }
+};
 </script>
-

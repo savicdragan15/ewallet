@@ -24,22 +24,19 @@
 </template>
 
 <script>
-    export default {
-        name: "TableComponent",
-        props: ['fields', 'items', 'statuses', 'currency'],
-        methods: {
-            destroy(index) {
-                this.$parent.destroy(index);
-            }
-        },
-        data() {
-            return {
-
-            }
+export default {
+    name: "TableComponent",
+    props: ["fields", "items", "statuses", "currency"],
+    methods: {
+        destroy(index) {
+            this.$parent.destroy(index);
         }
+    },
+    data() {
+        return {};
     }
+};
 </script>
 
 <style scoped>
-
 </style>

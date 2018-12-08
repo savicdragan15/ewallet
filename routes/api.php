@@ -24,5 +24,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('getNumberOfOrders', 'DashboardController@getNumberOfOrders')->name('all_orders');
         Route::get('getSpentMoney', 'DashboardController@getSpentMoney')->name('get_spent_money');
+        Route::get('getLatestOrders', 'DashboardController@getLatestOrders')->name('get_latest_orders');
     });
 });

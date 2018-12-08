@@ -106,148 +106,152 @@
 </template>
 
 <script>
-    import  pagination from '../Helpers/Pagintaion';
-    import  loading from '../Helpers/LoadingComponent';
-    import  bootstrapModal from 'vue2-bootstrap-modal';
-    import  lightboxComponent from '../Helpers/LightboxComponent'
+import pagination from "../Helpers/Pagintaion";
+import loading from "../Helpers/LoadingComponent";
+import bootstrapModal from "vue2-bootstrap-modal";
+import lightboxComponent from "../Helpers/LightboxComponent";
 
-    export default {
-        name: "OrderIndexComponent",
-        components: {
-            pagination,
-            loading,
-            bootstrapModal,
-            lightboxComponent
+export default {
+    name: "OrderIndexComponent",
+    components: {
+        pagination,
+        loading,
+        bootstrapModal,
+        lightboxComponent
+    },
+    mounted() {
+        if (this.$root.getUrlParam("openModal")) {
+            this.openModal();
+        }
+
+        this.currency = this.$root.$data.currency;
+        this.order.user_id = this.user_id;
+        this.getOrders();
+        this.updateFlag();
+    },
+    data() {
+        return {
+            loading: false,
+            user_id: Laravel.user.id,
+            modal: {
+                title: null
+            },
+            currency: null,
+            wallets: [],
+            markets: [],
+            locations: [],
+            orders: [],
+            order: {
+                id: null,
+                order_number: null,
+                wallet_id: null,
+                market_id: null,
+                user_id: null,
+                location_id: null,
+                address: null,
+                amount: null,
+                flag: null
+            },
+            errors: [],
+            paginationData: {}
+        };
+    },
+    methods: {
+        updateFlag: function() {
+            this.flag = "updated";
+            this.$nextTick(function() {
+                this.$el.textContent; // => 'updated'
+            });
         },
-        mounted() {
-            if (this.$root.getUrlParam('openModal')) {
-                this.openModal();
-            }
-
-            this.currency = this.$root.$data.currency;
+        store() {
             this.order.user_id = this.user_id;
-            this.getOrders();
-            this.updateFlag();
-        },
-        data() {
-            return {
-                loading : false,
-                user_id : Laravel.user.id,
-                modal: {
-                    title: null,
-                },
-                currency : null,
-                wallets : [],
-                markets : [],
-                locations : [],
-                orders : [],
-                order : {
-                    id : null,
-                    order_number : null,
-                    wallet_id : null,
-                    market_id : null,
-                    user_id : null,
-                    location_id : null,
-                    address : null,
-                    amount : null,
-                    flag : null,
-                },
-                errors: [],
-                paginationData: {},
-            }
-        },
-        methods: {
-            updateFlag: function () {
-                this.flag = 'updated'
-                this.$nextTick(function () {
-                    this.$el.textContent // => 'updated'
+            axios
+                .post(this.$root.$data.apiUrl + "/order", this.order)
+                .then(response => {
+                    this.errors = [];
+                    this.order = {};
+                    this.order.wallet_id = null;
+                    this.order.market_id = null;
+                    this.order.location_id = null;
+                    this.getOrders(this.paginationData.current_page);
+                    this.$refs.modal.close();
+                    swal(response.data.message, "", "success");
                 })
-            },
-            store() {
-                this.order.user_id = this.user_id;
-                axios.post(this.$root.$data.apiUrl + '/order',  this.order)
-                    .then((response) => {
-                        this.errors = [];
-                        this.order = {};
-                        this.order.wallet_id = null;
-                        this.order.market_id= null;
-                        this.order.location_id= null;
-                        this.getOrders(this.paginationData.current_page);
-                        this.$refs.modal.close();
-                        swal(response.data.message, '', 'success');
-                    })
-                    .catch((error) => {
-                        if (error.response.status === 422) {
-                            this.errors = error.response.data.errors;
-                        }
+                .catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
 
-                        if (error.response.status === 400) {
-                            swal(error.response.data.message, '', 'error');
-                        }
-                    });
-            },
-            getOrders(page = 1) {
-                this.loading = true;
+                    if (error.response.status === 400) {
+                        swal(error.response.data.message, "", "error");
+                    }
+                });
+        },
+        getOrders(page = 1) {
+            this.loading = true;
 
-                axios.get(this.$root.$data.apiUrl + '/order?page=' + page, {
-                    headers : {
-                        'user' : this.user_id
+            axios
+                .get(this.$root.$data.apiUrl + "/order?page=" + page, {
+                    headers: {
+                        user: this.user_id
                     }
                 })
-                .then((response) => {
+                .then(response => {
                     this.loading = false;
                     this.orders = response.data.orders.data;
                     this.paginationData = response.data.orders;
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.loading = false;
-                    swal(error.response.data.message, '', 'error');
+                    swal(error.response.data.message, "", "error");
                 });
-            },
-            openModal() {
-                this.modal.title = 'Add new order';
-                this.$refs.modal.open();
-            },
-            onOpenModal() {
-                this.getWallets();
-                this.getLocations();
-            },
-            onCloseModal() {
-                this.errors = [];
-            },
-            getWallets() {
-                if (this.wallets.length) {
-                    return false;
-                }
-                axios.get(this.$root.$data.apiUrl + '/wallet', {
-                    headers : {
-                        'user' : this.user_id
+        },
+        openModal() {
+            this.modal.title = "Add new order";
+            this.$refs.modal.open();
+        },
+        onOpenModal() {
+            this.getWallets();
+            this.getLocations();
+        },
+        onCloseModal() {
+            this.errors = [];
+        },
+        getWallets() {
+            if (this.wallets.length) {
+                return false;
+            }
+            axios
+                .get(this.$root.$data.apiUrl + "/wallet", {
+                    headers: {
+                        user: this.user_id
                     }
                 })
-                .then((response) => {
+                .then(response => {
                     this.wallets = response.data.wallets.data;
                 })
-                .catch((error) => {
-                    swal(error.response.data.message, '', 'error');
+                .catch(error => {
+                    swal(error.response.data.message, "", "error");
                 });
-            },
-            getLocations() {
-                if (this.locations.length) {
-                    return false;
-                }
-                axios.get(this.$root.$data.apiUrl + '/location', {
-                    headers : {
-                        'user': this.user_id,
-                        'all': true
+        },
+        getLocations() {
+            if (this.locations.length) {
+                return false;
+            }
+            axios
+                .get(this.$root.$data.apiUrl + "/location", {
+                    headers: {
+                        user: this.user_id,
+                        all: true
                     }
                 })
-                .then((response) => {
+                .then(response => {
                     this.locations = response.data.locations;
                 })
-                .catch((error) => {
-                    swal(error.response.data.message, '', 'error');
+                .catch(error => {
+                    swal(error.response.data.message, "", "error");
                 });
-            }
         }
     }
+};
 </script>

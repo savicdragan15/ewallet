@@ -5,12 +5,11 @@
 </template>
 
 <script>
-    export default {
-        name: "LoadingComponent",
-        props: ['loading']
-    }
+export default {
+    name: "LoadingComponent",
+    props: ["loading"]
+};
 </script>
 
 <style scoped>
-
 </style>

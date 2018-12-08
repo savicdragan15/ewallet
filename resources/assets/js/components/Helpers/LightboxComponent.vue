@@ -36,175 +36,171 @@
 </template>
 
 <script>
-    export default {
-        name: "LightboxComponent",
-        extends: Lightbox,
-        props: [
-            'thumbnail',
-            'images',
-            'alternateText',
-        ],
-        data() {
-            return {
-                visible: false,
-                index: 0,
-                displayImage: true,
+export default {
+    name: "LightboxComponent",
+    extends: Lightbox,
+    props: ["thumbnail", "images", "alternateText"],
+    data() {
+        return {
+            visible: false,
+            index: 0,
+            displayImage: true
+        };
+    },
+    methods: {
+        show() {
+            this.visible = true;
+            this.index = 0;
+        },
+        hide() {
+            this.visible = false;
+            this.index = 0;
+        },
+        has_next() {
+            return this.index + 1 < this.images.length;
+        },
+        has_prev() {
+            return this.index - 1 >= 0;
+        },
+        prev() {
+            if (this.has_prev()) {
+                this.index -= 1;
+                this.tick();
             }
         },
-        methods: {
-            show() {
-                this.visible = true
-                this.index = 0
-            },
-            hide() {
-                this.visible = false
-                this.index = 0
-            },
-            has_next() {
-                return (this.index + 1 < this.images.length)
-            },
-            has_prev() {
-                return (this.index - 1 >= 0)
-            },
-            prev() {
-                if (this.has_prev()) {
-                    this.index -= 1
-                    this.tick()
-                }
-            },
-            next() {
-                if (this.has_next()) {
-                    this.index += 1
-                    this.tick()
-                }
-            },
-            tick() {
-                if (!this.$slots.loader) {
-                    return
-                }
-
-                this.displayImage = false
-
-                Vue.nextTick(() => {
-                    this.displayImage = true
-                })
-            },
-            eventListener(e) {
-                if (this.visible) {
-                    switch (e.key) {
-                        case 'ArrowRight':
-                            this.next()
-                            break
-                        case 'ArrowLeft':
-                            this.prev()
-                            break
-                        case 'ArrowDown':
-                        case 'ArrowUp':
-                        case ' ':
-                            e.preventDefault()
-                            break
-                        case 'Escape':
-                            this.hide()
-                            break
-                    }
-                }
-            },
+        next() {
+            if (this.has_next()) {
+                this.index += 1;
+                this.tick();
+            }
         },
+        tick() {
+            if (!this.$slots.loader) {
+                return;
+            }
+
+            this.displayImage = false;
+
+            Vue.nextTick(() => {
+                this.displayImage = true;
+            });
+        },
+        eventListener(e) {
+            if (this.visible) {
+                switch (e.key) {
+                    case "ArrowRight":
+                        this.next();
+                        break;
+                    case "ArrowLeft":
+                        this.prev();
+                        break;
+                    case "ArrowDown":
+                    case "ArrowUp":
+                    case " ":
+                        e.preventDefault();
+                        break;
+                    case "Escape":
+                        this.hide();
+                        break;
+                }
+            }
+        }
     }
+};
 </script>
 
 <style>
-    .lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, .8);
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100000;
-    }
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+}
 
-    .lightbox__thumbnail {
-        width: 100%;
-        height: 100%;
-    }
+.lightbox__thumbnail {
+    width: 100%;
+    height: 100%;
+}
 
-    .lightbox__thumbnail img {
-        width: 20px;
-    }
+.lightbox__thumbnail img {
+    width: 20px;
+}
 
-    .lightbox__close {
-        position: fixed;
-        right: 0;
-        top: 0;
-        padding: 1rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: #fff;
-        width: 4rem;
-        height: 4rem;
-    }
+.lightbox__close {
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #fff;
+    width: 4rem;
+    height: 4rem;
+}
 
-    .lightbox__arrow--invisible {
-        visibility: hidden;
-    }
+.lightbox__arrow--invisible {
+    visibility: hidden;
+}
 
+.lightbox__element {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+}
+
+.lightbox__arrow {
+    padding: 0 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox__arrow svg {
+    fill: #fff;
+    pointer-events: none;
+}
+
+.lightbox__image {
+    flex: 1;
+}
+
+.lightbox__image img {
+    width: 50%;
+    height: auto !important;
+}
+
+@media screen and (max-width: 720px) {
+    .lightbox__arrow {
+        padding: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
     .lightbox__element {
-        display: flex;
-        width: 100%;
-        height: fit-content;
+        position: relative;
     }
 
     .lightbox__arrow {
+        position: absolute;
         padding: 0 2rem;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 100%;
     }
 
-    .lightbox__arrow svg {
-        fill: #fff;
-        pointer-events: none;
+    .lightbox__arrow--right {
+        right: 0;
+        background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3));
     }
 
-    .lightbox__image {
-        flex: 1;
+    .lightbox__arrow--left {
+        left: 0;
+        background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.3));
     }
-
-    .lightbox__image img {
-        width: 50%;
-        height: auto !important;
-    }
-
-    @media screen and (max-width: 720px) {
-        .lightbox__arrow {
-            padding: 0 1rem;
-        }
-    }
-
-    @media screen and (max-width: 500px) {
-        .lightbox__element {
-            position: relative;
-        }
-
-        .lightbox__arrow {
-            position: absolute;
-            padding: 0 2rem;
-            height: 100%;
-        }
-
-        .lightbox__arrow--right {
-            right: 0;
-            background: linear-gradient(to right, transparent, rgba(0, 0, 0, .3));
-        }
-
-        .lightbox__arrow--left {
-            left: 0;
-            background: linear-gradient(to left, transparent, rgba(0, 0, 0, .3));
-        }
-    }
+}
 </style>

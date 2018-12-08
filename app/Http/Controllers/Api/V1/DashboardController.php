@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * Class DashboardController
+ *
  * @property User user
  * @property Order order
  * @package App\Http\Controllers\Api\V1
@@ -18,42 +19,49 @@ class DashboardController extends Controller
 
     /**
      * DashboardController constructor.
+     *
      * @param Order $order
+     * @param User $user
+     * @param Request $request
      */
-    public function __construct(Order $order, User $user)
+    public function __construct(Order $order, User $user, Request $request)
     {
         $this->order = $order;
-        $this->user = $user;
+        $this->user = $user->findOrFail($request->header('user'));
     }
 
     /**
-     * Get number of orders for user
+     * Return number of orders for user
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getNumberOfOrders(Request $request)
+    public function getNumberOfOrders()
     {
-        $user = $this->user->findOrFail($request->header('user'));
-
         return response()->json(
             [
-            'numberOfOrders' => $this->order->getNumberOfOrders($user),
+            'numberOfOrders' => $this->order->getNumberOfOrders($this->user),
             'allOrdersUrl' => route('order')
             ]
         );
     }
 
     /**
-     * Get spent money for user
+     * Return spent money for user
      *
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getSpentMoney(Request $request)
+    public function getSpentMoney()
     {
-        $user = $this->user->findOrFail($request->header('user'));
+        return response()->json($this->order->getSpentMoney($this->user));
+    }
 
-        return response()->json($this->order->getSpentMoney($user));
+    /**
+     * Return latest orders for user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getLatestOrders()
+    {
+        return response()->json($this->order->getLatestOrders($this->user));
     }
 }

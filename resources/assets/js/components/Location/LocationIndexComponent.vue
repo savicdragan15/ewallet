@@ -33,6 +33,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 <loading :loading="loading"></loading>
                 <div class="box-footer clearfix text-center">
                     <pagination :data="paginationData" @pagination-change-page="getLocations"></pagination>
@@ -85,86 +86,89 @@
 </template>
 
 <script>
-    import  pagination from '../Helpers/Pagintaion';
-    import  loading from '../Helpers/LoadingComponent';
-    import  bootstrapModal from 'vue2-bootstrap-modal';
+import pagination from "../Helpers/Pagintaion";
+import loading from "../Helpers/LoadingComponent";
+import bootstrapModal from "vue2-bootstrap-modal";
 
-    export default {
-        name: "LocationIndexComponent",
-        components: {
-            pagination,
-            loading,
-            bootstrapModal
-        },
-        mounted() {
-            this.getLocations();
-        },
-        data() {
-            return {
-                loading: false,
-                user_id: Laravel.user.id,
-                modal: {
-                    title: null,
-                },
-                location: {},
-                locations: [],
-                errors: [],
-                paginationData: {},
-            }
-        },
-        methods: {
-            store() {
-                this.location.user_id = this.user_id;
-                axios.post(this.$root.$data.apiUrl + '/location',  this.location)
-                    .then((response) => {
-                        this.errors = [];
-                        this.location = {};
-                        this.getLocations(this.paginationData.current_page);
-                        this.$refs.modal.close();
-                        swal(response.data.message, '', 'success');
-                    })
-                    .catch((error) => {
-                        if (error.response.status === 422) {
-                            this.errors = error.response.data.errors;
-                        }
+export default {
+    name: "LocationIndexComponent",
+    components: {
+        pagination,
+        loading,
+        bootstrapModal
+    },
+    mounted() {
+        if (this.$root.getUrlParam('openModal')) {
+            this.openModal();
+        }
 
-                        if (error.response.status === 400) {
-                            swal(error.response.data.message, '', 'error');
-                        }
-                    });
+        this.getLocations();
+    },
+    data() {
+        return {
+            loading: false,
+            user_id: Laravel.user.id,
+            modal: {
+                title: null
             },
-            getLocations(page = 1) {
-                this.loading = true;
+            location: {},
+            locations: [],
+            errors: [],
+            paginationData: {}
+        };
+    },
+    methods: {
+        store() {
+            this.location.user_id = this.user_id;
+            axios
+                .post(this.$root.$data.apiUrl + "/location", this.location)
+                .then(response => {
+                    this.errors = [];
+                    this.location = {};
+                    this.getLocations(this.paginationData.current_page);
+                    this.$refs.modal.close();
+                    swal(response.data.message, "", "success");
+                })
+                .catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
 
-                axios.get(this.$root.$data.apiUrl + '/location?page=' + page, {
-                    headers : {
-                        'user' : this.user_id
+                    if (error.response.status === 400) {
+                        swal(error.response.data.message, "", "error");
+                    }
+                });
+        },
+        getLocations(page = 1) {
+            this.loading = true;
+
+            axios
+                .get(this.$root.$data.apiUrl + "/location?page=" + page, {
+                    headers: {
+                        user: this.user_id
                     }
                 })
-                .then((response) => {
+                .then(response => {
                     this.loading = false;
                     this.locations = response.data.locations.data;
                     this.paginationData = response.data.locations;
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.loading = false;
-                    swal(error.response.data.message, '', 'error');
+                    swal(error.response.data.message, "", "error");
                 });
-            },
-            openModal() {
-                this.modal.title = 'Add new order';
-                this.$refs.modal.open();
-            },
-            onOpenModal() {
-
-            },
-            onCloseModal() {
-                this.errors = [];
-            }
+        },
+        openModal() {
+            this.modal.title = "Add new location";
+            this.$refs.modal.open();
+        },
+        onOpenModal() {},
+        onCloseModal() {
+            this.errors = [];
         }
     }
+};
 </script>
 
 <style scoped>
-
 </style>
