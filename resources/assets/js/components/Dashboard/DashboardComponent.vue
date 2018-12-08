@@ -12,6 +12,7 @@
 
     <div class="row">
         <AllOrders :numberOfOrders="allOrders.numberOfOrders" :all-orders-url="allOrders.allOrdersUrl"></AllOrders>
+        <SpentMoneyCurrentMonth :spent-money="spentMoneyCurrentMonth.spentMoney" :currency="spentMoneyCurrentMonth.currency"></SpentMoneyCurrentMonth>
         <SpentMoney :spent-money="spentMoney.spentMoney" :currency="spentMoney.currency"></SpentMoney>
     </div>
     <div class="row">
@@ -24,19 +25,25 @@
 import AllOrders from "./AllOrdersComponent";
 import SpentMoney from "./SpentMoneyComponent";
 import LatestOrders from "./LatestOrdersComponent";
+import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
 
 export default {
     name: "DashboardComponent",
     components: {
         AllOrders,
         SpentMoney,
-        LatestOrders
+        LatestOrders,
+        SpentMoneyCurrentMonth
     },
     data() {
         return {
             allOrders: {
                 numberOfOrders: '<i class="fa fa-refresh fa-spin"></i>',
                 allOrdersUrl: null
+            },
+            spentMoneyCurrentMonth: {
+                spentMoney: '<i class="fa fa-refresh fa-spin"></i>',
+                currency: this.$root.$data.currency
             },
             spentMoney: {
                 spentMoney: '<i class="fa fa-refresh fa-spin"></i>',
@@ -51,6 +58,7 @@ export default {
     },
     mounted() {
         this.getNumberOfOrders();
+        this.getSpentMoneyCurrentMonth();
         this.getSpentMoney();
         this.getLatestOrders();
     },
@@ -66,6 +74,20 @@ export default {
                     this.allOrders.numberOfOrders =
                         response.data.numberOfOrders;
                     this.allOrders.allOrdersUrl = response.data.allOrdersUrl;
+                })
+                .catch(error => {
+                    swal(error.response.data.message, "", "error");
+                });
+        },
+        getSpentMoneyCurrentMonth() {
+            axios
+                .get(this.$root.$data.apiUrl + "/dashboard/getSpentMoneyCurrentMonth", {
+                    headers: {
+                        user: this.$root.$data.userId
+                    }
+                })
+                .then(response => {
+                    this.spentMoneyCurrentMonth.spentMoney = response.data;
                 })
                 .catch(error => {
                     swal(error.response.data.message, "", "error");

@@ -27,7 +27,7 @@ class DashboardController extends Controller
     public function __construct(Order $order, User $user, Request $request)
     {
         $this->order = $order;
-        $this->user = $user->findOrFail($request->header('user'));
+        $this->user = $user->find($request->header('user'));
     }
 
     /**
@@ -43,6 +43,16 @@ class DashboardController extends Controller
             'allOrdersUrl' => route('order')
             ]
         );
+    }
+
+    /**
+     * Return spent money for user in current month
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSpentMoneyCurrentMonth()
+    {
+        return response()->json($this->order->getSpentMoneyCurrentMonth($this->user));
     }
 
     /**

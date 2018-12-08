@@ -135,6 +135,19 @@ class Order extends Model
     }
 
     /**
+     * Get spent money for user in current month
+     *
+     * @param User $user
+     * @return string
+     */
+    public function getSpentMoneyCurrentMonth(User $user)
+    {
+        return number_format($this->user($user->id)
+            ->whereRaw('MONTH(created_at) = ?', [date('m')])
+            ->sum('amount'), 0, ',', '.');
+    }
+
+    /**
      * Get spent money for user
      *
      * @param User $user
