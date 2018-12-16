@@ -54,8 +54,6 @@
             </div>
         </div>
 
-        <editModal></editModal>
-
         <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="onOpenModal" :closed="onCloseModal">
 
             <div slot="title">
@@ -72,17 +70,6 @@
                 </div>
 
                 <div class="box-body">
-                    <div class="form-group" v-bind:class="[errors.category_id ? 'has-error' : '']">
-                        <label>Select category *</label>
-                        <select class="form-control" v-model="order.category_id">
-                            <option value="">Select category</option>
-                            <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
-                        </select>
-                        <span class="help-block" v-if="errors.category_id">{{ errors.category_id[0]}}</span>
-                    </div>
-                </div>
-
-                <div class="box-body">
                     <div class="form-group" v-bind:class="[errors.wallet_id ? 'has-error' : '']">
                         <label>Select wallet *</label>
                         <select class="form-control" v-model="order.wallet_id">
@@ -90,6 +77,17 @@
                             <option v-for="wallet in wallets" v-bind:value="wallet.id">{{ wallet.name }} ({{ wallet.wallet_type.name }})</option>
                         </select>
                         <span class="help-block" v-if="errors.wallet_id">{{ errors.wallet_id[0]}}</span>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="form-group" v-bind:class="[errors.category_id ? 'has-error' : '']">
+                        <label>Select category *</label>
+                        <select class="form-control" v-model="order.category_id">
+                            <option value="">Select category</option>
+                            <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}</option>
+                        </select>
+                        <span class="help-block" v-if="errors.category_id">{{ errors.category_id[0]}}</span>
                     </div>
                 </div>
 
@@ -124,7 +122,6 @@ import pagination from "../Helpers/Pagintaion";
 import loading from "../Helpers/LoadingComponent";
 import bootstrapModal from "vue2-bootstrap-modal";
 import lightboxComponent from "../Helpers/LightboxComponent";
-import editModal from "../Order/EditModalComponent";
 
 export default {
     name: "OrderIndexComponent",
@@ -133,7 +130,6 @@ export default {
         loading,
         bootstrapModal,
         lightboxComponent,
-        editModal
     },
     mounted() {
         if (this.$root.getUrlParam("openModal")) {
