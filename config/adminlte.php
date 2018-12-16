@@ -129,18 +129,23 @@ return [
         ],
         [
             'text' => 'Wallets',
-            'url'  => 'wallet',
+            'url'  => 'wallets',
             'icon' => 'money',
         ],
         [
             'text' => 'Locations',
-            'url'  => 'location',
+            'url'  => 'locations',
             'icon' => 'map',
         ],
         [
+            'text' => 'Categories',
+            'url'  => 'categories',
+            'icon' => 'list',
+        ],
+        [
             'text' => 'Orders',
-            'url'  => 'order',
-            'icon' => 'barcode',
+            'url'  => 'orders',
+            'icon' => 'inbox',
         ],
 //        [
 //            'text'    => 'Wallets',

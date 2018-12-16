@@ -8,7 +8,7 @@
             <div class="icon">
                 <i class="ion ion-bag"></i>
             </div>
-            <a v-bind:href="allOrdersUrl" class="small-box-footer">View all Orders <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a v-bind:href="allOrdersUrl" class="small-box-footer">View all Orders <i class="fa fa-arrow-circle-right"></i></a>-->
         </div>
     </div>
 </template>

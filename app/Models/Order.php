@@ -43,6 +43,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $location_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order user($userId)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocationId($value)
+ * @property int|null $category_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order currentMonth($column)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCategoryId($value)
  */
 class Order extends Model
 {
@@ -55,6 +58,7 @@ class Order extends Model
         'order_number',
         'wallet_id',
         'user_id',
+        'category_id',
         'market_id',
         'location_id',
         'amount',
@@ -98,6 +102,16 @@ class Order extends Model
     public function location()
     {
         return $this->hasOne('App\Models\Location', 'id', 'location_id');
+    }
+
+    /**
+     * Get category for order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function category()
+    {
+        return $this->hasOne('App\Models\Category', 'id', 'category_id');
     }
 
     /*

@@ -67,4 +67,6 @@
     <!-- EOF ShortMethodName ruleset -->
 
     <rule ref="rulesets/unusedcode.xml"/>
+
+    <exclude-pattern>Kernel.php</exclude-pattern>
 </ruleset>

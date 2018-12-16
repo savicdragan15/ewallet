@@ -15,11 +15,12 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], function () {
     Route::resource('profile', 'ProfileController');
-    Route::resource('wallet', 'WalletController');
+    Route::resource('wallets', 'WalletController');
     Route::resource('walletType', 'WalletTypeController');
-    Route::resource('order', 'OrderController');
+    Route::resource('orders', 'OrderController');
     Route::resource('markets', 'MarketController');
-    Route::resource('location', 'LocationController');
+    Route::resource('locations', 'LocationController');
+    Route::resource('categories', 'CategoryController');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('getNumberOfOrdersCurrentMonth', 'DashboardController@getNumberOfOrdersCurrentMonth')

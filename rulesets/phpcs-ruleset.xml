@@ -21,9 +21,9 @@
         </properties>
     </rule>
 
-    <rule ref="PEAR.Commenting.ClassComment.Missing">
-        <type>error</type>
-    </rule>
+    <!--<rule ref="PEAR.Commenting.ClassComment.Missing">-->
+        <!--<type>error</type>-->
+    <!--</rule>-->
 
     <rule ref="PEAR.Commenting.FunctionComment.Missing">
         <type>error</type>

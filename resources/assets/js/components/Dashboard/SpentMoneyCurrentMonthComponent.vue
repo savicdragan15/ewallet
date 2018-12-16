@@ -10,7 +10,7 @@
             <div class="icon">
                 <i class="fa fa-money"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>-->
         </div>
     </div>
 </template>

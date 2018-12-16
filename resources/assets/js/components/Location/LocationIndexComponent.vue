@@ -7,8 +7,8 @@
                     <!--<h3 class="box-title">Bordered Table</h3>-->
                 <!--</div>-->
                 <div class="box-body">
-                    <button type="button" class="btn btn-primary" v-on:click="openModal">
-                        Add new location
+                    <button type="button" class="btn btn-sm btn-primary" v-on:click="openModal">
+                        <i class="fa fa-fw fa-plus"></i> Add new location
                     </button>
                 </div>
 
@@ -121,7 +121,7 @@ export default {
         store() {
             this.location.user_id = this.user_id;
             axios
-                .post(this.$root.$data.apiUrl + "/location", this.location)
+                .post(this.$root.$data.apiUrl + "/locations", this.location)
                 .then(response => {
                     this.errors = [];
                     this.location = {};
@@ -143,7 +143,7 @@ export default {
             this.loading = true;
 
             axios
-                .get(this.$root.$data.apiUrl + "/location?page=" + page, {
+                .get(this.$root.$data.apiUrl + "/locations?page=" + page, {
                     headers: {
                         user: this.user_id
                     }

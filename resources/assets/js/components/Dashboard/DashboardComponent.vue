@@ -2,11 +2,17 @@
 
 <div>
     <div class="row">
-        <div class="col-lg-3 col-xs-12 add-order-button">
-            <a href="/order?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-barcode "></i> Add new Order</a>
+        <div class="col-lg-3 col-xs-6 add-order-button">
+            <a href="/orders?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-inbox "></i> Add new Order</a>
         </div>
-        <div class="col-lg-3 col-xs-12 add-order-button">
-            <a href="/location?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-map "></i> Add new Location</a>
+        <div class="col-lg-3 col-xs-6 add-order-button">
+            <a href="/locations?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-map "></i> Add new Location</a>
+        </div>
+        <div class="col-lg-3 col-xs-6 add-order-button">
+            <a href="/categories?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-list "></i> Add new Category</a>
+        </div>
+        <div class="col-lg-3 col-xs-6 add-order-button">
+            <a href="/wallets?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-money "></i> Add new Wallet</a>
         </div>
     </div>
 

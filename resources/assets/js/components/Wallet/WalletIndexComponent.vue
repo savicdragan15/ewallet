@@ -7,8 +7,8 @@
                 <!--</div>-->
 
                 <div class="box-body">
-                    <button type="button" class="btn btn-primary" v-on:click="addWallet">
-                        Add new wallet
+                    <button type="button" class="btn btn-sm btn-primary" v-on:click="addWallet">
+                        <i class="fa fa-fw fa-plus"></i> Add new wallet
                     </button>
                 </div>
                 <!-- /.box-header -->
@@ -139,7 +139,7 @@ export default {
             this.loading = true;
 
             axios
-                .get(this.$root.$data.apiUrl + "/wallet?page=" + page, {
+                .get(this.$root.$data.apiUrl + "/wallets?page=" + page, {
                     headers: {
                         user: this.user_id
                     }
@@ -170,7 +170,7 @@ export default {
                     axios
                         .post(
                             this.$root.$data.apiUrl +
-                                "/wallet/" +
+                                "/wallets/" +
                                 currentWallet.id +
                                 "?_method=DELETE"
                         )
@@ -216,7 +216,7 @@ export default {
         store() {
             this.wallet.user_id = this.user_id;
             axios
-                .post(this.$root.$data.apiUrl + "/wallet", this.wallet)
+                .post(this.$root.$data.apiUrl + "/wallets", this.wallet)
                 .then(response => {
                     this.errors = [];
                     this.wallet = {};

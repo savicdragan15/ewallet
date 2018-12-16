@@ -51,7 +51,6 @@ const app = new Vue({
     },
     methods: {
         getUrlParam(key) {
-            console.log(key);
             let url = new URL(window.location.href);
             return url.searchParams.get(key);
         }

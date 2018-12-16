@@ -10,17 +10,17 @@
 
                     <p class="text-muted text-center">{{ user.email }}</p>
 
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Followers</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Following</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Friends</b> <a class="pull-right">13,287</a>
-                        </li>
-                    </ul>
+                    <!--<ul class="list-group list-group-unbordered">-->
+                        <!--<li class="list-group-item">-->
+                            <!--<b>Followers</b> <a class="pull-right">1,322</a>-->
+                        <!--</li>-->
+                        <!--<li class="list-group-item">-->
+                            <!--<b>Following</b> <a class="pull-right">543</a>-->
+                        <!--</li>-->
+                        <!--<li class="list-group-item">-->
+                            <!--<b>Friends</b> <a class="pull-right">13,287</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
                     <div class="overlay" v-if="loading">
                         <i class="fa fa-refresh fa-spin"></i>
                     </div>
@@ -81,7 +81,9 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="button" class="btn btn-danger" v-on:click="update">Submit</button>
+                                <button type="button" class="btn btn-danger btn-sm" v-on:click="update">
+                                    <i class="fa fa-fw fa-save"></i> Save
+                                </button>
                             </div>
                         </div>
                     </div>
