@@ -17,7 +17,7 @@ class AddLatLonToOrdersTable extends Migration
             $table->string('latitude')->nullable()->after('amount');
             $table->string('longitude')->nullable()->after('latitude');
             $table->string('flag')->nullable()->after('longitude');
-            $table->text('location')->nullable()->after('flag');
+            $table->text('location_info')->nullable()->after('flag');
         });
     }
 
@@ -33,7 +33,7 @@ class AddLatLonToOrdersTable extends Migration
                 'latitude',
                 'longitude',
                 'flag',
-                'location',
+                'location_info',
             ]);
         });
     }

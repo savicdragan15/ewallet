@@ -65,7 +65,7 @@ class Order extends Model
         'latitude',
         'longitude',
         'flag',
-        'location',
+        'location_info',
     ];
 
     /*

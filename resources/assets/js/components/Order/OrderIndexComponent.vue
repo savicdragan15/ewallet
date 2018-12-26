@@ -92,15 +92,23 @@
                 </div>
 
                 <div class="box-body">
-                    <div class="form-group" v-bind:class="[errors.location_id ? 'has-error' : '']">
+                    <div class="form-group"  v-bind:class="[errors.location ? 'has-error' : '']">
                         <label>Select location *</label>
-                        <select class="form-control" v-model="order.location_id">
-                            <option value="">Select location</option>
-                            <option v-for="location in locations" v-bind:value="location.id">{{ location.name }}</option>
-                        </select>
-                        <span class="help-block" v-if="errors.location_id">{{ errors.location_id[0]}}</span>
+                        <vSelect placeholder="Select location" label="name" v-model="order.location" maxHeight="200px" :options="locations"></vSelect>
+                        <span class="help-block" v-if="errors.location">{{ errors.location[0]}}</span>
                     </div>
                 </div>
+
+                <!--<div class="box-body">-->
+                    <!--<div class="form-group" v-bind:class="[errors.location_id ? 'has-error' : '']">-->
+                        <!--<label>Select location *</label>-->
+                        <!--<select class="form-control" v-model="order.location_id">-->
+                            <!--<option value="">Select location</option>-->
+                            <!--<option v-for="location in locations" v-bind:value="location.id">{{ location.name }}</option>-->
+                        <!--</select>-->
+                        <!--<span class="help-block" v-if="errors.location_id">{{ errors.location_id[0]}}</span>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="box-footer">
                     <button class="btn btn-primary btn-sm"  v-if="!editMode" v-on:click="store">
                         <i class="fa fa-fw fa-plus"></i> Add
@@ -114,6 +122,7 @@
                 Your footer here
             </div>
         </bootstrapModal>
+
     </div>
 </template>
 
@@ -122,6 +131,7 @@ import pagination from "../Helpers/Pagintaion";
 import loading from "../Helpers/LoadingComponent";
 import bootstrapModal from "vue2-bootstrap-modal";
 import lightboxComponent from "../Helpers/LightboxComponent";
+import vSelect from 'vue-select';
 
 export default {
     name: "OrderIndexComponent",
@@ -130,6 +140,7 @@ export default {
         loading,
         bootstrapModal,
         lightboxComponent,
+        vSelect
     },
     mounted() {
         if (this.$root.getUrlParam("openModal")) {

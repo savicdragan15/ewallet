@@ -52,12 +52,12 @@ class OrderController extends Controller
                 'wallet_id' => $request->input('wallet_id'),
                 'category_id' => $request->input('category_id'),
                 'user_id' => $request->input('user_id'),
-                'location_id' => $request->input('location_id'),
+                'location_id' => $request->input('location')['id'],
                 'amount' => $request->input('amount'),
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
                 'flag' => $location->location->country_flag,
-                'location' => json_encode($location),
+                'location_info' => json_encode($location),
                 ]
             );
 
@@ -83,11 +83,12 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Order $order
+     * @param $id
      * @return JsonResponse
      */
-    public function show(Order $order)
+    public function show($id)
     {
+        $order = Order::with('location')->where('id', '=', $id)->first();
         return response()->json($order);
     }
 
@@ -99,7 +100,8 @@ class OrderController extends Controller
     public function update(UpdateOrder $request, Order $order)
     {
         try {
-            $order->update($request->all());
+            $order->location_id = $request->input('location')['id'];
+            $order->update($request->except('location_id'));
         } catch (\Exception $e) {
             return response()->json(
                 [
