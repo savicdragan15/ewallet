@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    {{ Session::get('jwt') }}
     <dashboard-component></dashboard-component>
 @stop
 

@@ -36,12 +36,20 @@ Vue.component(
 );
 
 import Lightbox from "vue-pure-lightbox";
-
-window.Vue.use(Lightbox);
-window.Vue.use(require("vue-moment"));
+import VueSession from 'vue-session'
+Vue.use(VueSession);
+Vue.use(Lightbox);
+Vue.use(require("vue-moment"));
 
 const app = new Vue({
     el: "#app",
+    beforeMount() {
+        if (typeof this.getCookie('token') !== 'undefined') {
+            console.log('token set in local storage');
+            localStorage.setItem('jwt-token', this.getCookie('token'));
+            this.deleteCookie('token');
+        }
+    },
     data() {
         return {
             apiUrl: "api/v1",
@@ -53,6 +61,14 @@ const app = new Vue({
         getUrlParam(key) {
             let url = new URL(window.location.href);
             return url.searchParams.get(key);
+        },
+        getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        },
+        deleteCookie( name ) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         }
     }
 });

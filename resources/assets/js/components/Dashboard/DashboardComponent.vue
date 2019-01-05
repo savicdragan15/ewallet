@@ -80,7 +80,8 @@ export default {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrdersCurrentMonth", {
                     headers: {
-                        user: this.$root.$data.userId
+                        user: this.$root.$data.userId,
+                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
                     }
                 })
                 .then(response => {
@@ -95,7 +96,8 @@ export default {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrders", {
                     headers: {
-                        user: this.$root.$data.userId
+                        user: this.$root.$data.userId,
+                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
                     }
                 })
                 .then(response => {
@@ -111,7 +113,8 @@ export default {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getSpentMoneyCurrentMonth", {
                     headers: {
-                        user: this.$root.$data.userId
+                        user: this.$root.$data.userId,
+                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
                     }
                 })
                 .then(response => {
@@ -125,7 +128,8 @@ export default {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getSpentMoney", {
                     headers: {
-                        user: this.$root.$data.userId
+                        user: this.$root.$data.userId,
+                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
                     }
                 })
                 .then(response => {
@@ -140,7 +144,8 @@ export default {
             axios
                 .get(this.$root.$data.apiUrl + "/dashboard/getLatestOrders", {
                     headers: {
-                        user: this.$root.$data.userId
+                        user: this.$root.$data.userId,
+                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
                     }
                 })
                 .then(response => {
