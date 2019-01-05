@@ -69,16 +69,6 @@
                             </div>
                         </div>
 
-                        <!--<div class="form-group">-->
-                            <!--<label for="avatar" class="col-sm-2 control-label">Avatar</label>-->
-
-                            <!--<div class="col-sm-10">-->
-                                <!--<input type="file" id="avatar" ref="file" accept="image/*" v-on:change="setAvatar">-->
-                                <!--<p class="help-block">Change avatar</p>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
-
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="button" class="btn btn-danger btn-sm" v-on:click="update">
