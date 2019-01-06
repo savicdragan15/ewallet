@@ -34,6 +34,7 @@ import OrdersCurrentMonth from "./OrdersCurrentMonthComponent";
 import SpentMoney from "./SpentMoneyComponent";
 import LatestOrders from "./LatestOrdersComponent";
 import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
+import DashboardApi from '../Api/DashboardApi'
 
 export default {
     name: "DashboardComponent",
@@ -77,13 +78,7 @@ export default {
     },
     methods: {
         getNumberOfOrdersCurrentMonth() {
-            axios
-                .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrdersCurrentMonth", {
-                    headers: {
-                        user: this.$root.$data.userId,
-                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
-                    }
-                })
+            DashboardApi.getNumberOfOrdersCurrentMonth(this.$root.$data.apiUrl, this.$root.$data.userId)
                 .then(response => {
                     this.ordersCurrentMonth.numberOfOrders =
                         response.data;
@@ -93,13 +88,7 @@ export default {
                 });
         },
         getNumberOfOrders() {
-            axios
-                .get(this.$root.$data.apiUrl + "/dashboard/getNumberOfOrders", {
-                    headers: {
-                        user: this.$root.$data.userId,
-                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
-                    }
-                })
+            DashboardApi.getNumberOfOrders(this.$root.$data.apiUrl, this.$root.$data.userId)
                 .then(response => {
                     this.allOrders.numberOfOrders =
                         response.data.numberOfOrders;
@@ -110,13 +99,7 @@ export default {
                 });
         },
         getSpentMoneyCurrentMonth() {
-            axios
-                .get(this.$root.$data.apiUrl + "/dashboard/getSpentMoneyCurrentMonth", {
-                    headers: {
-                        user: this.$root.$data.userId,
-                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
-                    }
-                })
+            DashboardApi.getSpentMoneyCurrentMonth(this.$root.$data.apiUrl, this.$root.$data.userId)
                 .then(response => {
                     this.spentMoneyCurrentMonth.spentMoney = response.data;
                 })
@@ -125,13 +108,7 @@ export default {
                 });
         },
         getSpentMoney() {
-            axios
-                .get(this.$root.$data.apiUrl + "/dashboard/getSpentMoney", {
-                    headers: {
-                        user: this.$root.$data.userId,
-                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
-                    }
-                })
+            DashboardApi.getSpentMoney(this.$root.$data.apiUrl, this.$root.$data.userId)
                 .then(response => {
                     this.spentMoney.spentMoney = response.data;
                 })
@@ -141,13 +118,7 @@ export default {
         },
         getLatestOrders() {
             this.latestOrders.loading = true;
-            axios
-                .get(this.$root.$data.apiUrl + "/dashboard/getLatestOrders", {
-                    headers: {
-                        user: this.$root.$data.userId,
-                        Authorization: 'Bearer '+localStorage.getItem('jwt-token')
-                    }
-                })
+            DashboardApi.getLatestOrders(this.$root.$data.apiUrl, this.$root.$data.userId)
                 .then(response => {
                     this.latestOrders.loading = false;
                     this.latestOrders.data = response.data;
