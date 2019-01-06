@@ -44,6 +44,13 @@
             'user' => Auth::guard('web')->user(),
         ]) !!};
     </script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-4803795761577872",
+            enable_page_level_ads: true
+        });
+    </script>
 </head>
 <body class="hold-transition @yield('body_class')">
 
