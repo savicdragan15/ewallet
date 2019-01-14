@@ -132,11 +132,11 @@ return [
             'url'  => 'wallets',
             'icon' => 'money',
         ],
-        [
-            'text' => 'Locations',
-            'url'  => 'locations',
-            'icon' => 'map',
-        ],
+//        [
+//            'text' => 'Locations',
+//            'url'  => 'locations',
+//            'icon' => 'map',
+//        ],
         [
             'text' => 'Categories',
             'url'  => 'categories',

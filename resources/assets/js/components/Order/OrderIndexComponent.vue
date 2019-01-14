@@ -15,27 +15,25 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <th>Order number</th>
-                                <th class="text-center">Category</th>
-                                <th>Location</th>
-                                <th class="text-center">Amount</th>
-                                <th>Created at</th>
-                                <th>Wallet</th>
-                                <th>Actions</th>
+                                <th class="text-center" title="Category">
+                                    <i class="fa fa-fw fa-list"></i>
+                                </th>
+                                <th class="text-center" title="Amount">
+                                    <i class="fa fa-fw fa-money"></i>
+                                </th>
+                                <th class="text-center" title="Date">
+                                    <i class="fa fa-fw fa-calendar"></i>
+                                </th>
+                                <th class="text-center" title="Actions">
+                                    <i class="fa fa-fw fa-cog"></i>
+                                </th>
                             </tr>
                             <tr v-for="order in orders">
-                                <td>{{ order.order_number }}</td>
                                 <td class="text-center">
                                     <span v-if="order.category">{{ order.category.name }}</span>
                                 </td>
-                                <td>
-                                    <span v-if="order.location">{{ order.location.name }}</span>
-                                </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
-                                <td>{{ order.created_at | moment("D.M.YYYY. HH:mm") }}</td>
-                                <td>
-                                     <span v-if="order.wallet">{{ order.wallet.name }} ({{ order.wallet.wallet_type.name }})</span>
-                                </td>
+                                <td class="text-center">{{ order.created_at | moment("D.M.YYYY. HH:mm") }}</td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-xs" title="Edit" v-on:click="edit(order.id)">
                                         <i class="fa fa-fw fa-pencil-square-o"></i>
@@ -91,13 +89,13 @@
                     </div>
                 </div>
 
-                <div class="box-body">
-                    <div class="form-group"  v-bind:class="[errors.location ? 'has-error' : '']">
-                        <label>Select location *</label>
-                        <vSelect placeholder="Select location" label="name" v-model="order.location" maxHeight="200px" :options="locations"></vSelect>
-                        <span class="help-block" v-if="errors.location">{{ errors.location[0]}}</span>
-                    </div>
-                </div>
+                <!--<div class="box-body">-->
+                    <!--<div class="form-group"  v-bind:class="[errors.location ? 'has-error' : '']">-->
+                        <!--<label>Select location *</label>-->
+                        <!--<vSelect placeholder="Select location" label="name" v-model="order.location" maxHeight="200px" :options="locations"></vSelect>-->
+                        <!--<span class="help-block" v-if="errors.location">{{ errors.location[0]}}</span>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <!--<div class="box-body">-->
                     <!--<div class="form-group" v-bind:class="[errors.location_id ? 'has-error' : '']">-->
@@ -164,7 +162,7 @@ export default {
             wallets: [],
             categories: [],
             markets: [],
-            locations: [],
+            // locations: [],
             orders: [],
             order: {
                 id: null,
@@ -283,7 +281,7 @@ export default {
         },
         onOpenModal() {
             this.getWallets();
-            this.getLocations();
+            // this.getLocations();
             this.getCategories();
         },
         onCloseModal() {
@@ -331,24 +329,24 @@ export default {
                     swal(error.response.data.message, "", "error");
                 });
         },
-        getLocations() {
-            if (this.locations.length) {
-                return false;
-            }
-            axios
-                .get(this.$root.$data.apiUrl + "/locations", {
-                    headers: {
-                        user: this.user_id,
-                        all: true
-                    }
-                })
-                .then(response => {
-                    this.locations = response.data.locations;
-                })
-                .catch(error => {
-                    swal(error.response.data.message, "", "error");
-                });
-        }
+        // getLocations() {
+        //     if (this.locations.length) {
+        //         return false;
+        //     }
+        //     axios
+        //         .get(this.$root.$data.apiUrl + "/locations", {
+        //             headers: {
+        //                 user: this.user_id,
+        //                 all: true
+        //             }
+        //         })
+        //         .then(response => {
+        //             this.locations = response.data.locations;
+        //         })
+        //         .catch(error => {
+        //             swal(error.response.data.message, "", "error");
+        //         });
+        // }
     }
 };
 </script>

@@ -12,8 +12,7 @@
         "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "tcdent/php-restclient": "^0.1.7",
-        "tymon/jwt-auth": "1.0.0-rc.2"
+        "tcdent/php-restclient": "^0.1.7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.5",

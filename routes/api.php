@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1', 'middleware' => ['auth:api']], function () {
+Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], function () {
     Route::resource('profile', 'ProfileController');
     Route::resource('wallets', 'WalletController');
     Route::resource('walletType', 'WalletTypeController');

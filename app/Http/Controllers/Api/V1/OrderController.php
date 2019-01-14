@@ -28,7 +28,7 @@ class OrderController extends Controller
         return response()->json(
             [
             'orders' => Order::where('user_id', $request->header('user'))
-                        ->with('wallet', 'category', 'location')
+                        ->with('wallet', 'category')
                         ->orderBy('created_at', 'DESC')
                         ->paginate(15),
             'currency' => env('CURRENCY')
@@ -52,7 +52,7 @@ class OrderController extends Controller
                 'wallet_id' => $request->input('wallet_id'),
                 'category_id' => $request->input('category_id'),
                 'user_id' => $request->input('user_id'),
-                'location_id' => $request->input('location')['id'],
+//                'location_id' => $request->input('location')['id'],
                 'amount' => $request->input('amount'),
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
@@ -88,7 +88,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::with('location')->where('id', '=', $id)->first();
+        $order = Order::where('id', '=', $id)->first();
         return response()->json($order);
     }
 

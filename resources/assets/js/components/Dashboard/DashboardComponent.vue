@@ -35,6 +35,7 @@ import SpentMoney from "./SpentMoneyComponent";
 import LatestOrders from "./LatestOrdersComponent";
 import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
 import DashboardApi from '../Api/DashboardApi'
+import { getCall } from '../Api/utils/Endpoint';
 
 export default {
     name: "DashboardComponent",
@@ -78,17 +79,17 @@ export default {
     },
     methods: {
         getNumberOfOrdersCurrentMonth() {
-            DashboardApi.getNumberOfOrdersCurrentMonth(this.$root.$data.apiUrl, this.$root.$data.userId)
-                .then(response => {
-                    this.ordersCurrentMonth.numberOfOrders =
-                        response.data;
-                })
-                .catch(error => {
-                    swal(error.response.data.message, "", "error");
-                });
+          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrdersCurrentMonth,  this.$root.$data.userId)
+            .then(response => {
+              this.ordersCurrentMonth.numberOfOrders =
+                response.data;
+            })
+            .catch(error => {
+              swal(error.response.data.message, "", "error");
+            });
         },
         getNumberOfOrders() {
-            DashboardApi.getNumberOfOrders(this.$root.$data.apiUrl, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrders, this.$root.$data.userId)
                 .then(response => {
                     this.allOrders.numberOfOrders =
                         response.data.numberOfOrders;
@@ -99,7 +100,7 @@ export default {
                 });
         },
         getSpentMoneyCurrentMonth() {
-            DashboardApi.getSpentMoneyCurrentMonth(this.$root.$data.apiUrl, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoneyCurrentMonth, this.$root.$data.userId)
                 .then(response => {
                     this.spentMoneyCurrentMonth.spentMoney = response.data;
                 })
@@ -108,7 +109,7 @@ export default {
                 });
         },
         getSpentMoney() {
-            DashboardApi.getSpentMoney(this.$root.$data.apiUrl, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoney, this.$root.$data.userId)
                 .then(response => {
                     this.spentMoney.spentMoney = response.data;
                 })
@@ -117,8 +118,8 @@ export default {
                 });
         },
         getLatestOrders() {
-            this.latestOrders.loading = true;
-            DashboardApi.getLatestOrders(this.$root.$data.apiUrl, this.$root.$data.userId)
+          this.latestOrders.loading = true;
+          getCall(this.$root.$data.apiUrl + DashboardApi.getLatestOrders, this.$root.$data.userId)
                 .then(response => {
                     this.latestOrders.loading = false;
                     this.latestOrders.data = response.data;

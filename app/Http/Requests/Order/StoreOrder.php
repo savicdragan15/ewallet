@@ -26,7 +26,7 @@ class StoreOrder extends FormRequest
         return [
             'wallet_id' => 'required',
             'user_id' => 'required',
-            'location' => 'required',
+//            'location' => 'required',
             'category_id' => 'required',
             'amount' => 'required',
         ];
