@@ -16,18 +16,16 @@
                     <table class="table no-margin">
                         <thead>
                         <tr>
-                            <th>Order Number</th>
+                            <th>Category</th>
                             <th>Amount</th>
-                            <th>Location</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="order in orders">
-                            <td>{{ order.order_number }}</td>
+                            <td>{{ order.category.name }}</td>
                             <td>{{ order.amount }} {{ currency}}</td>
-                            <td>
-                                <span v-if="order.location">{{ order.location.name }}</span>
-                            </td>
+                            <td>{{ order.created_at | moment('DD.MM.Y. HH:mm')}}</td>
                         </tr>
                         </tbody>
                     </table>

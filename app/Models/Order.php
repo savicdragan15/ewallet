@@ -205,11 +205,11 @@ class Order extends BaseModel
      */
     public function getLatestOrders(User $user, $limit = 10)
     {
-        return $this->user($user->id)->with(['location' => function ($q) {
-                $q->select('id', 'name');
+        return $this->user($user->id)->with(['category' => function ($q) {
+            $q->select('id', 'name');
         }])
         ->orderByDesc('created_at')
         ->limit($limit)
-        ->get(['order_number', 'amount', 'location_id']);
+        ->get(['amount', 'created_at', 'category_id']);
     }
 }
