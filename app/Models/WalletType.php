@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\WalletType
  *
@@ -26,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \App\Models\Wallet $walletType
  */
-class WalletType extends Model
+class WalletType extends BaseModel
 {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

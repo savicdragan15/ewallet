@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Location
  *
@@ -32,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUserId($value)
  * @mixin \Eloquent
  */
-class Location extends Model
+class Location extends BaseModel
 {
     /**
      * The attributes that are mass assignable.

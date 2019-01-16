@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Market
  *
@@ -24,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Market whereUserId($value)
  */
-class Market extends Model
+class Market extends BaseModel
 {
     //
 }

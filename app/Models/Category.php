@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Category
  *
@@ -24,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUserId($value)
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends BaseModel
 {
     /**
      * The attributes that are mass assignable.

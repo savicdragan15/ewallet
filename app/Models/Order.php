@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Order
@@ -47,7 +46,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order currentMonth($column)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCategoryId($value)
  */
-class Order extends Model
+class Order extends BaseModel
 {
     /**
      * The attributes that are mass assignable.

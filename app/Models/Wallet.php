@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Wallet
  *
@@ -30,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \App\Models\WalletType $walletType
  */
-class Wallet extends Model
+class Wallet extends BaseModel
 {
     /**
      * The attributes that are mass assignable.
