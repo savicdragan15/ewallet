@@ -7,6 +7,7 @@ use App\Http\Requests\Order\UpdateOrder;
 use App\Http\Services\IpStack;
 use App\Models\Order;
 use App\Models\Wallet;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -64,6 +65,7 @@ class OrderController extends Controller
             $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');
             $order->save();
         } catch (Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,
@@ -103,6 +105,7 @@ class OrderController extends Controller
             $order->location_id = $request->input('location')['id'];
             $order->update($request->except('location_id'));
         } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                     'success' => false,
@@ -132,6 +135,7 @@ class OrderController extends Controller
             $wallet = Wallet::findOrFail($id);
             $wallet->delete();
         } catch (Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,

@@ -41,6 +41,7 @@ class WalletController extends Controller
             $data = $request->all();
             $wallet = Wallet::create($data);
         } catch (Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,

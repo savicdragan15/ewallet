@@ -44,6 +44,7 @@ class ProfileController extends Controller
 
             $user->update($request->all());
         } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,

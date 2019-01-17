@@ -46,6 +46,7 @@ class LocationController extends Controller
             $data = $request->all();
             $location = Location::create($data);
         } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,
