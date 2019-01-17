@@ -15,6 +15,7 @@ namespace App\Models;
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()
@@ -28,6 +29,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel withCacheCooldownSeconds($seconds)
  * @mixin \Eloquent
  */
 class Location extends BaseModel

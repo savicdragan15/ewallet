@@ -9,8 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * App\User
  *
  * @property int $id
- * @property string $name
  * @property string|null $avatar
+ * @property string $name
  * @property string $email
  * @property string|null $gender
  * @property string $password

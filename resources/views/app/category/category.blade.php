@@ -7,5 +7,5 @@
 @stop
 
 @section('content')
-
+    <category-component></category-component>
 @stop

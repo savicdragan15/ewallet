@@ -34,6 +34,10 @@ Vue.component(
   "dashboard-component",
   require("./components/Dashboard/DashboardComponent")
 );
+Vue.component(
+  "category-component",
+  require("./components/Category/CategoryComponent")
+);
 
 import Lightbox from "vue-pure-lightbox";
 

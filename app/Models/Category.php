@@ -11,6 +11,7 @@ namespace App\Models;
  * @property int $active 1 - active, 0 - inactive
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category query()
@@ -20,6 +21,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel withCacheCooldownSeconds($seconds)
  * @mixin \Eloquent
  */
 class Category extends BaseModel

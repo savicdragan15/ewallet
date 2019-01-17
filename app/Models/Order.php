@@ -4,47 +4,50 @@ namespace App\Models;
 
 use App\User;
 
+
 /**
  * App\Models\Order
  *
  * @property int $id
  * @property string $order_number
+ * @property int|null $wallet_id
  * @property int|null $user_id
+ * @property int|null $category_id
+ * @property int|null $location_id
  * @property int|null $market_id
  * @property float $amount
- * @property string|null $address
+ * @property string|null $latitude
+ * @property string|null $longitude
+ * @property string|null $flag
+ * @property string|null $location_info
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
+ * @property-read \App\Models\Location $location
+ * @property-read \App\Models\Market $market
+ * @property-read \App\Models\Wallet $wallet
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order currentMonth($column)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order user($userId)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFlag($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLatitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocationInfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLongitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereMarketId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereOrderNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUserId($value)
- * @mixin \Eloquent
- * @property int|null $wallet_id
- * @property-read \App\Models\Wallet $wallet
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereWalletId($value)
- * @property string|null $latitude
- * @property string|null $longitude
- * @property string|null $flag
- * @property string|null $location
- * @property-read \App\Models\Market $market
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFlag($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLatitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLongitude($value)
- * @property int|null $location_id
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order user($userId)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereLocationId($value)
- * @property int|null $category_id
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order currentMonth($column)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel withCacheCooldownSeconds($seconds)
+ * @mixin \Eloquent
  */
 class Order extends BaseModel
 {

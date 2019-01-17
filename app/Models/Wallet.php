@@ -13,7 +13,8 @@ namespace App\Models;
  * @property int $active 1 - active, 0 - inactive
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\WalletType $wallet_type
+ * @property-read \App\Models\WalletType $walletType
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet query()
@@ -25,8 +26,8 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wallet whereWalletTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel withCacheCooldownSeconds($seconds)
  * @mixin \Eloquent
- * @property-read \App\Models\WalletType $walletType
  */
 class Wallet extends BaseModel
 {
