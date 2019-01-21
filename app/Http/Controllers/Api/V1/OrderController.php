@@ -132,14 +132,14 @@ class OrderController extends Controller
     public function destroy($id)
     {
         try {
-            $wallet = Wallet::findOrFail($id);
-            $wallet->delete();
+            $order = Order::findOrFail($id);
+            $order->delete();
         } catch (Exception $e) {
             Bugsnag::notifyException($e);
             return response()->json(
                 [
                 'success' => false,
-                'message' => 'Error during wallet delete!',
+                'message' => 'Error during order delete!',
                 ],
                 400
             );

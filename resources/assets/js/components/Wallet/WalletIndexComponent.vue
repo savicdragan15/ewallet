@@ -17,7 +17,7 @@
                 </div>
                 <loading :loading="loading"></loading>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix text-center">
+                <div class="clearfix text-center">
                     <pagination :data="paginationData" @pagination-change-page="getWallets"></pagination>
                 </div>
             </div>
@@ -195,7 +195,6 @@ export default {
             });
         },
         addWallet() {
-            console.log("add wallet");
             this.modal.title = "Add new wallet";
             this.$refs.modal.open();
         },

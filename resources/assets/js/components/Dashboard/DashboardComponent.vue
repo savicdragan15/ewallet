@@ -79,7 +79,7 @@ export default {
     },
     methods: {
         getNumberOfOrdersCurrentMonth() {
-          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrdersCurrentMonth,  this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrdersCurrentMonth,  {user: this.$root.$data.userId})
             .then(response => {
               this.ordersCurrentMonth.numberOfOrders =
                 response.data;
@@ -89,7 +89,7 @@ export default {
             });
         },
         getNumberOfOrders() {
-          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrders, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getNumberOfOrders, {user: this.$root.$data.userId})
                 .then(response => {
                     this.allOrders.numberOfOrders =
                         response.data.numberOfOrders;
@@ -100,7 +100,7 @@ export default {
                 });
         },
         getSpentMoneyCurrentMonth() {
-          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoneyCurrentMonth, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoneyCurrentMonth, {user: this.$root.$data.userId})
                 .then(response => {
                     this.spentMoneyCurrentMonth.spentMoney = response.data;
                 })
@@ -109,7 +109,7 @@ export default {
                 });
         },
         getSpentMoney() {
-          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoney, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getSpentMoney, {user: this.$root.$data.userId})
                 .then(response => {
                     this.spentMoney.spentMoney = response.data;
                 })
@@ -119,7 +119,7 @@ export default {
         },
         getLatestOrders() {
           this.latestOrders.loading = true;
-          getCall(this.$root.$data.apiUrl + DashboardApi.getLatestOrders, this.$root.$data.userId)
+          getCall(this.$root.$data.apiUrl + DashboardApi.getLatestOrders, {user: this.$root.$data.userId})
                 .then(response => {
                     this.latestOrders.loading = false;
                     this.latestOrders.data = response.data;

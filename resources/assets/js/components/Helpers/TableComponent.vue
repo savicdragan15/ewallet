@@ -24,10 +24,12 @@
 </template>
 
 <script>
+import DeleteButtonComponent from "./Buttons/DeleteButtonComponent";
 export default {
-    name: "TableComponent",
-    props: ["fields", "items", "statuses", "currency"],
-    methods: {
+  name: "TableComponent",
+  components: {DeleteButtonComponent},
+  props: ["fields", "items", "statuses", "currency"],
+  methods: {
         destroy(index) {
             this.$parent.destroy(index);
         }

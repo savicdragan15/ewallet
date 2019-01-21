@@ -16,28 +16,50 @@
                         <tbody>
                             <tr>
                                 <th class="text-center" title="Category">
-                                    <i class="fa fa-fw fa-list"></i>
+                                    <div class="hidden-xs">
+                                        Category
+                                    </div>
+                                    <div class="visible-xs">
+                                        <i class="fa fa-fw fa-list"></i>
+                                    </div>
                                 </th>
                                 <th class="text-center" title="Amount">
-                                    <i class="fa fa-fw fa-money"></i>
+                                    <div class="hidden-xs">
+                                        Amount
+                                    </div>
+                                    <div class="visible-xs">
+                                        <i class="fa fa-fw fa-money"></i>
+                                    </div>
                                 </th>
                                 <th class="text-center" title="Date">
-                                    <i class="fa fa-fw fa-calendar"></i>
+                                    <div class="hidden-xs">
+                                        Date
+                                    </div>
+                                    <div class="visible-xs">
+                                        <i class="fa fa-fw fa-calendar"></i>
+                                    </div>
                                 </th>
                                 <th class="text-center" title="Actions">
-                                    <i class="fa fa-fw fa-cog"></i>
+                                    <div class="hidden-xs">
+                                        Actions
+                                    </div>
+                                    <div class="visible-xs">
+                                        <i class="fa fa-fw fa-cog"></i>
+                                    </div>
                                 </th>
                             </tr>
-                            <tr v-for="order in orders">
+                            <tr v-for="(order, index) in orders">
                                 <td class="text-center">
                                     <span v-if="order.category">{{ order.category.name }}</span>
                                 </td>
                                 <td class="text-center">{{ order.amount }} {{ currency }} </td>
                                 <td class="text-center">{{ order.created_at | moment("D.M.YYYY. HH:mm") }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-xs" title="Edit" v-on:click="edit(order.id)">
+                                    <button type="button" class="btn btn-primary btn-xs" title="Edit" v-on:click="edit(order.id)">
                                         <i class="fa fa-fw fa-pencil-square-o"></i>
                                     </button>
+
+                                    <DeleteButtonComponent :recordId="order.id" :endpoint="apiUrl" entity="orders" :index="index" :loading="true"></DeleteButtonComponent>
                                 </td>
                             </tr>
                         </tbody>
@@ -46,7 +68,7 @@
                 <!-- /.box-body -->
                 <loading :loading="loading"></loading>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix text-center">
+                <div class=" clearfix text-center">
                     <pagination :data="paginationData" @pagination-change-page="getOrders"></pagination>
                 </div>
             </div>
@@ -89,29 +111,11 @@
                     </div>
                 </div>
 
-                <!--<div class="box-body">-->
-                    <!--<div class="form-group"  v-bind:class="[errors.location ? 'has-error' : '']">-->
-                        <!--<label>Select location *</label>-->
-                        <!--<vSelect placeholder="Select location" label="name" v-model="order.location" maxHeight="200px" :options="locations"></vSelect>-->
-                        <!--<span class="help-block" v-if="errors.location">{{ errors.location[0]}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="box-body">-->
-                    <!--<div class="form-group" v-bind:class="[errors.location_id ? 'has-error' : '']">-->
-                        <!--<label>Select location *</label>-->
-                        <!--<select class="form-control" v-model="order.location_id">-->
-                            <!--<option value="">Select location</option>-->
-                            <!--<option v-for="location in locations" v-bind:value="location.id">{{ location.name }}</option>-->
-                        <!--</select>-->
-                        <!--<span class="help-block" v-if="errors.location_id">{{ errors.location_id[0]}}</span>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="box-footer">
                     <button class="btn btn-primary btn-sm"  v-if="!editMode" v-on:click="store">
                         <i class="fa fa-fw fa-plus"></i> Add
                     </button>
-                    <button class="btn btn-danger btn-sm"  v-if="editMode" v-on:click="update(order.id)">
+                    <button class="btn btn-primary btn-sm"  v-if="editMode" v-on:click="update(order.id)">
                         <i class="fa fa-fw fa-save"></i> Edit
                     </button>
                 </div>
@@ -125,15 +129,21 @@
 </template>
 
 <script>
+import {getCall} from "../Api/utils/Endpoint";
 import pagination from "../Helpers/Pagintaion";
 import loading from "../Helpers/LoadingComponent";
 import bootstrapModal from "vue2-bootstrap-modal";
 import lightboxComponent from "../Helpers/LightboxComponent";
 import vSelect from 'vue-select';
+import OrderApi from '../Api/OrderApi';
+import WalletApi from "../Api/WalletApi";
+import CategoryApi from "../Api/CategoryApi";
+import DeleteButtonComponent from "../Helpers/Buttons/DeleteButtonComponent";
 
 export default {
     name: "OrderIndexComponent",
     components: {
+      DeleteButtonComponent,
         pagination,
         loading,
         bootstrapModal,
@@ -147,6 +157,7 @@ export default {
 
         this.currency = this.$root.$data.currency;
         this.order.user_id = this.user_id;
+        this.apiUrl = this.$root.$data.apiUrl;
         this.getOrders();
         this.updateFlag();
     },
@@ -214,12 +225,7 @@ export default {
         edit(id) {
             this.editMode = true;
             this.loading = true;
-            axios
-                .get(this.$root.$data.apiUrl + "/orders/" + id, {
-                    headers: {
-                        user: this.user_id
-                    }
-                })
+            getCall(this.$root.$data.apiUrl + OrderApi.index + '/' + id, { user: this.user_id })
                 .then(response => {
                     this.order = response.data;
                     this.openModal("Edit order - " + this.order.order_number);
@@ -230,7 +236,7 @@ export default {
                     swal(error.response.data.message, "", "error");
                 });
         },
-        update(id) {
+        update() {
             this.loading = true;
             axios
                 .post(
@@ -258,13 +264,7 @@ export default {
         },
         getOrders(page = 1) {
             this.loading = true;
-
-            axios
-                .get(this.$root.$data.apiUrl + "/orders?page=" + page, {
-                    headers: {
-                        user: this.user_id
-                    }
-                })
+            getCall(this.$root.$data.apiUrl + OrderApi.index + '?page=' + page, { user: this.user_id })
                 .then(response => {
                     this.loading = false;
                     this.orders = response.data.orders.data;
@@ -298,12 +298,7 @@ export default {
             if (this.wallets.length) {
                 return false;
             }
-            axios
-                .get(this.$root.$data.apiUrl + "/wallets", {
-                    headers: {
-                        user: this.user_id
-                    }
-                })
+            getCall(this.$root.$data.apiUrl + WalletApi.index, { user: this.user_id })
                 .then(response => {
                     this.wallets = response.data.wallets.data;
                 })
@@ -315,13 +310,7 @@ export default {
             if (this.categories.length) {
                 return false;
             }
-            axios
-                .get(this.$root.$data.apiUrl + "/categories", {
-                    headers: {
-                        user: this.user_id,
-                        all: true
-                    }
-                })
+            getCall(this.$root.$data.apiUrl + CategoryApi.index, { user: this.user_id, all: true })
                 .then(response => {
                     this.categories = response.data.categories;
                 })
@@ -329,24 +318,9 @@ export default {
                     swal(error.response.data.message, "", "error");
                 });
         },
-        // getLocations() {
-        //     if (this.locations.length) {
-        //         return false;
-        //     }
-        //     axios
-        //         .get(this.$root.$data.apiUrl + "/locations", {
-        //             headers: {
-        //                 user: this.user_id,
-        //                 all: true
-        //             }
-        //         })
-        //         .then(response => {
-        //             this.locations = response.data.locations;
-        //         })
-        //         .catch(error => {
-        //             swal(error.response.data.message, "", "error");
-        //         });
-        // }
+        removeFromArray(index) {
+          console.log(index);
+        }
     }
 };
 </script>

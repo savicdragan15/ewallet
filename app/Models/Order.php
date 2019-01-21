@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
@@ -48,9 +49,18 @@ use App\User;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereWalletId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel withCacheCooldownSeconds($seconds)
  * @mixin \Eloquent
+ * @property string|null $deleted_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withoutTrashed()
  */
 class Order extends BaseModel
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
