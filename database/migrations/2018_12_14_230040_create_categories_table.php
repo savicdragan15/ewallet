@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->tinyInteger('active')->default(0)->comment = '1 - active, 0 - inactive';
+            $table->tinyInteger('active')->default(1)->comment = '1 - active, 0 - inactive';
             $table->timestamps();
         });
     }

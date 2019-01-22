@@ -1,3 +1,4 @@
 export default {
-    index: '/categories'
+    index: '/categories',
+    store: '/categories',
 }

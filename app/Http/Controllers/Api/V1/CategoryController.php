@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Category\StoreCategory;
+use App\Http\Requests\Category\UpdateCategory;
 use App\Models\Category;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
@@ -33,12 +35,69 @@ class CategoryController extends Controller
     }
 
     /**
+     * @param StoreCategory $request
+     * @return array
+     */
+    public function store(StoreCategory $request) {
+        try {
+            $data = $request->all();
+            $category = Category::create($data);
+        } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error during adding new category' . $e->getMessage(),
+                ],
+                400
+            );
+        }
+
+        return response()->json(
+            [
+                'success' =>  true,
+                'message' => 'Successfully added new category',
+                'data'    =>  $category
+            ]
+        );
+    }
+
+    /**
      * @param Category $category
      * @return Category
      */
     public function show(Category $category)
     {
         return $category;
+    }
+
+
+    /**
+     * @param UpdateCategory $request
+     * @param Category $category
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateCategory $request, Category $category)
+    {
+        try {
+            $category->update($request->all());
+        } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error during update category!',
+                ],
+                400
+            );
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Category successfully save!'
+            ]
+        );
     }
 
     /**

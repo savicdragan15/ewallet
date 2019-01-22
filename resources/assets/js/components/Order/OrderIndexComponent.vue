@@ -134,7 +134,6 @@ import pagination from "../Helpers/Pagintaion";
 import loading from "../Helpers/LoadingComponent";
 import bootstrapModal from "vue2-bootstrap-modal";
 import lightboxComponent from "../Helpers/LightboxComponent";
-import vSelect from 'vue-select';
 import OrderApi from '../Api/OrderApi';
 import WalletApi from "../Api/WalletApi";
 import CategoryApi from "../Api/CategoryApi";
@@ -147,8 +146,7 @@ export default {
         pagination,
         loading,
         bootstrapModal,
-        lightboxComponent,
-        vSelect
+        lightboxComponent
     },
     mounted() {
         if (this.$root.getUrlParam("openModal")) {
