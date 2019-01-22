@@ -31,6 +31,12 @@
                 </a>
             </div>
 
+		        <div style="margin-bottom: 15px;">
+			        <a class="btn btn-block btn-social btn-twitter" href="{{ route('social.login', 'twitter') }}">
+				        <i class="fa fa-twitter"></i> Sign in with Twitter
+			        </a>
+		        </div>
+
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                 {!! csrf_field() !!}
 

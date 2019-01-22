@@ -36,9 +36,15 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_CLIENT_ID', 286156798719103),
-        'client_secret' => env('FACEBOOK_CLIENT_SECRET', '93d57801b5b8e391803c681c21e08304'),
-        'redirect' => env('FACEBOOK_REDIRECT', 'https://e-wallet.develop/auth/facebook/callback'),
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT')
+    ],
+
+    'twitter' => [
+        'client_id' => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'redirect' => env('TWITTER_REDIRECT')
     ],
 
 ];
