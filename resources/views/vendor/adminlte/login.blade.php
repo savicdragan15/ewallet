@@ -13,9 +13,24 @@
         <div class="login-logo">
             <a href="{{ url(config('adminlte.dashboard_url', 'home')) }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
+
+	      @if (\Session::has('message'))
+			    <div class="alert alert-{{ Session::get('class', 'info')}} alert-dismissible">
+				    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				    <h4>{{ Session::get('title') }}</h4>
+				    {{ Session::get('message') }}
+			    </div>
+	      @endif
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
+
+            <div style="margin-bottom: 15px;">
+                <a class="btn btn-block btn-social btn-facebook" href="{{ route('social.login', 'facebook') }}">
+                    <i class="fa fa-facebook"></i> Sign in with Facebook
+                </a>
+            </div>
+
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                 {!! csrf_field() !!}
 

@@ -31,6 +31,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $provider
+ * @property string|null $provider_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProviderId($value)
  */
 class User extends Authenticatable
 {
@@ -42,10 +46,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'avatar',
         'name',
         'email',
         'gender',
         'password',
+        'provider',
+        'provider_id'
     ];
 
     /**
