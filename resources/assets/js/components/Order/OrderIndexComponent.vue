@@ -94,7 +94,7 @@
                         <label>Select wallet *</label>
                         <select class="form-control" v-model="order.wallet_id">
                             <option value="">Select wallet</option>
-                            <option v-for="wallet in wallets" v-bind:value="wallet.id">{{ wallet.name }} ({{ wallet.wallet_type.name }})</option>
+                            <option v-for="wallet in wallets" v-bind:value="wallet.id">{{ wallet.name }}</option>
                         </select>
                         <span class="help-block" v-if="errors.wallet_id">{{ errors.wallet_id[0]}}</span>
                     </div>
