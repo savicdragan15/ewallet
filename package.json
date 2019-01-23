@@ -21,10 +21,12 @@
   },
   "dependencies": {
     "browser-sync": "^2.24.7",
+    "chart.js": "^2.7.3",
     "inputmask": "^4.0.2",
     "laravel-vue-pagination": "^1.2.0",
     "popper.js": "^1.14.4",
     "sweetalert": "^2.1.0",
+    "vue-chartjs": "^3.4.0",
     "vue-moment": "^4.0.0",
     "vue-pure-lightbox": "^2.1.6",
     "vue-select": "^2.5.1",
