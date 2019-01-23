@@ -39,23 +39,7 @@ class Wallet extends BaseModel
     protected $fillable = [
         'name',
         'user_id',
-        'wallet_type_id',
-        'amount',
         'active',
     ];
 
-    /**
-     * Relationship always get
-     *
-     * @var array
-     */
-    protected $with = ['walletType'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function walletType()
-    {
-        return $this->hasOne('App\Models\WalletType', 'id', 'wallet_type_id');
-    }
 }

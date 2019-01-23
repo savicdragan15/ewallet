@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\Wallet\UpdateWallet;
 use App\Models\Wallet;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -23,7 +25,7 @@ class WalletController extends Controller
     {
         return response()->json(
             [
-            'wallets' => Wallet::where('user_id', $request->header('user'))->with('walletType')
+            'wallets' => Wallet::where('user_id', $request->header('user'))
                                 ->orderBy('name')->paginate(15),
             'currency' => env('CURRENCY')
             ]
@@ -69,17 +71,35 @@ class WalletController extends Controller
         return response()->json(Wallet::find($id));
     }
 
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param  \Illuminate\Http\Request $request
-//     * @param  int                      $id
-//     * @return void
-//     */
-//    public function update(Request $request, $id)
-//    {
-//        //
-//    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateWallet $request
+     * @param Wallet $wallet
+     * @return Wallet
+     */
+    public function update(UpdateWallet $request, Wallet $wallet)
+    {
+        try {
+            $wallet->update($request->all());
+        } catch (\Exception $e) {
+            Bugsnag::notifyException($e);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error during update wallet!',
+                ],
+                400
+            );
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Wallet successfully save!'
+            ]
+        );
+    }
 
     /**
      * Remove the specified resource from storage.

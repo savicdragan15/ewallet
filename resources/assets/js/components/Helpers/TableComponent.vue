@@ -7,11 +7,9 @@
         <tr v-for="(item, index) in items">
             <!--<td>{{ item.id }}</td>-->
             <td>{{ item.name }}</td>
-            <td class="text-center">{{ item.wallet_type.name }}</td>
-            <td class="text-center">{{ item.amount }} {{ currency }}</td>
-            <td class="text-center" v-html="statuses[item.active]"></td>
+            <!--<td class="text-center" v-html="statuses[item.active]"></td>-->
             <td>
-                <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                <button type="button" class="btn btn-primary btn-xs" title="Edit" v-on:click="edit(item.id)">
                     <i class="fa fa-fw fa-pencil-square-o"></i>
                 </button>
                 <button type="button" class="btn btn-danger btn-xs" title="Delete" v-on:click="destroy(index)">
@@ -32,6 +30,9 @@ export default {
   methods: {
         destroy(index) {
             this.$parent.destroy(index);
+        },
+        edit(id) {
+          this.$parent.edit(id);
         }
     },
     data() {

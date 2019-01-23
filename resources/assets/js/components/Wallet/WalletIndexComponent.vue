@@ -23,7 +23,7 @@
             </div>
         </div>
 
-            <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :opened="myOpenFunc" :closed="onCloseModal">
+            <bootstrapModal ref="modal" :need-header="true" :need-footer="false" :size="'large'" :closed="onCloseModal">
             <div slot="title">
                 {{ modal.title }}
             </div>
@@ -34,24 +34,14 @@
                                 <input type="text" class="form-control" id="name" placeholder="Enter name" v-model="wallet.name">
                                 <span class="help-block" v-if="errors.name">{{ errors.name[0]}}</span>
                             </div>
-
-                            <div class="form-group" v-bind:class="[errors.wallet_type_id ? 'has-error' : '']">
-                                <label>Select</label>
-                                <select class="form-control" v-model="wallet.wallet_type_id">
-                                    <option value="null">Select wallet type</option>
-                                    <option v-for="type in wallet_types" v-bind:value="type.id">{{ type.name }}</option>
-                                </select>
-                                <span class="help-block" v-if="errors.wallet_type_id">{{ errors.wallet_type_id[0]}}</span>
-                            </div>
-
-                            <div class="form-group" v-bind:class="[errors.amount ? 'has-error' : '']">
-                                <label for="amount">Amount</label>
-                                <input type="number" class="form-control" id="amount" placeholder="Enter amount" v-model="wallet.amount">
-                                <span class="help-block" v-if="errors.amount">{{ errors.amount[0]}}</span>
-                            </div>
                         </div>
                         <div class="box-footer">
-                            <button class="btn btn-primary" v-on:click="store">Add</button>
+                            <button class="btn btn-primary btn-sm" v-on:click="store" v-if="!editMode">
+                                <i class="fa fa-fw fa-plus"></i>Add
+                            </button>
+                            <button class="btn btn-primary btn-sm" v-on:click="update" v-if="editMode">
+                                <i class="fa fa-fw fa-pencil-square-o"></i>Edit
+                            </button>
                         </div>
             </div>
 
@@ -69,6 +59,9 @@ import pagination from "../Helpers/Pagintaion";
 import loading from "../Helpers/LoadingComponent";
 import tableComponent from "../Helpers/TableComponent";
 import bootstrapModal from "vue2-bootstrap-modal";
+import WalletApi from "../Api/WalletApi";
+import {getCall} from "../Api/utils/Endpoint";
+import {postCall} from "../Api/utils/Endpoint";
 
 export default {
     components: {
@@ -87,12 +80,11 @@ export default {
             loading: false,
             currency: null,
             user_id: Laravel.user.id,
+            editMode: false,
             wallet: {
                 id: null,
                 name: null,
                 user_id: null,
-                wallet_type_id: null,
-                amount: null,
                 active: 1
             },
             wallet_types: [],
@@ -107,24 +99,13 @@ export default {
             errors: [],
             paginationData: {},
             fields: [
-                // {
-                //     display_name: 'ID',
-                // },
                 {
                     display_name: "Name"
                 },
-                {
-                    display_name: "Type",
-                    classes: "text-center"
-                },
-                {
-                    display_name: "Amount",
-                    classes: "text-center"
-                },
-                {
-                    display_name: "Status",
-                    classes: "text-center"
-                },
+                // {
+                //     display_name: "Status",
+                //     classes: "text-center"
+                // },
                 {
                     display_name: "Actions"
                 }
@@ -134,6 +115,8 @@ export default {
     methods: {
         onCloseModal() {
             this.errors = [];
+            this.editMode = false;
+            this.wallet.name = null;
         },
         getWallets(page = 1) {
             this.loading = true;
@@ -198,20 +181,6 @@ export default {
             this.modal.title = "Add new wallet";
             this.$refs.modal.open();
         },
-        myOpenFunc() {
-            if (this.wallet_types.length) {
-                return false;
-            }
-            axios
-                .get(this.$root.$data.apiUrl + "/walletType")
-                .then(response => {
-                    console.log(response.data.wallet_types);
-                    this.wallet_types = response.data.wallet_types;
-                })
-                .catch(error => {
-                    swal(error.response.data.message, "", "error");
-                });
-        },
         store() {
             this.wallet.user_id = this.user_id;
             axios
@@ -219,7 +188,6 @@ export default {
                 .then(response => {
                     this.errors = [];
                     this.wallet = {};
-                    this.wallet.wallet_type_id = null;
                     this.getWallets(this.paginationData.current_page);
                     this.$refs.modal.close();
                     swal(response.data.message, "", "success");
@@ -233,7 +201,41 @@ export default {
                         swal(error.response.data.message, "", "error");
                     }
                 });
-        }
+        },
+        edit(id) {
+          getCall(this.$root.$data.apiUrl + WalletApi.index + '/' + id)
+            .then(response => {
+              this.editMode = true;
+              this.wallet = response.data;
+              this.modal.title = "Edit wallet - " + this.wallet.name;
+              this.$refs.modal.open();
+            })
+            .catch(error => {
+              swal(error.response.data.message, "", "error");
+            })
+        },
+      update() {
+        postCall(this.$root.$data.apiUrl + WalletApi.index + '/' + this.wallet.id + "?_method=PATCH", this.wallet)
+          .then(response => {
+            this.loading = false;
+            this.errors = [];
+            this.getWallets(this.paginationData.current_page);
+            this.$refs.modal.close();
+            swal(response.data.message, "", "success");
+          })
+          .catch(error => {
+            this.loading = false;
+            this.errors = [];
+
+            if (error.response.status === 422) {
+              this.errors = error.response.data.errors;
+            }
+
+            if (error.response.status === 400) {
+              swal(response.data.message, "", "error");
+            }
+          });
+      }
     }
 };
 </script>
