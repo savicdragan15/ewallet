@@ -57,6 +57,11 @@ const app = new Vue({
     getUrlParam(key) {
       let url = new URL(window.location.href);
       return url.searchParams.get(key);
+    },
+    getCookie(name) {
+      let value = "; " + document.cookie;
+      let parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
     }
   }
 });

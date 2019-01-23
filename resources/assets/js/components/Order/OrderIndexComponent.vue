@@ -274,12 +274,15 @@ export default {
                 });
         },
         openModal(title) {
+            if (!this.editMode) {
+                let lastUsedWallet = this.$root.getCookie('order_last_used_wallet_' + this.$root.$data.userId);
+                this.order.wallet_id = typeof lastUsedWallet === 'undefined' ? '' : parseInt(lastUsedWallet);
+            }
             this.modal.title = title;
             this.$refs.modal.open();
         },
         onOpenModal() {
             this.getWallets();
-            // this.getLocations();
             this.getCategories();
         },
         onCloseModal() {

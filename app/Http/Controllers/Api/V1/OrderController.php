@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Wallet;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Carbon\Carbon;
+use Cookie;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,7 +54,6 @@ class OrderController extends Controller
                 'wallet_id' => $request->input('wallet_id'),
                 'category_id' => $request->input('category_id'),
                 'user_id' => $request->input('user_id'),
-//                'location_id' => $request->input('location')['id'],
                 'amount' => $request->input('amount'),
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
@@ -61,6 +61,8 @@ class OrderController extends Controller
                 'location_info' => json_encode($location),
                 ]
             );
+
+            cookieSet('order_last_used_wallet_' . $order->user_id, $order->wallet_id);
 
             $order->order_number = $order->id . '-' . Carbon::now()->format('d-m-Y');
             $order->save();
