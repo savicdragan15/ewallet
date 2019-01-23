@@ -104,8 +104,7 @@ class OrderController extends Controller
     public function update(UpdateOrder $request, Order $order)
     {
         try {
-            $order->location_id = $request->input('location')['id'];
-            $order->update($request->except('location_id'));
+            $order->update($request->all());
         } catch (\Exception $e) {
             Bugsnag::notifyException($e);
             return response()->json(
