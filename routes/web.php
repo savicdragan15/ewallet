@@ -34,6 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', 'App\Profile\ProfileController@index')->name('profile');
     Route::get('wallets', 'App\Wallet\WalletController@index')->name('wallet');
     Route::get('orders', 'App\Order\OrderController@index')->name('order');
-    Route::get('locations', 'App\Location\LocationController@index')->name('location');
+//    Route::get('locations', 'App\Location\LocationController@index')->name('location');
     Route::get('categories', 'App\Category\CategoryController@index')->name('category');
 });

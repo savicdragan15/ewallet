@@ -15,8 +15,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
     Route::resource('profile', 'ProfileController');
     Route::resource('wallets', 'WalletController');
     Route::resource('orders', 'OrderController');
-    Route::resource('markets', 'MarketController');
-    Route::resource('locations', 'LocationController');
+//    Route::resource('markets', 'MarketController');
+//    Route::resource('locations', 'LocationController');
     Route::resource('categories', 'CategoryController');
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
