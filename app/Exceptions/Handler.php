@@ -3,7 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -38,14 +40,54 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Exception $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof UnauthorizedHttpException) {
+            $preException = $exception->getPrevious();
+            if ($preException instanceof
+                \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+                return response()->json(['error' => 'TOKEN_EXPIRED']);
+            } else if ($preException instanceof
+                \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+                return response()->json(['error' => 'TOKEN_INVALID']);
+            } else if ($preException instanceof
+                \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
+                return response()->json(['error' => 'TOKEN_BLACKLISTED']);
+            }
+            if ($exception->getMessage() === 'Token not provided') {
+                return response()->json(['error' => 'Token not provided']);
+            }
+        }
+
         return parent::render($request, $exception);
+    }
+
+    /**
+     * Convert an authentication exception into a response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Illuminate\Http\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        $guard = array_get($exception->guards(), 0);
+
+        switch ($guard) {
+            case 'admin':
+                $login = 'admin.login';
+                break;
+            default:
+                $login = 'login';
+                break;
+        }
+        return redirect()->guest(route($login));
     }
 }

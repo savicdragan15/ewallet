@@ -29,3 +29,15 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
         Route::get('getLatestOrders', 'DashboardController@getLatestOrders')->name('get_latest_orders');
     });
 });
+
+
+Route::post('admin/auth/login', 'Auth\ApiAuthController@login');
+
+Route::group([
+    'middleware' => 'jwt.auth',
+    'prefix' => 'admin/auth'
+], function () {
+    Route::post('logout', 'Auth\ApiAuthController@logout');
+    Route::post('refresh', 'Auth\ApiAuthController@refresh');
+    Route::post('me', 'Auth\ApiAuthController@me');
+});
