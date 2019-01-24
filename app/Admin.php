@@ -7,6 +7,29 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * App\Admin
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
