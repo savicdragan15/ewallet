@@ -74,6 +74,7 @@ class Order extends BaseModel
         'market_id',
         'location_id',
         'amount',
+        'note',
         'latitude',
         'longitude',
         'flag',

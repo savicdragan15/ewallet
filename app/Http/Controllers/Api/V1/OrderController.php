@@ -6,10 +6,8 @@ use App\Http\Requests\Order\StoreOrder;
 use App\Http\Requests\Order\UpdateOrder;
 use App\Http\Services\IpStack;
 use App\Models\Order;
-use App\Models\Wallet;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Carbon\Carbon;
-use Cookie;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,6 +53,7 @@ class OrderController extends Controller
                 'category_id' => $request->input('category_id'),
                 'user_id' => $request->input('user_id'),
                 'amount' => $request->input('amount'),
+                'note' => $request->input('note'),
                 'latitude' => $location->latitude,
                 'longitude' => $location->longitude,
                 'flag' => $location->location->country_flag,

@@ -81,15 +81,12 @@
             </div>
 
             <div slot="body">
-                <div class="box-body">
                     <div class="form-group" v-bind:class="[errors.amount ? 'has-error' : '']">
                         <label for="name">Amount *</label>
                         <input type="text" class="form-control" id="name" placeholder="Enter amount" v-model="order.amount">
                         <span class="help-block" v-if="errors.amount">{{ errors.amount[0]}}</span>
                     </div>
-                </div>
 
-                <div class="box-body">
                     <div class="form-group" v-bind:class="[errors.wallet_id ? 'has-error' : '']">
                         <label>Select wallet *</label>
                         <select class="form-control" v-model="order.wallet_id">
@@ -98,9 +95,7 @@
                         </select>
                         <span class="help-block" v-if="errors.wallet_id">{{ errors.wallet_id[0]}}</span>
                     </div>
-                </div>
 
-                <div class="box-body">
                     <div class="form-group" v-bind:class="[errors.category_id ? 'has-error' : '']">
                         <label>Select category *</label>
                         <select class="form-control" v-model="order.category_id">
@@ -109,7 +104,11 @@
                         </select>
                         <span class="help-block" v-if="errors.category_id">{{ errors.category_id[0]}}</span>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea v-model="order.note" class="form-control" rows="3" placeholder="Enter note"></textarea>
+                    </div>
 
                 <div class="box-footer">
                     <button class="btn btn-primary btn-sm"  v-if="!editMode" v-on:click="store">
@@ -177,10 +176,9 @@ export default {
                 id: null,
                 order_number: null,
                 wallet_id: '',
-                market_id: null,
                 user_id: null,
-                location_id: '',
                 category_id: '',
+                note: null,
                 address: null,
                 amount: null,
                 flag: null
