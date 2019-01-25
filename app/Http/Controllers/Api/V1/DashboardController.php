@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Transformers\OrderTransformer;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -83,5 +84,18 @@ class DashboardController extends Controller
     public function getLatestOrders()
     {
         return response()->json($this->order->getLatestOrders($this->user));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSumOrdersByMonth(Request $request)
+    {
+        $limit = $request->has('limit') && !is_null($request->input('limit')) ? (int)$request->input('limit') : 12;
+        return response()->json(
+           OrderTransformer::transformForChart($this->order
+               ->getSumOrdersByMonth($this->user, $limit))
+        );
     }
 }

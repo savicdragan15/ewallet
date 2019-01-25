@@ -25,8 +25,6 @@
 
     <div class="row">
         <LatestOrders :orders="latestOrders.data" :currency="latestOrders.currency" :loading="latestOrders.loading"></LatestOrders>
-
-        <MonthlyOrder :height="315" chartId="monthly-orders"></MonthlyOrder>
     </div>
 </div>
 </template>
@@ -39,7 +37,6 @@ import LatestOrders from "./LatestOrdersComponent";
 import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
 import DashboardApi from '../Api/DashboardApi'
 import { getCall } from '../Api/utils/Endpoint';
-import MonthlyOrder from '../Stats/MonthlyOrders';
 
 export default {
     name: "DashboardComponent",
@@ -48,8 +45,7 @@ export default {
         OrdersCurrentMonth,
         SpentMoney,
         LatestOrders,
-        SpentMoneyCurrentMonth,
-        MonthlyOrder
+        SpentMoneyCurrentMonth
     },
     data() {
         return {

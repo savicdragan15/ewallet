@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
             ->name('get_spent_money_current_month');
         Route::get('getSpentMoney', 'DashboardController@getSpentMoney')->name('get_spent_money');
         Route::get('getLatestOrders', 'DashboardController@getLatestOrders')->name('get_latest_orders');
+        Route::get('getSumOrdersByMonth', 'DashboardController@getSumOrdersByMonth')->name('get_sum_orders_by_month');
     });
 });
 

@@ -4,4 +4,5 @@ export default {
   getSpentMoneyCurrentMonth: '/dashboard/getSpentMoneyCurrentMonth',
   getSpentMoney: '/dashboard/getSpentMoney',
   getLatestOrders: '/dashboard/getLatestOrders',
+  getMonthlyOrders: '/dashboard/getSumOrdersByMonth',
 }

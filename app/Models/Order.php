@@ -226,4 +226,20 @@ class Order extends BaseModel
         ->limit($limit)
         ->get(['amount', 'created_at', 'category_id']);
     }
+
+    /**
+     * @param User $user
+     * @param int $limit
+     * @return \Illuminate\Support\Collection
+     */
+    public function getSumOrdersByMonth(User $user, $limit = 12)
+    {
+        return \DB::table('orders')
+            ->select(\DB::raw('SUM(amount) as sum, DATE_FORMAT(created_at, "%b %Y") as month'))
+            ->where('user_id', $user->id)
+            ->whereRaw('created_at >= LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL '.$limit.' MONTH')
+            ->whereNull($this->getDeletedAtColumn())
+            ->groupBy('month')
+            ->get();
+    }
 }
