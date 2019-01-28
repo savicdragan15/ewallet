@@ -42,3 +42,11 @@ Route::group([
     Route::post('refresh', 'Auth\ApiAuthController@refresh');
     Route::post('me', 'Auth\ApiAuthController@me');
 });
+
+Route::group([
+    'middleware' => 'jwt.auth',
+    'prefix' => 'admin',
+    'namespace' => 'Api\Admin'
+], function () {
+    Route::resource('users', 'UserController');
+});
