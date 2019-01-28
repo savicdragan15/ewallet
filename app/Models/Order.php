@@ -56,6 +56,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withoutTrashed()
+ * @property string|null $note
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereNote($value)
+ * @property-read \App\User $orderUser
  */
 class Order extends BaseModel
 {
@@ -86,6 +90,14 @@ class Order extends BaseModel
    | RELATIONS
    |--------------------------------------------------------------------------
    */
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function orderUser()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
 
     /**
      * Get wallet for order

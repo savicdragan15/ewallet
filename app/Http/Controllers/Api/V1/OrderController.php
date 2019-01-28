@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\OrderCreated;
 use App\Http\Requests\Order\StoreOrder;
 use App\Http\Requests\Order\UpdateOrder;
 use App\Http\Services\IpStack;

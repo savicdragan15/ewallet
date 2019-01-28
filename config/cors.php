@@ -15,7 +15,8 @@ return [
     'supportsCredentials' => false,
     'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [
-        'http://localhost:3000'
+        'http://localhost:3000',
+        'https://admin.e-wallet.rs',
     ],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
