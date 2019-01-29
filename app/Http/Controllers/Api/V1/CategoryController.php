@@ -38,7 +38,8 @@ class CategoryController extends Controller
      * @param StoreCategory $request
      * @return array
      */
-    public function store(StoreCategory $request) {
+    public function store(StoreCategory $request)
+    {
         try {
             $data = $request->all();
             $category = Category::create($data);

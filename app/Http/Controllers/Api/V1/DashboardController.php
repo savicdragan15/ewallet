@@ -94,7 +94,7 @@ class DashboardController extends Controller
     {
         $limit = $request->has('limit') && !is_null($request->input('limit')) ? (int)$request->input('limit') : 12;
         return response()->json(
-           OrderTransformer::transformForChart($this->order
+            OrderTransformer::transformForChart($this->order
                ->getSumOrdersByMonth($this->user, $limit))
         );
     }

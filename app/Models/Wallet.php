@@ -41,5 +41,4 @@ class Wallet extends BaseModel
         'user_id',
         'active',
     ];
-
 }

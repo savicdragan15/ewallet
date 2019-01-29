@@ -21,6 +21,7 @@ Vue.component(
 
 import VueRouter from 'vue-router'
 import Lightbox from "vue-pure-lightbox";
+import VueAnalytics from 'vue-analytics'
 import OrderIndexComponent from "./components/Order/OrderIndexComponent";
 import DashboardComponent from  "./components/Dashboard/DashboardComponent";
 import ProfileComponent from  "./components/ProfileComponent";
@@ -71,6 +72,11 @@ const router = new VueRouter({
     }
   ],
 });
+
+Vue.use(VueAnalytics, {
+    id: 'UA-130571138-1',
+    router
+})
 
 const app = new Vue({
   el: "#app",
