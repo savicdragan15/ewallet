@@ -14,7 +14,7 @@
 ][config('adminlte.layout')] : '') . (config('adminlte.collapse_sidebar') ? ' sidebar-collapse ' : ''))
 
 @section('body')
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
         <!-- Main Header -->
         <header class="main-header">
@@ -32,10 +32,10 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
-                        </ul>
+                            {{--@each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')--}}
+	                        <menu-menu></menu-menu>
                     </div>
+
                     <!-- /.navbar-collapse -->
             @else
             <!-- Logo -->
@@ -93,7 +93,7 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    {{--@each('adminlte::partials.menu-item', $adminlte->menu(), 'item')--}}
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -114,8 +114,8 @@
 
             <!-- Main content -->
             <section class="content">
-                <div id="app">
-                    @yield('content')
+                <div>
+	                <router-view></router-view>
                 </div>
             </section>
             <!-- /.content -->

@@ -3,16 +3,24 @@
 <div>
     <div class="row">
         <div class="col-lg-3 col-xs-6 add-order-button">
-            <a href="/orders?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-inbox "></i> Add new Order</a>
+            <router-link :to="{ name: 'add-new-order' }" class="btn btn-block btn-primary btn-sm">
+                <i class="fa fa-fw fa-inbox "></i> Add new Order
+            </router-link>
         </div>
         <div class="col-lg-3 col-xs-6 add-order-button">
-            <a href="/orders" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-inbox"></i> All Orders</a>
+            <router-link :to="{ name: 'orders' }" class="btn btn-block btn-primary btn-sm">
+                <i class="fa fa-fw fa-inbox "></i> All Orders
+            </router-link>
         </div>
         <div class="col-lg-3 col-xs-6 add-order-button">
-            <a href="/categories?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-list "></i> Add new Category</a>
+            <router-link :to="{ name: 'categories' }" class="btn btn-block btn-primary btn-sm">
+                <i class="fa fa-fw fa-list "></i> Add new Category
+            </router-link>
         </div>
         <div class="col-lg-3 col-xs-6 add-order-button">
-            <a href="/wallets?openModal=true" class="btn btn-block btn-primary btn-sm"> <i class="fa fa-fw fa-money "></i> Add new Wallet</a>
+            <router-link :to="{ name: 'add-new-wallet' }" class="btn btn-block btn-primary btn-sm">
+                <i class="fa fa-fw fa-money "></i> Add new Wallet
+            </router-link>
         </div>
     </div>
 

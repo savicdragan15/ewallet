@@ -15,37 +15,66 @@ window.Vue = require("vue");
  */
 
 Vue.component(
-  "profile-component",
-  require("./components/ProfileComponent.vue")
-);
-Vue.component(
-  "wallet-index-component",
-  require("./components/Wallet/WalletIndexComponent")
-);
-Vue.component(
-  "order-index-component",
-  require("./components/Order/OrderIndexComponent")
-);
-Vue.component(
-  "location-index-component",
-  require("./components/Location/LocationIndexComponent")
-);
-Vue.component(
-  "dashboard-component",
-  require("./components/Dashboard/DashboardComponent")
-);
-Vue.component(
-  "category-component",
-  require("./components/Category/CategoryComponent")
+  'menu-menu',
+  require("./Menu")
 );
 
+import VueRouter from 'vue-router'
 import Lightbox from "vue-pure-lightbox";
+import OrderIndexComponent from "./components/Order/OrderIndexComponent";
+import DashboardComponent from  "./components/Dashboard/DashboardComponent";
+import ProfileComponent from  "./components/ProfileComponent";
+import WalletIndexComponent from "./components/Wallet/WalletIndexComponent";
+import CategoryComponent from "./components/Category/CategoryComponent";
 
 window.Vue.use(Lightbox);
 window.Vue.use(require("vue-moment"));
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: [
+    {
+      path: '/home',
+      name: 'dashboard',
+      component: DashboardComponent
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileComponent
+    },
+    {
+      path: '/wallets',
+      name: 'wallets',
+      component: WalletIndexComponent
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: CategoryComponent
+    },
+    {
+      path: '/orders',
+      name: 'orders',
+      component: OrderIndexComponent
+    },
+    {
+      path: '/orders?openModal=true',
+      name: 'add-new-order',
+      component: OrderIndexComponent
+    },
+    {
+      path: '/wallets?openModal=true',
+      name: 'add-new-wallet',
+      component: WalletIndexComponent
+    }
+  ],
+});
 
 const app = new Vue({
   el: "#app",
+  router,
   data() {
     return {
       apiUrl: "api/v1",

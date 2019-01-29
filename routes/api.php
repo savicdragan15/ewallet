@@ -32,15 +32,27 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
 });
 
 
-Route::post('admin/auth/login', 'Auth\ApiAuthController@login');
+Route::post('auth/login', 'Auth\ApiAuthController@login');
+
+Route::group([
+    'middleware' => 'jwt.auth',
+    'prefix' => 'auth'
+], function () {
+    Route::post('logout', 'Auth\ApiAuthController@logout');
+    Route::post('refresh', 'Auth\ApiAuthController@refresh');
+    Route::post('me', 'Auth\ApiAuthController@me');
+});
+
+
+Route::post('admin/auth/login', 'Auth\AdminApiAuthController@login');
 
 Route::group([
     'middleware' => 'jwt.auth',
     'prefix' => 'admin/auth'
 ], function () {
-    Route::post('logout', 'Auth\ApiAuthController@logout');
-    Route::post('refresh', 'Auth\ApiAuthController@refresh');
-    Route::post('me', 'Auth\ApiAuthController@me');
+    Route::post('logout', 'Auth\AdminApiAuthController@logout');
+    Route::post('refresh', 'Auth\AdminApiAuthController@refresh');
+    Route::post('me', 'Auth\AdminApiAuthController@me');
 });
 
 Route::group([
