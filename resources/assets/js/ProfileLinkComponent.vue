@@ -1,0 +1,1 @@
+<template>    <router-link :to="{name: 'profile'}" class="visible-xs">        <i data-v-61aa4d31="" class="fa fa-fw fa-user"></i>    </router-link></template><script>  export default {    name: "ProfileLinkComponent"  }</script><style scoped></style>

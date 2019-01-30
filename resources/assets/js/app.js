@@ -24,9 +24,14 @@ Vue.component(
   require("./Logo")
 );
 
+Vue.component(
+  'profile-link',
+  require("./ProfileLinkComponent")
+);
+
 import VueRouter from 'vue-router'
 import Lightbox from "vue-pure-lightbox";
-import VueAnalytics from 'vue-analytics'
+import VueAnalytics from 'vue-analytics';
 import OrderIndexComponent from "./components/Order/OrderIndexComponent";
 import DashboardComponent from  "./components/Dashboard/DashboardComponent";
 import ProfileComponent from  "./components/ProfileComponent";
@@ -35,7 +40,7 @@ import CategoryComponent from "./components/Category/CategoryComponent";
 
 window.Vue.use(Lightbox);
 window.Vue.use(require("vue-moment"));
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',

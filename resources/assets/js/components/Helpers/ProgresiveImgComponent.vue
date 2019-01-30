@@ -1,0 +1,1 @@
+<template>    <p>ee</p></template><script>  import VueProgressiveImage from 'vue-progressive-image';  export default {    name: "ProgresiveImgComponent",    extends: VueProgressiveImage  }</script><style scoped></style>
