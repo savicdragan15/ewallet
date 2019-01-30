@@ -19,6 +19,11 @@ Vue.component(
   require("./Menu")
 );
 
+Vue.component(
+  'logo',
+  require("./Logo")
+);
+
 import VueRouter from 'vue-router'
 import Lightbox from "vue-pure-lightbox";
 import VueAnalytics from 'vue-analytics'

@@ -1,0 +1,1 @@
+<template>    <span>        <router-link :to="{name: 'dashboard'}" class="navbar-brand">            E-wallet        </router-link>    </span></template><script>  export default {    name: "Logo"  }</script><style scoped></style>
