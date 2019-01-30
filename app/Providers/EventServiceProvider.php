@@ -20,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\OrderCreated' => [
             'App\Listeners\SendOrderCreatedNotification',
         ],
+        'App\Events\UserRegistered' => [
+            'App\Listeners\InsertDefaultDataOnRegistered'
+        ]
     ];
 
     /**

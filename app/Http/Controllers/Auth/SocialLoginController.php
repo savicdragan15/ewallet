@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
@@ -102,6 +103,8 @@ class SocialLoginController extends Controller
             'provider' => $provider,
             'provider_id' => $user->id,
         ]);
+
+        event(new UserRegistered($newUser));
 
         return $newUser;
     }
