@@ -11,7 +11,7 @@ class OrderTransformer
 
         foreach ($data as $value) {
             $labels[] = $value->month;
-            $values[] = (int) preg_replace('/[^0-9]/', '', $value->sum);
+            $values[] = $value->sum;
         }
 
         $data = [
