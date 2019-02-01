@@ -33,7 +33,9 @@
 
     <div class="row">
         <LatestOrders :orders="latestOrders.data" :currency="latestOrders.currency" :loading="latestOrders.loading"></LatestOrders>
+        <SpentMoneyByMonth></SpentMoneyByMonth>
     </div>
+
 </div>
 </template>
 
@@ -44,6 +46,7 @@ import SpentMoney from "./SpentMoneyComponent";
 import LatestOrders from "./LatestOrdersComponent";
 import SpentMoneyCurrentMonth from "./SpentMoneyCurrentMonthComponent";
 import DashboardApi from '../Api/DashboardApi'
+import SpentMoneyByMonth from './SpentMoneyByMonth'
 import { getCall } from '../Api/utils/Endpoint';
 
 export default {
@@ -53,7 +56,8 @@ export default {
         OrdersCurrentMonth,
         SpentMoney,
         LatestOrders,
-        SpentMoneyCurrentMonth
+        SpentMoneyCurrentMonth,
+        SpentMoneyByMonth
     },
     data() {
         return {

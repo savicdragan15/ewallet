@@ -11,12 +11,18 @@ class OrderTransformer
 
         foreach ($data as $value) {
             $labels[] = $value->month;
-            $values[] = number_format($value->sum, 3, ',', '.');
+            $values[] = (int) preg_replace('/[^0-9]/', '', $value->sum);
         }
 
         $data = [
             'labels' => $labels,
-            'data' => $values,
+            'datasets' => [
+                [
+                    'label' => 'Spent money by Month',
+                    'data' => $values,
+                    'backgroundColor' => '#3b8dbb'
+                ]
+            ]
         ];
 
         return $data;
