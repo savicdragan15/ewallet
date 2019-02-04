@@ -80,6 +80,10 @@ class Admin extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'id' => $this->id,,
+            'name' => $this->name,
+            'email' => $this->email
+        ];
     }
 }
