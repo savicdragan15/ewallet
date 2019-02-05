@@ -18,9 +18,3 @@ function cookieSet($name, $value, $time = 0, $path = '/', $secure = false)
         $secure
     );
 }
-
-function formatDataForChart($data, $label)
-{
-    $labels = [];
-    $values = [];
-}

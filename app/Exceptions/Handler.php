@@ -50,16 +50,28 @@ class Handler extends ExceptionHandler
             $preException = $exception->getPrevious();
             if ($preException instanceof
                 \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-                return response()->json(['error' => 'TOKEN_EXPIRED', 'code' => $exception->getStatusCode()], $exception->getStatusCode());
+                return response()->json(
+                    ['error' => 'TOKEN_EXPIRED', 'code' => $exception->getStatusCode()],
+                    $exception->getStatusCode()
+                );
             } elseif ($preException instanceof
                 \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return response()->json(['error' => 'TOKEN_INVALID', 'code' => $exception->getStatusCode()], $exception->getStatusCode());
+                return response()->json(
+                    ['error' => 'TOKEN_INVALID', 'code' => $exception->getStatusCode()],
+                    $exception->getStatusCode()
+                );
             } elseif ($preException instanceof
                 \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
-                return response()->json(['error' => 'TOKEN_BLACKLISTED', 'code' => $exception->getStatusCode()], $exception->getStatusCode());
+                return response()->json(
+                    ['error' => 'TOKEN_BLACKLISTED', 'code' => $exception->getStatusCode()],
+                    $exception->getStatusCode()
+                );
             }
             if ($exception->getMessage() === 'Token not provided') {
-                return response()->json(['error' => 'Token not provided', 'code' => $exception->getStatusCode()], $exception->getStatusCode());
+                return response()->json(
+                    ['error' => 'Token not provided', 'code' => $exception->getStatusCode()],
+                    $exception->getStatusCode()
+                );
             }
         }
 

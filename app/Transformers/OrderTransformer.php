@@ -4,6 +4,10 @@ namespace App\Transformers;
 
 class OrderTransformer
 {
+    /**
+     * @param $data
+     * @return array
+     */
     public static function transformForChart($data)
     {
         $labels = [];
