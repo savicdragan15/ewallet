@@ -105,6 +105,8 @@
                         <span class="help-block" v-if="errors.category_id">{{ errors.category_id[0]}}</span>
                     </div>
 
+                    <!--<UploadImage endpoint="/services/orderImageUpload"></UploadImage>-->
+
                     <div class="form-group">
                         <label>Note</label>
                         <textarea v-model="order.note" class="form-control" rows="3" placeholder="Enter note"></textarea>
@@ -137,6 +139,7 @@ import OrderApi from '../Api/OrderApi';
 import WalletApi from "../Api/WalletApi";
 import CategoryApi from "../Api/CategoryApi";
 import DeleteButtonComponent from "../Helpers/Buttons/DeleteButtonComponent";
+import UploadImage from '../Helpers/UploadImage';
 
 export default {
     name: "OrderIndexComponent",
@@ -145,7 +148,8 @@ export default {
         pagination,
         loading,
         bootstrapModal,
-        lightboxComponent
+        lightboxComponent,
+        UploadImage
     },
     mounted() {
         if (this.$root.getUrlParam("openModal")) {
@@ -184,7 +188,11 @@ export default {
                 flag: null
             },
             errors: [],
-            paginationData: {}
+            paginationData: {},
+            uploadImages: {
+              selectedFile: {},
+              uploadedImages: []
+            }
         };
     },
     methods: {

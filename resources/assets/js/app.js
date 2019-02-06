@@ -14,75 +14,14 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component(
-  'menu-menu',
-  require("./Menu")
-);
+require('./globalComponents');
 
-Vue.component(
-  'logo',
-  require("./Logo")
-);
-
-Vue.component(
-  'profile-link',
-  require("./ProfileLinkComponent")
-);
-
-import VueRouter from 'vue-router'
 import Lightbox from "vue-pure-lightbox";
 import VueAnalytics from 'vue-analytics';
-import OrderIndexComponent from "./components/Order/OrderIndexComponent";
-import DashboardComponent from  "./components/Dashboard/DashboardComponent";
-import ProfileComponent from  "./components/ProfileComponent";
-import WalletIndexComponent from "./components/Wallet/WalletIndexComponent";
-import CategoryComponent from "./components/Category/CategoryComponent";
+import router from './router';
 
-window.Vue.use(Lightbox);
-window.Vue.use(require("vue-moment"));
-Vue.use(VueRouter);
-
-const router = new VueRouter({
-  mode: 'history',
-  linkActiveClass: 'active',
-  routes: [
-    {
-      path: '/home',
-      name: 'dashboard',
-      component: DashboardComponent
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileComponent
-    },
-    {
-      path: '/wallets',
-      name: 'wallets',
-      component: WalletIndexComponent
-    },
-    {
-      path: '/categories',
-      name: 'categories',
-      component: CategoryComponent
-    },
-    {
-      path: '/orders',
-      name: 'orders',
-      component: OrderIndexComponent
-    },
-    {
-      path: '/orders?openModal=true',
-      name: 'add-new-order',
-      component: OrderIndexComponent
-    },
-    {
-      path: '/wallets?openModal=true',
-      name: 'add-new-wallet',
-      component: WalletIndexComponent
-    }
-  ],
-});
+Vue.use(Lightbox);
+Vue.use(require("vue-moment"));
 
 Vue.use(VueAnalytics, {
     id: 'UA-130571138-1',

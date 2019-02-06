@@ -1,0 +1,1 @@
+import Vue from 'vue';Vue.component(  'menu-menu',  require("./Menu"));Vue.component(  'logo',  require("./Logo"));Vue.component(  'profile-link',  require("./ProfileLinkComponent"));

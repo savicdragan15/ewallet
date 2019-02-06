@@ -29,6 +29,11 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'namespace' => 'Api\V1'], fun
         Route::get('getLatestOrders', 'DashboardController@getLatestOrders')->name('get_latest_orders');
         Route::get('getSumOrdersByMonth', 'DashboardController@getSumOrdersByMonth')->name('get_sum_orders_by_month');
     });
+
+    Route::prefix('services')->name('services.')->group(function () {
+        Route::post('orderImageUpload', 'Services\OrderUploadImageService@handle')->name('order_image_upload');
+    });
+
 });
 
 
