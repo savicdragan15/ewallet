@@ -24,7 +24,8 @@ class OrderTransformer
                 [
                     'label' => 'Spent money by Month',
                     'data' => $values,
-                    'backgroundColor' => '#3b8dbb'
+                    'backgroundColor' => '#3b8dbb',
+                    'fillColor' => '#3b8dbb', // react chartJS
                 ]
             ]
         ];
