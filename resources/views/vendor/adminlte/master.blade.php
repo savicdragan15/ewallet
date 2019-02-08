@@ -39,7 +39,7 @@
 
     <!-- Google Font -->
     {{--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">--}}
-        <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,600,600i,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <script>
         window.Laravel = {!! json_encode([
             'user' => Auth::guard('web')->user(),
