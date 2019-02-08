@@ -66,6 +66,7 @@ Route::group([
     'namespace' => 'Api\Admin'
 ], function () {
     Route::resource('users', 'UserController');
+    Route::resource('orders', 'OrderController');
 
     Route::prefix('user/dashboard')->name('dashboard.')->group(function () {
         Route::get('getNumberOfOrdersCurrentMonth', 'UserDashboardController@getNumberOfOrdersCurrentMonth')

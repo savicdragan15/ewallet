@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Requests\Order\StoreOrder;
 use App\Http\Requests\Order\UpdateOrder;
