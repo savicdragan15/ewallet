@@ -66,4 +66,16 @@ Route::group([
     'namespace' => 'Api\Admin'
 ], function () {
     Route::resource('users', 'UserController');
+
+    Route::prefix('user/dashboard')->name('dashboard.')->group(function () {
+        Route::get('getNumberOfOrdersCurrentMonth', 'UserDashboardController@getNumberOfOrdersCurrentMonth')
+            ->name('all_orders_current_month');
+        Route::get('getNumberOfOrders', 'UserDashboardController@getNumberOfOrders')->name('all_orders');
+        Route::get('getSpentMoneyCurrentMonth', 'UserDashboardController@getSpentMoneyCurrentMonth')
+            ->name('get_spent_money_current_month');
+        Route::get('getSpentMoney', 'UserDashboardController@getSpentMoney')->name('get_spent_money');
+        Route::get('getLatestOrders', 'UserDashboardController@getLatestOrders')->name('get_latest_orders');
+        Route::get('getSumOrdersByMonth', 'UserDashboardController@getSumOrdersByMonth')->name('get_sum_orders_by_month');
+    });
+
 });
