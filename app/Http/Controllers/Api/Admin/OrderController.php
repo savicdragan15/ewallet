@@ -93,7 +93,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::where('id', '=', $id)->first();
+        $order = Order::where('id', '=', $id)
+            ->with(['wallet', 'category'])
+            ->first();
         return response()->json($order);
     }
 
