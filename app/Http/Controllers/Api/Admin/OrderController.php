@@ -25,12 +25,14 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $perPage = $request->has('per_page') && !is_null($request->input('per_page')) ? $request->input('per_page') : 15;
+
         return response()->json(
             [
             'orders' => Order::where('user_id', $request->header('user'))
                         ->with('wallet', 'category')
                         ->orderBy('created_at', 'DESC')
-                        ->paginate(15),
+                        ->paginate($perPage),
             'currency' => env('CURRENCY')
             ]
         );
